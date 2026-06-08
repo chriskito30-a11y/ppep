@@ -44,6 +44,21 @@ function listen(server) {
   });
 }
 
+async function loginAdmin(baseUrl, secret = 'admin-secret') {
+  const response = await fetch(`${baseUrl}/admin/login`, {
+    method: 'POST',
+    body: new URLSearchParams({ secret }),
+    redirect: 'manual',
+  });
+
+  assert.equal(response.status, 303);
+  assert.equal(response.headers.get('location'), '/admin');
+  const cookie = response.headers.get('set-cookie');
+  assert.match(cookie, /ppep_admin_session=/);
+  assert.doesNotMatch(cookie, /admin-secret/);
+  return cookie;
+}
+
 test('le tableau de bord affiche module courant, progression, fin acces et bonus verrouilles', async (t) => {
   const { dataFile } = await createTempStore();
   const server = createServer({
@@ -472,7 +487,7 @@ test('la page accompagnement propose TidyCal, partage video externe et grille de
 });
 
 
-test('admin web : acces refuse sans secret', async (t) => {
+test('admin web : affiche la connexion admin sans secret dans l URL', async (t) => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
   const dataFile = path.join(dir, 'learners.json');
   await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
@@ -489,9 +504,11 @@ test('admin web : acces refuse sans secret', async (t) => {
   const response = await fetch(`http://127.0.0.1:${port}/admin`);
   const html = await response.text();
 
-  assert.equal(response.status, 403);
-  assert.match(html, /Acces admin refuse/);
+  assert.equal(response.status, 200);
+  assert.match(html, /Connexion admin/);
+  assert.match(html, /action="\/admin\/login"/);
   assert.match(html, /Secret admin/);
+  assert.doesNotMatch(html, /admin-secret|passwordHash/);
 });
 
 test('admin web : creation apprenant avec secret valide, progression initiale et connexion', async (t) => {
@@ -509,10 +526,11 @@ test('admin web : creation apprenant avec secret valide, progression initiale et
 
   const port = await listen(server);
   const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
   const adminResponse = await fetch(`${baseUrl}/admin`, {
     method: 'POST',
+    headers: { cookie: adminCookie },
     body: new URLSearchParams({
-      secret: 'admin-secret',
       email: 'demo@ppep.local',
       password: 'motdepasse-test',
       plan: 'autonome',
@@ -549,7 +567,7 @@ test('admin web : creation apprenant avec secret valide, progression initiale et
   assert.equal(loginResponse.headers.get('location'), '/dashboard');
 });
 
-test('admin web : mauvais secret ne modifie pas le stockage configure', async (t) => {
+test('admin web : action refusee sans session admin ne modifie pas le stockage configure', async (t) => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
   const dataFile = path.join(dir, 'learners.json');
   await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
@@ -566,7 +584,6 @@ test('admin web : mauvais secret ne modifie pas le stockage configure', async (t
   const response = await fetch(`http://127.0.0.1:${port}/admin`, {
     method: 'POST',
     body: new URLSearchParams({
-      secret: 'mauvais-secret',
       email: 'intrus@ppep.local',
       password: 'motdepasse-test',
       plan: 'autonome',
@@ -578,8 +595,98 @@ test('admin web : mauvais secret ne modifie pas le stockage configure', async (t
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
 
   assert.equal(response.status, 403);
-  assert.match(html, /secret incorrect/);
+  assert.match(html, /Session admin absente ou expiree/);
   assert.deepEqual(rawStore, { learners: [], progress: [] });
+});
+
+test('admin web : le secret en query string ne connecte pas l admin', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/admin?secret=admin-secret`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Connexion admin/);
+  assert.doesNotMatch(html, /Gestion des acces apprenants/);
+  assert.doesNotMatch(html, /admin-secret|passwordHash/);
+});
+
+test('admin web : mauvais secret de connexion admin est refuse', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/admin/login`, {
+    method: 'POST',
+    body: new URLSearchParams({ secret: 'mauvais-secret' }),
+  });
+  const html = await response.text();
+
+  assert.equal(response.status, 403);
+  assert.match(html, /secret incorrect/);
+  assert.doesNotMatch(html, /mauvais-secret|admin-secret|passwordHash/);
+});
+
+test('admin web : deconnexion admin supprime l acces a la liste', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  activateLearner(store, {
+    email: 'logout@ppep.local',
+    password: 'motdepasse-test',
+    plan: 'autonome',
+    status: 'active',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  await writeStore({ storageBackend: 'json', dataFile }, store);
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
+  const logoutResponse = await fetch(`${baseUrl}/admin/logout`, {
+    method: 'POST',
+    headers: { cookie: adminCookie },
+    redirect: 'manual',
+  });
+
+  assert.equal(logoutResponse.status, 303);
+  assert.equal(logoutResponse.headers.get('location'), '/admin');
+  assert.match(logoutResponse.headers.get('set-cookie'), /ppep_admin_session=; Max-Age=0/);
+
+  const response = await fetch(`${baseUrl}/admin`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Connexion admin/);
+  assert.doesNotMatch(html, /logout@ppep.local|passwordHash/);
 });
 
 test('admin web : liste apprenants visible avec secret valide sans exposer les hashes', async (t) => {
@@ -605,7 +712,11 @@ test('admin web : liste apprenants visible avec secret valide sans exposer les h
   t.after(() => server.close());
 
   const port = await listen(server);
-  const response = await fetch(`http://127.0.0.1:${port}/admin?secret=admin-secret`);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
+  const response = await fetch(`${baseUrl}/admin`, {
+    headers: { cookie: adminCookie },
+  });
   const html = await response.text();
 
   assert.equal(response.status, 200);
@@ -645,10 +756,11 @@ test('admin web : modification formule statut date sans changer le mot de passe'
 
   const port = await listen(server);
   const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
   const response = await fetch(`${baseUrl}/admin`, {
     method: 'POST',
+    headers: { cookie: adminCookie },
     body: new URLSearchParams({
-      secret: 'admin-secret',
       action: 'save',
       email: 'modifier@ppep.local',
       password: '',
@@ -692,10 +804,11 @@ test('admin web : desactivation d un apprenant existant', async (t) => {
 
   const port = await listen(server);
   const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
   const response = await fetch(`${baseUrl}/admin`, {
     method: 'POST',
+    headers: { cookie: adminCookie },
     body: new URLSearchParams({
-      secret: 'admin-secret',
       action: 'deactivate',
       email: 'desactiver@ppep.local',
       password: '',
@@ -749,10 +862,11 @@ test('admin web : reinitialisation mot de passe puis connexion avec le nouveau m
 
   const port = await listen(server);
   const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
   const adminResponse = await fetch(`${baseUrl}/admin`, {
     method: 'POST',
+    headers: { cookie: adminCookie },
     body: new URLSearchParams({
-      secret: 'admin-secret',
       action: 'reset_password',
       email: 'reset@ppep.local',
       password: 'nouveau-motdepasse',
