@@ -1138,3 +1138,26 @@ legend {
   background: rgba(34, 197, 94, 0.10);
   font-weight: 700;
 }
+
+.duration-card {
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 18px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.duration-list {
+  display: grid;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0.8rem 0 0;
+  padding: 0;
+}
+
+.duration-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+  padding-bottom: 0.35rem;
+}
