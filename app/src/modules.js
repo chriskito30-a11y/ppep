@@ -3,8 +3,8 @@ const { BONUS_ITEMS, CORE_MODULES } = require('./module-content');
 const STATE_LABELS = {
   disponible: 'Disponible',
   courant: 'Courant',
-  termine: 'Termine',
-  verrouille: 'Verrouille',
+  termine: 'Terminé',
+  verrouille: 'Verrouillé',
 };
 
 function getDefaultProgress(learnerId, now = new Date()) {

@@ -141,7 +141,7 @@ function evaluateLearnerAccess(learner, now = new Date()) {
     return {
       allowed: false,
       reason: 'missing',
-      message: "Aucun acces actif ne correspond a cet email.",
+      message: "Aucun accès actif ne correspond à cet email.",
     };
   }
 
@@ -149,7 +149,7 @@ function evaluateLearnerAccess(learner, now = new Date()) {
     return {
       allowed: false,
       reason: 'inactive',
-      message: "Cet acces n'est pas active. Contactez le formateur pour le verifier.",
+      message: "Cet accès n’est pas activé. Contactez le formateur pour le vérifier.",
     };
   }
 
@@ -157,7 +157,7 @@ function evaluateLearnerAccess(learner, now = new Date()) {
     return {
       allowed: false,
       reason: 'expired',
-      message: 'Cet acces est arrive a expiration. Contactez le formateur pour le renouveler.',
+      message: 'Cet accès est arrivé à expiration. Contactez le formateur pour le renouveler.',
     };
   }
 
@@ -165,7 +165,7 @@ function evaluateLearnerAccess(learner, now = new Date()) {
     return {
       allowed: false,
       reason: 'inactive',
-      message: "Cet acces n'est pas disponible pour le moment.",
+      message: "Cet accès n’est pas disponible pour le moment.",
     };
   }
 
@@ -239,7 +239,7 @@ function markAccompanimentStep(store, learnerId, step, now = new Date()) {
       ...snapshot,
       ok: false,
       reason: 'plan_not_accompanied',
-      message: "Cette section est reservee aux apprenants du parcours accompagne.",
+      message: "Cette section est réservée aux apprenants du parcours accompagné.",
     };
   }
 
@@ -281,7 +281,7 @@ function getModuleSnapshot(store, learnerId, moduleId, now = new Date()) {
     return {
       ok: false,
       reason: 'module_locked',
-      message: "Ce module est encore verrouille. Validez d'abord le module courant.",
+      message: "Ce module est encore verrouillé. Validez d’abord le module courant.",
     };
   }
 
@@ -304,7 +304,7 @@ function validateModuleForLearner(store, learnerId, moduleId, input = {}, now = 
       ...moduleSnapshot,
       ok: false,
       reason: 'exercise_required',
-      message: "Confirmez que vous avez realise l'exercice avant de valider le module.",
+      message: "Confirmez que vous avez réalisé l’exercice avant de valider le module.",
     };
   }
 
@@ -316,7 +316,7 @@ function validateModuleForLearner(store, learnerId, moduleId, input = {}, now = 
         ...moduleSnapshot,
         ok: false,
         reason: 'self_assessment_required',
-        message: "Choisissez une reponse d'auto-evaluation pour valider le module.",
+        message: "Choisissez une réponse d’auto-évaluation pour valider le module.",
       };
     }
 

@@ -4,29 +4,29 @@ const DEFAULT_DATA_FILE = path.join(__dirname, '..', 'data', 'learners.json');
 
 const DEFAULT_PRODUCT_CONFIG = {
   name: 'Level Up',
-  methodName: 'Methode Level Up',
+  methodName: 'Méthode Level Up',
   audienceLabel: 'Formation prise de parole en public',
-  mainStatement: "La formule autonome transmet la methode. L'accompagnement individuel transforme la personne.",
+  mainStatement: "La formule autonome transmet la méthode. L’accompagnement individuel transforme la personne.",
   autonomous: {
-    label: 'Methode autonome',
+    label: 'Méthode autonome',
     priceLabel: '149 euros',
-    description: 'Parcours pas a pas, exercices guides, fiches, validations declaratives, video de depart, video finale, auto-evaluation et plan d action final.',
+    description: 'Parcours pas à pas, exercices guidés, fiches, validations déclaratives, vidéo de départ, vidéo finale, auto-évaluation et plan d’action final.',
   },
   accompanied: {
-    label: 'Parcours accompagne',
+    label: 'Parcours accompagné',
     priceLabel: '390 a 690 euros',
-    description: 'Acces au parcours autonome, rendez-vous externe, partage de video externe et regard professionnel simple.',
+    description: 'Accès au parcours autonome, rendez-vous externe, partage de vidéo externe et regard professionnel simple.',
   },
   cpf: {
     label: 'Formation CPF individuelle 14h',
     priceLabel: '1600 euros',
-    description: 'Travail individuel approfondi, diagnostic fin, entrainement live et adaptation a un cas professionnel reel.',
+    description: 'Travail individuel approfondi, diagnostic fin, entraînement live et adaptation à un cas professionnel réel.',
   },
   defaultAccessMonths: 12,
   accompanimentBookingUrl: 'https://tidycal.com/levelup/accompagnement',
-  supportText: 'Contactez le formateur si votre acces ou votre reservation pose probleme.',
-  commercialWording: 'Une methode guidee pour preparer une prise de parole claire, structuree et rassurante.',
-  offerDistinctionMessage: 'L autonome transmet la methode. L accompagne ajoute un regard professionnel. Le CPF travaille en profondeur sur une situation individuelle.',
+  supportText: 'Contactez le formateur si votre accès ou votre réservation pose problème.',
+  commercialWording: 'Une méthode guidée pour préparer une prise de parole claire, structurée et rassurante.',
+  offerDistinctionMessage: 'L’autonome transmet la méthode. L’accompagné ajoute un regard professionnel. Le CPF travaille en profondeur sur une situation individuelle.',
 };
 
 function readPositiveInteger(value, fallback) {

@@ -31,7 +31,7 @@ function renderLogin({ email = '', message = '' } = {}, product = DEFAULT_PRODUC
   <section class="auth-panel" aria-labelledby="login-title">
     <p class="eyebrow">${escapeHtml(product.audienceLabel)}</p>
     <h1 id="login-title">Connexion apprenant</h1>
-    <p class="intro">Retrouvez votre module courant et reprenez votre parcours la ou vous l'avez laisse.</p>
+    <p class="intro">Retrouvez votre module courant et reprenez votre parcours là où vous l’avez laissé.</p>
     ${message ? `<p class="message" role="alert">${escapeHtml(message)}</p>` : ''}
     <form class="login-form" method="post" action="/login">
       <label>
@@ -49,13 +49,13 @@ function renderLogin({ email = '', message = '' } = {}, product = DEFAULT_PRODUC
 }
 
 function renderDenied(message, product = DEFAULT_PRODUCT_CONFIG) {
-  return layout('Acces indisponible', `
+  return layout('Accès indisponible', `
 <main class="auth-shell">
   <section class="auth-panel" aria-labelledby="denied-title">
-    <p class="eyebrow">${escapeHtml(product.name)} - acces apprenant</p>
-    <h1 id="denied-title">Acces indisponible</h1>
+    <p class="eyebrow">${escapeHtml(product.name)} - accès apprenant</p>
+    <h1 id="denied-title">Accès indisponible</h1>
     <p class="message" role="alert">${escapeHtml(message)}</p>
-    <a class="button-link" href="/">Revenir a la connexion</a>
+    <a class="button-link" href="/">Revenir à la connexion</a>
   </section>
 </main>`);
 }
@@ -76,7 +76,7 @@ function renderKeyIdeas(ideas) {
   }
 
   return `<article class="wide-card">
-    <p class="section-label">Notions cles</p>
+    <p class="section-label">Notions clés</p>
     <div class="idea-list">
       ${ideas.map((idea) => `
         <section class="idea-card">
@@ -89,7 +89,7 @@ function renderKeyIdeas(ideas) {
 }
 
 const FINAL_DELIVERABLES = [
-  'Video de depart',
+  'Vidéo de départ',
   'Objectif personnel',
   'Profil simple de prise de parole',
   'Routine anti-trac',
@@ -100,17 +100,17 @@ const FINAL_DELIVERABLES = [
   'Introduction',
   'Conclusion',
   'Fiche finale',
-  'Checklist de repetition',
-  'Video finale',
-  'Auto-evaluation finale',
-  'Plan d action personnel',
+  'Checklist de répétition',
+  'Vidéo finale',
+  'Auto-évaluation finale',
+  'Plan d’action personnel',
 ];
 
 function renderCompletionLinks() {
   return `<div class="completion-links">
     <a class="secondary-link" href="/modules/module-8/fiche">Ouvrir ma fiche finale</a>
     <a class="secondary-link" href="/modules/module-9/fiche">Ouvrir ma grille de bilan final</a>
-    <a class="secondary-link" href="/dashboard#bonus-title">Voir les bonus debloques</a>
+    <a class="secondary-link" href="/dashboard#bonus-title">Voir les bonus débloqués</a>
   </div>`;
 }
 
@@ -120,10 +120,10 @@ function renderBonusList(bonusesUnlocked) {
       <article class="bonus-card">
         <h3>${escapeHtml(bonus.title)}</h3>
         <p>${escapeHtml(bonus.objective)}</p>
-        <p class="bonus-duration">Duree : ${escapeHtml(bonus.duration)}</p>
+        <p class="bonus-duration">Durée : ${escapeHtml(bonus.duration)}</p>
         ${bonusesUnlocked
           ? `<a class="secondary-link" href="/bonus/${escapeHtml(bonus.id)}">Ouvrir ce bonus</a>`
-          : '<span class="locked-label">Debloque apres le parcours principal</span>'}
+          : '<span class="locked-label">Débloqué après le parcours principal</span>'}
       </article>
     `).join('')}
   </div>`;
@@ -133,7 +133,7 @@ function renderCompletionBonusBlock(bonusesUnlocked) {
   return `<section class="completion-card" aria-labelledby="completion-bonus-title">
     <p class="section-label">Bonus courts</p>
     <h2 id="completion-bonus-title">Des pratiques rapides, pas de nouveaux modules</h2>
-    <p>Ces bonus restent secondaires : ils donnent une astuce simple a tester en 5 a 15 minutes, sans analyse personnalisee ni progression lourde.</p>
+    <p>Ces bonus restent secondaires : ils donnent une astuce simple à tester en 5 à 15 minutes, sans analyse personnalisée ni progression lourde.</p>
     ${renderBonusList(bonusesUnlocked)}
   </section>`;
 }
@@ -152,16 +152,16 @@ function renderAccompanimentDashboardBlock(snapshot, product = DEFAULT_PRODUCT_C
   }
 
   const state = snapshot.accompaniment || {};
-  const appointmentLabel = state.appointmentReserved ? 'Rendez-vous reserve' : 'Rendez-vous a reserver';
-  const videoLabel = state.videoShared ? 'Video partagee' : 'Video a partager';
+  const appointmentLabel = state.appointmentReserved ? 'Rendez-vous réservé' : 'Rendez-vous à réserver';
+  const videoLabel = state.videoShared ? 'Vidéo partagée' : 'Vidéo à partager';
 
   return `<section class="accompaniment-section" aria-labelledby="accompaniment-dashboard-title">
     <div class="section-heading">
       <p class="section-label">${escapeHtml(product.accompanied.label)}</p>
       <h2 id="accompaniment-dashboard-title">Mon accompagnement</h2>
     </div>
-    <p><strong>Methode autonome + regard professionnel :</strong> ${escapeHtml(product.offerDistinctionMessage)}</p>
-    <div class="accompaniment-status" aria-label="Etat accompagnement">
+    <p><strong>Méthode autonome + regard professionnel :</strong> ${escapeHtml(product.offerDistinctionMessage)}</p>
+    <div class="accompaniment-status" aria-label="État accompagnement">
       <span>${escapeHtml(appointmentLabel)}</span>
       <span>${escapeHtml(videoLabel)}</span>
     </div>
@@ -171,7 +171,7 @@ function renderAccompanimentDashboardBlock(snapshot, product = DEFAULT_PRODUCT_C
 
 function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   const { learner, currentModule, modules, summary, bonusesUnlocked } = snapshot;
-  const bonusState = bonusesUnlocked ? 'Disponible' : 'Verrouille';
+  const bonusState = bonusesUnlocked ? 'Disponible' : 'Verrouillé';
   const isPathCompleted = summary.completedCount === summary.totalCount;
 
   return layout('Accueil apprenant', `
@@ -181,37 +181,37 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     <h1>Bonjour</h1>
   </div>
   <form method="post" action="/logout">
-    <button class="secondary-button" type="submit">Deconnexion</button>
+    <button class="secondary-button" type="submit">Déconnexion</button>
   </form>
 </header>
 
 <main class="dashboard">
   <section class="focus-panel" aria-labelledby="current-module-title">
     <div>
-      <p class="section-label">${isPathCompleted ? 'Parcours termine' : 'A faire maintenant'}</p>
-      <h2 id="current-module-title">${isPathCompleted ? 'Bravo, vous avez termine la methode autonome' : `Module ${currentModule.number} - ${escapeHtml(currentModule.title)}`}</h2>
-      <p>${isPathCompleted ? 'Votre parcours principal est valide. Vous pouvez maintenant relire votre bilan final, reutiliser la methode pour un nouvel oral et acceder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
+      <p class="section-label">${isPathCompleted ? 'Parcours terminé' : 'À faire maintenant'}</p>
+      <h2 id="current-module-title">${isPathCompleted ? 'Bravo, vous avez terminé la méthode autonome' : `Module ${currentModule.number} - ${escapeHtml(currentModule.title)}`}</h2>
+      <p>${isPathCompleted ? 'Votre parcours principal est validé. Vous pouvez maintenant relire votre bilan final, réutiliser la méthode pour un nouvel oral et accéder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
     </div>
     <a class="button-link" href="${isPathCompleted ? '/fin-parcours' : `/modules/${escapeHtml(currentModule.id)}`}">${isPathCompleted ? 'Voir mon bilan final' : 'Continuer le module'}</a>
   </section>
 
   <section class="rhythm-panel" aria-labelledby="rhythm-title">
     <div>
-      <p class="section-label">Rythme conseille</p>
-      <h2 id="rhythm-title">Avancer sans tout consommer d'un coup</h2>
+      <p class="section-label">Rythme conseillé</p>
+      <h2 id="rhythm-title">Avancer sans tout consommer d’un coup</h2>
     </div>
     <p>${escapeHtml(currentModule.rhythmTip)}</p>
-    <p class="challenge"><strong>Defi court :</strong> ${escapeHtml(currentModule.shortChallenge)}</p>
+    <p class="challenge"><strong>Défi court :</strong> ${escapeHtml(currentModule.shortChallenge)}</p>
   </section>
 
-  <section class="status-grid" aria-label="Synthese du parcours">
+  <section class="status-grid" aria-label="Synthèse du parcours">
     <div class="status-item">
       <span class="status-value">${summary.completedCount}/${summary.totalCount}</span>
-      <span class="status-label">modules termines</span>
+      <span class="status-label">modules terminés</span>
     </div>
     <div class="status-item">
       <span class="status-value">${formatDate(learner.accessEndsAt)}</span>
-      <span class="status-label">fin d'acces</span>
+      <span class="status-label">fin d’accès</span>
     </div>
     <div class="status-item">
       <span class="status-value">${escapeHtml(formatPlan(learner.plan))}</span>
@@ -221,7 +221,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
   <section id="parcours" class="path-section" aria-labelledby="path-title">
     <div class="section-heading">
-      <p class="section-label">Progression rattachee au compte</p>
+      <p class="section-label">Progression rattachée au compte</p>
       <h2 id="path-title">Modules du parcours MVP</h2>
     </div>
     <ol class="module-list">
@@ -246,8 +246,8 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
       <p class="section-label">Bonus</p>
       <h2 id="bonus-title">Pour aller plus loin</h2>
     </div>
-    <p class="bonus-state">${bonusState} jusqu'a la fin du parcours principal.</p>
-    <p>Ces bonus sont volontairement courts : une astuce, un exercice et une action concrete. Ils ne remplacent pas un feedback accompagne.</p>
+    <p class="bonus-state">${bonusState} jusqu’à la fin du parcours principal.</p>
+    <p>Ces bonus sont volontairement courts : une astuce, un exercice et une action concrète. Ils ne remplacent pas un feedback accompagné.</p>
     ${renderBonusList(bonusesUnlocked)}
   </section>
 </main>`);
@@ -270,13 +270,13 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   return layout('Mon accompagnement', `
 <header class="topbar">
   <div>
-    <p class="eyebrow">${escapeHtml(product.name)} accompagne</p>
+    <p class="eyebrow">${escapeHtml(product.name)} accompagné</p>
     <h1>Mon accompagnement</h1>
   </div>
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
     <form method="post" action="/logout">
-      <button class="secondary-button" type="submit">Deconnexion</button>
+      <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
   </nav>
 </header>
@@ -317,7 +317,7 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     </form>
   </section>` : `<section class="accompaniment-card" aria-labelledby="autonomous-title">
     <p class="section-label">Votre formule actuelle</p>
-    <h2 id="autonomous-title">Vous etes en methode autonome.</h2>
+    <h2 id="autonomous-title">Vous êtes en méthode autonome.</h2>
     <p>Vous avez acces au parcours pas a pas, aux exercices, aux fiches et aux auto-evaluations. Le regard professionnel sur video appartient a ${escapeHtml(product.accompanied.label)}.</p>
   </section>`}
 
@@ -355,7 +355,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   const { summary, bonusesUnlocked } = snapshot;
 
   if (summary.completedCount !== summary.totalCount) {
-    return renderDenied("La fin de parcours sera disponible apres validation du dernier module.", product);
+    return renderDenied("La fin de parcours sera disponible après validation du dernier module.", product);
   }
 
   return layout('Fin de parcours autonome', `
@@ -367,7 +367,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
     <form method="post" action="/logout">
-      <button class="secondary-button" type="submit">Deconnexion</button>
+      <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
   </nav>
 </header>
@@ -375,13 +375,13 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 <main class="completion-shell">
   <section class="completion-hero" aria-labelledby="completion-title">
     <p class="section-label">Parcours autonome termine</p>
-    <h2 id="completion-title">Bravo, vous avez construit votre methode de prise de parole.</h2>
-    <p>Vous n avez pas cherche a devenir parfait. Vous avez prepare, teste, observe et clarifie une prise de parole simple de 3 a 5 minutes.</p>
-    <p class="method-outcome"><strong>Ce que vous repartez avec :</strong> une methode reutilisable pour preparer un oral plus clair, plus structure et plus rassurant.</p>
+    <h2 id="completion-title">Bravo, vous avez construit votre méthode de prise de parole.</h2>
+    <p>Vous n’avez pas cherché à devenir parfait. Vous avez préparé, testé, observé et clarifié une prise de parole simple de 3 à 5 minutes.</p>
+    <p class="method-outcome"><strong>Ce que vous repartez avec :</strong> une méthode réutilisable pour préparer un oral plus clair, plus structuré et plus rassurant.</p>
   </section>
 
   <section class="completion-card" aria-labelledby="productions-title">
-    <p class="section-label">Synthese de vos productions</p>
+    <p class="section-label">Synthèse de vos productions</p>
     <h2 id="productions-title">Ce que vous avez produit pendant le parcours</h2>
     <ul class="deliverable-list">
       ${FINAL_DELIVERABLES.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
@@ -389,25 +389,25 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   </section>
 
   <section class="completion-card" aria-labelledby="comparison-title">
-    <p class="section-label">Comparaison guidee</p>
-    <h2 id="comparison-title">Video de depart / video finale</h2>
-    <p>Comparez vos deux videos avec trois questions simples. La plateforme ne les analyse pas et ne les stocke pas.</p>
+    <p class="section-label">Comparaison guidée</p>
+    <h2 id="comparison-title">Vidéo de départ / vidéo finale</h2>
+    <p>Comparez vos deux vidéos avec trois questions simples. La plateforme ne les analyse pas et ne les stocke pas.</p>
     <ol>
-      <li>Qu est-ce qui est plus clair dans ma video finale ?</li>
-      <li>Ma structure est-elle plus facile a suivre ?</li>
-      <li>Quel signe montre que je suis plus prepare ou plus present ?</li>
+      <li>Qu’est-ce qui est plus clair dans ma vidéo finale ?</li>
+      <li>Ma structure est-elle plus facile à suivre ?</li>
+      <li>Quel signe montre que je suis plus préparé ou plus présent ?</li>
     </ol>
-    <p>Gardez trois progres visibles et un seul axe prioritaire pour la prochaine prise de parole.</p>
+    <p>Gardez trois progrès visibles et un seul axe prioritaire pour la prochaine prise de parole.</p>
   </section>
 
   <section class="completion-card" aria-labelledby="action-title">
-    <p class="section-label">Plan d action personnel</p>
-    <h2 id="action-title">Votre prochaine etape</h2>
+    <p class="section-label">Plan d’action personnel</p>
+    <h2 id="action-title">Votre prochaine étape</h2>
     <ol>
-      <li>Choisissez une prochaine prise de parole reelle, meme courte.</li>
+      <li>Choisissez une prochaine prise de parole réelle, même courte.</li>
       <li>Reprenez votre fiche finale et adaptez-la au nouveau contexte.</li>
       <li>Gardez votre routine anti-trac avant de parler.</li>
-      <li>Apres l oral, notez une reussite, un point a simplifier et une action pour la fois suivante.</li>
+      <li>Après l’oral, notez une réussite, un point à simplifier et une action pour la fois suivante.</li>
     </ol>
     ${renderCompletionLinks()}
   </section>
@@ -420,22 +420,22 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     <div class="next-step-grid">
       <article>
         <h3>Continuer seul</h3>
-        <p>Refaites la methode sur un nouvel oral pour consolider vos reperes.</p>
+        <p>Refaites la méthode sur un nouvel oral pour consolider vos repères.</p>
       </article>
       <article>
         <h3>Refaire une prise de parole</h3>
-        <p>Gardez le meme format court, puis augmentez progressivement l enjeu.</p>
+        <p>Gardez le même format court, puis augmentez progressivement l’enjeu.</p>
       </article>
       <article>
-        <h3>Envisager l accompagne</h3>
-        <p>Utile si vous voulez un regard professionnel sur votre video, votre posture, votre voix ou votre regard.</p>
+        <h3>Envisager l’accompagné</h3>
+        <p>Utile si vous voulez un regard professionnel sur votre vidéo, votre posture, votre voix ou votre regard.</p>
       </article>
       <article>
         <h3>CPF individuel</h3>
-        <p>Reserve a un travail profond, personnalise et lie a un cas professionnel reel.</p>
+        <p>Réservé à un travail profond, personnalisé et lié à un cas professionnel réel.</p>
       </article>
     </div>
-    <p class="bonus-state">Bonus : ${bonusesUnlocked ? 'debloques apres validation du parcours principal.' : 'verrouilles jusqu a la fin du parcours principal.'}</p>
+    <p class="bonus-state">Bonus : ${bonusesUnlocked ? 'débloqués après validation du parcours principal.' : 'verrouillés jusqu’à la fin du parcours principal.'}</p>
   </section>
 </main>`);
 }
@@ -458,7 +458,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard#bonus-title">Tous les bonus</a>
     <form method="post" action="/logout">
-      <button class="secondary-button" type="submit">Deconnexion</button>
+      <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
   </nav>
 </header>
@@ -508,12 +508,12 @@ function renderModule(snapshot, { message = '' } = {}) {
     && selectedModule.worksheet.sections.length > 0;
   const form = isCompleted
     ? `<div class="completion-note">
-        <p>Module deja valide. Vous pouvez le relire quand vous voulez.</p>
-        <a class="button-link" href="/dashboard">Retour a mon parcours</a>
+        <p>Module déjà validé. Vous pouvez le relire quand vous voulez.</p>
+        <a class="button-link" href="/dashboard">Retour à mon parcours</a>
       </div>`
     : `<form class="validation-form" method="post" action="/modules/${escapeHtml(selectedModule.id)}/validate">
         <fieldset>
-          <legend>Auto-evaluation courte</legend>
+          <legend>Auto-évaluation courte</legend>
           <p>${escapeHtml(selectedModule.selfAssessment.prompt)}</p>
           ${selectedModule.selfAssessment.options.map((option) => `
             <label class="choice">
@@ -524,9 +524,9 @@ function renderModule(snapshot, { message = '' } = {}) {
         </fieldset>
         <label class="choice confirmation">
           <input type="checkbox" name="exerciseDone" value="yes" required>
-          <span>Je confirme avoir realise l'exercice avec mon support papier ou mes notes.</span>
+          <span>Je confirme avoir réalisé l’exercice avec mon support papier ou mes notes.</span>
         </label>
-        <button type="submit">Valider ce module et debloquer la suite</button>
+        <button type="submit">Valider ce module et débloquer la suite</button>
       </form>`;
 
   return layout(`Module ${moduleState.number}`, `
@@ -538,7 +538,7 @@ function renderModule(snapshot, { message = '' } = {}) {
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
     <form method="post" action="/logout">
-      <button class="secondary-button" type="submit">Deconnexion</button>
+      <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
   </nav>
 </header>
@@ -549,13 +549,7 @@ function renderModule(snapshot, { message = '' } = {}) {
     <h2 id="module-title">${escapeHtml(selectedModule.title)}</h2>
     <p>${escapeHtml(selectedModule.objective)}</p>
     ${selectedModule.methodOutcome
-      ? `<p class="method-outcome"><strong>A la fin de ce module, j'obtiens :</strong> ${escapeHtml(selectedModule.methodOutcome)}</p>`
-      : ''}
-    ${Array.isArray(selectedModule.sourceMaterials)
-      ? `<div class="source-strip" aria-label="Sources de reference">
-          <span>Sources de reference</span>
-          ${selectedModule.sourceMaterials.map((source) => `<strong>${escapeHtml(source)}</strong>`).join('')}
-        </div>`
+      ? `<p class="method-outcome"><strong>À la fin de ce module, j’obtiens :</strong> ${escapeHtml(selectedModule.methodOutcome)}</p>`
       : ''}
   </section>
 
@@ -575,7 +569,7 @@ function renderModule(snapshot, { message = '' } = {}) {
         <p class="section-label">Exercice</p>
         <h3>${escapeHtml(selectedModule.exercise.title)}</h3>
         ${selectedModule.exercise.duration
-          ? `<p class="module-meta"><strong>Duree :</strong> ${escapeHtml(selectedModule.exercise.duration)}</p>`
+          ? `<p class="module-meta"><strong>Durée :</strong> ${escapeHtml(selectedModule.exercise.duration)}</p>`
           : ''}
         ${Array.isArray(selectedModule.exercise.materials)
           ? `<p class="module-meta"><strong>Materiel :</strong></p>${renderInlineList(selectedModule.exercise.materials, 'compact-list')}`
@@ -585,7 +579,7 @@ function renderModule(snapshot, { message = '' } = {}) {
         </ol>
       </article>
       <article>
-        <p class="section-label">Fiche associee</p>
+        <p class="section-label">Fiche associée</p>
         <h3>${escapeHtml(selectedModule.worksheet.title)}</h3>
         <p>${escapeHtml(selectedModule.worksheet.description)}</p>
         ${hasPrintableWorksheet
@@ -594,12 +588,12 @@ function renderModule(snapshot, { message = '' } = {}) {
       </article>
       ${Array.isArray(selectedModule.observableCriteria)
         ? `<article>
-            <p class="section-label">Points d observation</p>
+            <p class="section-label">Points d’observation</p>
             ${renderInlineList(selectedModule.observableCriteria)}
           </article>`
         : ''}
       <article>
-        <p class="section-label">Rythme et defi</p>
+        <p class="section-label">Rythme et défi</p>
         <p>${escapeHtml(selectedModule.rhythmTip)}</p>
         <p class="challenge">${escapeHtml(selectedModule.shortChallenge)}</p>
       </article>
@@ -607,10 +601,10 @@ function renderModule(snapshot, { message = '' } = {}) {
   </section>
 
   <section class="validation-section" aria-labelledby="validation-title">
-    <h2 id="validation-title">Validation declarative</h2>
-    <p>Cette validation memorise seulement l'etat du module et une reponse courte. Les notes longues restent sur votre fiche papier.</p>
+    <h2 id="validation-title">Validation déclarative</h2>
+    <p>Cette validation mémorise seulement l’état du module et une réponse courte. Les notes longues restent sur votre fiche papier.</p>
     ${selectedModule.id === 'module-9'
-      ? `<p class="completion-note">Ce bilan termine le parcours autonome : vous repartez avec une methode reutilisable. Pour un retour personnalise sur une video, choisissez le parcours accompagne.</p>`
+      ? `<p class="completion-note">Ce bilan termine le parcours autonome : vous repartez avec une méthode réutilisable. Pour un retour personnalisé sur une vidéo, choisissez le parcours accompagné.</p>`
       : ''}
     ${form}
   </section>
@@ -640,8 +634,7 @@ function renderWorksheet(snapshot) {
     <p class="section-label">Fiche de travail</p>
     <h2 id="worksheet-title">${escapeHtml(selectedModule.worksheet.title)}</h2>
     <p>${escapeHtml(selectedModule.worksheet.description)}</p>
-    ${selectedModule.worksheet.source ? `<p class="worksheet-source">Source modernisee : ${escapeHtml(selectedModule.worksheet.source)}</p>` : ''}
-    <p class="worksheet-note">Completez cette fiche sur papier ou apres impression. La plateforme ne stocke pas vos reponses longues.</p>
+    <p class="worksheet-note">Complétez cette fiche sur papier ou après impression. La plateforme ne stocke pas vos réponses longues.</p>
 
     ${sections.map((section) => `
       <article class="worksheet-section">
@@ -691,8 +684,8 @@ function renderAdminLearnerRows(learners = []) {
       <td>${escapeHtml(learner.accessEndsAt || '')}</td>
       <td>${escapeHtml(learner.progressLabel || '-')}</td>
       <td>
-        <span>Creation : ${escapeHtml(formatAdminDateTime(learner.createdAt))}</span><br>
-        <span>Mise a jour : ${escapeHtml(formatAdminDateTime(learner.updatedAt))}</span>
+        <span>Création : ${escapeHtml(formatAdminDateTime(learner.createdAt))}</span><br>
+        <span>Mise à jour : ${escapeHtml(formatAdminDateTime(learner.updatedAt))}</span>
       </td>
       <td>
         <button class="secondary-button admin-edit-button" type="button"
@@ -720,7 +713,7 @@ function renderAdminLogin({ error = '' } = {}) {
         Secret admin
         <input name="secret" type="password" autocomplete="off" required autofocus>
       </label>
-      <button type="submit">Acceder a l'administration</button>
+      <button type="submit">Accéder à l’administration</button>
     </form>
   </section>
 </main>`);
@@ -740,10 +733,10 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
 <main class="admin-shell">
   <section class="auth-panel admin-panel" aria-labelledby="admin-title">
     <p class="eyebrow">Administration Level Up</p>
-    <h1 id="admin-title">Gestion des acces apprenants</h1>
-    <p class="intro">Creer, mettre a jour, reinitialiser un mot de passe ou desactiver un acces sans terminal. L'acces est protege par une session admin cote serveur.</p>
+    <h1 id="admin-title">Gestion des accès apprenants</h1>
+    <p class="intro">Créer, mettre à jour, réinitialiser un mot de passe ou désactiver un accès sans terminal. L’accès est protégé par une session admin côté serveur.</p>
     <form class="admin-logout-form" method="post" action="/admin/logout">
-      <button class="secondary-button" type="submit">Deconnexion admin</button>
+      <button class="secondary-button" type="submit">Déconnexion admin</button>
     </form>
     ${message ? `<p class="message success-message" role="status">${escapeHtml(message)}</p>` : ''}
     ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
@@ -761,7 +754,7 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
         Formule
         <select id="admin-plan" name="plan" required>
           <option value="autonome" ${plan === 'autonome' ? 'selected' : ''}>autonome</option>
-          <option value="accompagne" ${plan === 'accompagne' ? 'selected' : ''}>accompagne</option>
+          <option value="accompagne" ${plan === 'accompagne' ? 'selected' : ''}>accompagné</option>
         </select>
       </label>
       <label>
@@ -773,13 +766,13 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
         </select>
       </label>
       <label>
-        Date de fin d'acces
+        Date de fin d’accès
         <input id="admin-access-ends-at" name="accessEndsAt" type="date" value="${escapeHtml(accessEndsAt)}" required>
       </label>
       <div class="admin-actions">
-        <button type="submit" name="action" value="save">Creer / mettre a jour</button>
-        <button class="secondary-button" type="submit" name="action" value="reset_password">Reinitialiser le mot de passe</button>
-        <button class="danger-button" type="submit" name="action" value="deactivate">Desactiver l'acces</button>
+        <button type="submit" name="action" value="save">Créer / mettre à jour</button>
+        <button class="secondary-button" type="submit" name="action" value="reset_password">Réinitialiser le mot de passe</button>
+        <button class="danger-button" type="submit" name="action" value="deactivate">Désactiver l’accès</button>
       </div>
     </form>
   </section>
@@ -787,7 +780,7 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
   <section class="auth-panel admin-panel admin-list-panel" aria-labelledby="admin-list-title">
     <div class="admin-list-heading">
       <div>
-        <p class="eyebrow">Acces existants</p>
+        <p class="eyebrow">Accès existants</p>
         <h2 id="admin-list-title">Apprenants</h2>
       </div>
       <label class="admin-search">
@@ -802,7 +795,7 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
             <th>Email</th>
             <th>Formule</th>
             <th>Statut</th>
-            <th>Fin d'acces</th>
+            <th>Fin d’accès</th>
             <th>Progression</th>
             <th>Dates</th>
             <th>Action</th>
