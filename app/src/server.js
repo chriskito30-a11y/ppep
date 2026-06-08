@@ -34,6 +34,7 @@ const {
 const { readStore, writeStore } = require('./storage');
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const ADMIN_SESSION_COOKIE = 'ppep_admin_session';
 
 
 function resolveRuntimeConfig(config = getConfig()) {
@@ -99,6 +100,25 @@ async function parseForm(req) {
 function getSession(req, secret) {
   const cookies = parseCookies(req.headers.cookie);
   return readSessionToken(cookies[SESSION_COOKIE], secret);
+}
+
+function getAdminSession(req, secret) {
+  const cookies = parseCookies(req.headers.cookie);
+  const session = readSessionToken(cookies[ADMIN_SESSION_COOKIE], secret);
+
+  if (!session || session.learnerId !== 'admin') {
+    return null;
+  }
+
+  return session;
+}
+
+function createAdminSessionCookie(secret) {
+  return serializeCookie(ADMIN_SESSION_COOKIE, createSessionToken('admin', secret));
+}
+
+function clearAdminSessionCookie() {
+  return serializeCookie(ADMIN_SESSION_COOKIE, '', { maxAge: 0 });
 }
 
 function isAdminSecretValid(config, secret) {
@@ -169,30 +189,43 @@ function getAdminErrorMessage(error) {
 }
 
 async function handleAdminGet(req, res, config) {
-  const url = new URL(req.url, 'http://localhost');
-  const secret = url.searchParams.get('secret');
-
-  if (!isAdminSecretValid(config, secret)) {
-    sendHtml(res, 403, renderAdmin({ error: 'Acces admin refuse : secret manquant ou incorrect.' }));
+  if (!getAdminSession(req, config.sessionSecret)) {
+    sendHtml(res, 200, renderAdmin({ loginRequired: true }));
     return;
   }
 
   const store = await readStore(config);
-  sendHtml(res, 200, renderAdmin({ learners: buildAdminLearnerList(store) }));
+  sendHtml(res, 200, renderAdmin({ learners: buildAdminLearnerList(store), isAuthenticated: true }));
 }
 
-async function handleAdminPost(req, res, config) {
+async function handleAdminLogin(req, res, config) {
   const form = await parseForm(req);
   const secret = form.get('secret');
-  const values = getAdminValues(form);
 
   if (!isAdminSecretValid(config, secret)) {
     sendHtml(res, 403, renderAdmin({
+      loginRequired: true,
       error: 'Acces admin refuse : secret incorrect.',
-      values: { ...values, password: '', isUpdate: true },
     }));
     return;
   }
+
+  redirect(res, '/admin', {
+    'Set-Cookie': createAdminSessionCookie(config.sessionSecret),
+  });
+}
+
+async function handleAdminPost(req, res, config) {
+  if (!getAdminSession(req, config.sessionSecret)) {
+    sendHtml(res, 403, renderAdmin({
+      loginRequired: true,
+      error: 'Session admin absente ou expiree. Reconnectez-vous.',
+    }));
+    return;
+  }
+
+  const form = await parseForm(req);
+  const values = getAdminValues(form);
 
   const store = await readStore(config);
 
@@ -215,6 +248,7 @@ async function handleAdminPost(req, res, config) {
     };
 
     sendHtml(res, 200, renderAdmin({
+      isAuthenticated: true,
       message: actionMessages[requestedAction] || actionMessages.save,
       values: {
         email: learner.email,
@@ -227,6 +261,7 @@ async function handleAdminPost(req, res, config) {
     }));
   } catch (error) {
     sendHtml(res, 422, renderAdmin({
+      isAuthenticated: true,
       error: getAdminErrorMessage(error),
       values: { ...values, password: '', isUpdate: true },
       learners: buildAdminLearnerList(store),
@@ -522,6 +557,18 @@ function createServer(config = getConfig()) {
         return;
       }
 
+
+      if (req.method === 'POST' && url.pathname === '/admin/login') {
+        await handleAdminLogin(req, res, runtimeConfig);
+        return;
+      }
+
+      if (req.method === 'POST' && url.pathname === '/admin/logout') {
+        redirect(res, '/admin', {
+          'Set-Cookie': clearAdminSessionCookie(),
+        });
+        return;
+      }
 
       if (req.method === 'POST' && url.pathname === '/admin') {
         await handleAdminPost(req, res, runtimeConfig);

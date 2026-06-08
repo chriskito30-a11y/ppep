@@ -707,7 +707,30 @@ function renderAdminLearnerRows(learners = []) {
   `).join('');
 }
 
-function renderAdmin({ message = '', error = '', values = {}, learners = [] } = {}) {
+function renderAdminLogin({ error = '' } = {}) {
+  return layout('Connexion administration', `
+<main class="auth-shell">
+  <section class="auth-panel" aria-labelledby="admin-login-title">
+    <p class="eyebrow">Administration Level Up</p>
+    <h1 id="admin-login-title">Connexion admin</h1>
+    <p class="intro">Entrez le secret administrateur. Il est envoye uniquement dans le formulaire et n'apparait pas dans l'adresse.</p>
+    ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
+    <form class="login-form" method="post" action="/admin/login" autocomplete="off">
+      <label>
+        Secret admin
+        <input name="secret" type="password" autocomplete="off" required autofocus>
+      </label>
+      <button type="submit">Acceder a l'administration</button>
+    </form>
+  </section>
+</main>`);
+}
+
+function renderAdmin({ message = '', error = '', values = {}, learners = [], loginRequired = false, isAuthenticated = false } = {}) {
+  if (loginRequired && !isAuthenticated) {
+    return renderAdminLogin({ error });
+  }
+
   const today = new Date().toISOString().slice(0, 10);
   const accessEndsAt = String(values.accessEndsAt || today).slice(0, 10);
   const plan = values.plan || 'autonome';
@@ -718,15 +741,14 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [] } = 
   <section class="auth-panel admin-panel" aria-labelledby="admin-title">
     <p class="eyebrow">Administration Level Up</p>
     <h1 id="admin-title">Gestion des acces apprenants</h1>
-    <p class="intro">Creer, mettre a jour, reinitialiser un mot de passe ou desactiver un acces sans terminal. Le secret admin est verifie cote serveur a chaque envoi et n'est pas conserve dans la page.</p>
+    <p class="intro">Creer, mettre a jour, reinitialiser un mot de passe ou desactiver un acces sans terminal. L'acces est protege par une session admin cote serveur.</p>
+    <form class="admin-logout-form" method="post" action="/admin/logout">
+      <button class="secondary-button" type="submit">Deconnexion admin</button>
+    </form>
     ${message ? `<p class="message success-message" role="status">${escapeHtml(message)}</p>` : ''}
     ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
 
     <form class="login-form admin-form" method="post" action="/admin" autocomplete="off">
-      <label>
-        Secret admin
-        <input name="secret" type="password" autocomplete="off" required>
-      </label>
       <label>
         Email apprenant
         <input id="admin-email" name="email" type="email" autocomplete="email" value="${escapeHtml(values.email || '')}" required>
