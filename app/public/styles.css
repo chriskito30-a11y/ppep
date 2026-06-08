@@ -1092,3 +1092,49 @@ legend {
 .guided-video p {
   margin: 8px 0;
 }
+
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0.8rem 0 1rem;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #111827;
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.questionnaire-card {
+  border: 1px solid rgba(37, 99, 235, 0.16);
+}
+
+.questionnaire-card h3 {
+  margin-top: 0;
+}
+
+.questionnaire-question {
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.questionnaire-question legend {
+  font-weight: 800;
+  padding: 0 0.4rem;
+}
+
+.questionnaire-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(34, 197, 94, 0.10);
+  font-weight: 700;
+}
