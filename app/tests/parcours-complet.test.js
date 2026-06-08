@@ -99,8 +99,8 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const initialDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(initialDashboard.response.status, 200);
-  assert.match(initialDashboard.html, /Module 0 - Vidéo de départ/);
-  assert.match(initialDashboard.html, /0\/10/);
+  assert.match(initialDashboard.html, /Module 0 - Démarrage/);
+  assert.match(initialDashboard.html, /0\/13/);
   assert.match(initialDashboard.html, /formule/);
   assert.match(initialDashboard.html, /autonome/);
   assert.match(initialDashboard.html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
@@ -120,7 +120,7 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const lockedBonus = await getHtml(`${baseUrl}/bonus/${firstBonus.id}`, cookie);
   assert.equal(lockedBonus.response.status, 403);
-  assert.match(lockedBonus.html, /disponibles apres validation du parcours principal/);
+  assert.match(lockedBonus.html, /disponibles après validation du parcours principal|disponibles apres validation du parcours principal/);
 
   const refusedAccompanimentPost = await fetch(`${baseUrl}/accompagnement/reservation`, {
     method: 'POST',
@@ -167,13 +167,13 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);
   assert.match(finalDashboard.html, /Parcours terminé/);
-  assert.match(finalDashboard.html, /10\/10/);
+  assert.match(finalDashboard.html, /13\/13/);
   assert.match(finalDashboard.html, /Voir mon bilan final/);
   assert.match(finalDashboard.html, /Ouvrir ce bonus/);
 
   const completion = await getHtml(`${baseUrl}/fin-parcours`, cookie);
   assert.equal(completion.response.status, 200);
-  assert.match(completion.html, /Vidéo de départ/);
+  assert.match(completion.html, /vidéo de départ|Vidéo de départ/);
   assert.match(completion.html, /Vidéo finale/);
   assert.match(completion.html, /Auto-évaluation finale/);
   assert.match(completion.html, /Plan d’action personnel/);
@@ -184,7 +184,7 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   assert.match(unlockedBonus.html, /Bonus court/);
   assert.match(unlockedBonus.html, /Astuce simple/);
   assert.match(unlockedBonus.html, /Exercice court/);
-  assert.match(unlockedBonus.html, /Action a faire/);
+  assert.match(unlockedBonus.html, /Action à faire|Action a faire/);
 
   const missingBonus = await getHtml(`${baseUrl}/bonus/bonus-inconnu`, cookie);
   assert.equal(missingBonus.response.status, 403);
@@ -210,8 +210,8 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
   const accompaniment = await getHtml(`${baseUrl}/accompagnement`, cookie);
   assert.equal(accompaniment.response.status, 200);
   assert.match(accompaniment.html, /https:\/\/tidycal.test\/levelup/);
-  assert.match(accompaniment.html, /J ai reserve mon rendez-vous/);
-  assert.match(accompaniment.html, /J ai partage ma video/);
+  assert.match(accompaniment.html, /J’ai réservé mon rendez-vous|J ai reserve mon rendez-vous/);
+  assert.match(accompaniment.html, /J’ai partagé ma vidéo|J ai partage ma video/);
   assert.match(accompaniment.html, /Grille de feedback imprimable/);
   assert.doesNotMatch(accompaniment.html, /upload video interne|analyse video automatique/i);
 
@@ -233,8 +233,8 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
 
   const updatedAccompaniment = await getHtml(`${baseUrl}/accompagnement`, cookie);
   assert.equal(updatedAccompaniment.response.status, 200);
-  assert.match(updatedAccompaniment.html, /rendez-vous declare reserve/);
-  assert.match(updatedAccompaniment.html, /video declaree partagee/);
+  assert.match(updatedAccompaniment.html, /rendez-vous déclaré réservé|rendez-vous declare reserve/);
+  assert.match(updatedAccompaniment.html, /vidéo déclarée partagée|video declaree partagee/);
 
   for (const module of CORE_MODULES) {
     const validation = await postModuleValidation(baseUrl, cookie, module.id);

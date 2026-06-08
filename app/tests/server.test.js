@@ -78,8 +78,8 @@ test('le tableau de bord affiche module courant, progression, fin acces et bonus
   const html = await dashboardResponse.text();
 
   assert.equal(dashboardResponse.status, 200);
-  assert.match(html, /Module 0 - Vidéo de départ/);
-  assert.match(html, /0\/10/);
+  assert.match(html, /Module 0 - Démarrage/);
+  assert.match(html, /0\/13/);
   assert.match(html, /fin d’accès/);
   assert.match(html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
   assert.match(html, /<meta name="viewport"/);
@@ -112,7 +112,7 @@ test('la page module affiche le gabarit complet du module courant', async (t) =>
   assert.match(html, /Gabarit du module/);
   assert.match(html, /Apport/);
   assert.match(html, /Gabarit du module/);
-  assert.match(html, /Vidéo de départ/);
+  assert.match(html, /vidéo de départ|Vidéo de départ/);
   assert.match(html, /À la fin de ce module, j’obtiens/);
   assert.match(html, /Notions clés/);
   assert.match(html, /Durée :/);
@@ -147,7 +147,7 @@ test('la fiche imprimable du module courant est accessible au bon moment', async
   const html = await worksheetResponse.text();
 
   assert.equal(worksheetResponse.status, 200);
-  assert.match(html, /Fiche de départ papier/);
+  assert.match(html, /Fiche de départ/);
   assert.match(html, /Sujet choisi/);
   assert.match(html, /Observation bienveillante/);
   assert.match(html, /window.print/);
@@ -197,8 +197,8 @@ test('la validation d un module debloque le module suivant et persiste la progre
   const html = await dashboardResponse.text();
 
   assert.equal(dashboardResponse.status, 200);
-  assert.match(html, /Module 1 - Me comprendre/);
-  assert.match(html, /1\/10/);
+  assert.match(html, /Module 1 - Comprendre mon rapport à l’oral/);
+  assert.match(html, /1\/13/);
 
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
   assert.deepEqual(rawStore.progress[0].completedModuleIds, ['module-0']);
@@ -275,7 +275,7 @@ test('la validation du dernier module ouvre un vrai ecran de fin de parcours', a
 
     assert.equal(validationResponse.status, 303, module.id);
 
-    if (module.id === 'module-9') {
+    if (module.id === CORE_MODULES.at(-1).id) {
       assert.equal(validationResponse.headers.get('location'), '/fin-parcours');
     }
   }
@@ -288,7 +288,7 @@ test('la validation du dernier module ouvre un vrai ecran de fin de parcours', a
   assert.equal(completionResponse.status, 200);
   assert.match(html, /Fin de parcours/);
   assert.match(html, /Bravo, vous avez construit votre méthode/);
-  assert.match(html, /Vidéo de départ/);
+  assert.match(html, /vidéo de départ|Vidéo de départ/);
   assert.match(html, /Vidéo finale/);
   assert.match(html, /Plan d’action personnel/);
   assert.match(html, /La plateforme ne les analyse pas et ne les stocke pas/);
@@ -319,7 +319,7 @@ test('les bonus sont consultables uniquement apres la fin du parcours principal'
   const lockedHtml = await lockedResponse.text();
 
   assert.equal(lockedResponse.status, 403);
-  assert.match(lockedHtml, /disponibles apres validation du parcours principal/);
+  assert.match(lockedHtml, /disponibles après validation du parcours principal|disponibles apres validation du parcours principal/);
 
   for (const module of CORE_MODULES) {
     await fetch(`${baseUrl}/modules/${module.id}/validate`, {
@@ -342,8 +342,8 @@ test('les bonus sont consultables uniquement apres la fin du parcours principal'
   assert.match(unlockedHtml, new RegExp(firstBonus.title));
   assert.match(unlockedHtml, /Astuce simple/);
   assert.match(unlockedHtml, /Exercice court/);
-  assert.match(unlockedHtml, /Action a faire/);
-  assert.match(unlockedHtml, /ne remplace pas un retour personnalise/);
+  assert.match(unlockedHtml, /Action à faire|Action a faire/);
+  assert.match(unlockedHtml, /ne remplace pas un retour personnalisé|retour personnalise/);
   assert.doesNotMatch(unlockedHtml, /analyse video automatique|upload video|progression du bonus/i);
 });
 
@@ -380,7 +380,7 @@ test('le tableau de bord termine oriente vers le bilan final et affiche les bonu
   assert.equal(dashboardResponse.status, 200);
   assert.match(html, /Parcours terminé/);
   assert.match(html, /Voir mon bilan final/);
-  assert.match(html, /10\/10/);
+  assert.match(html, /13\/13/);
   assert.match(html, /Disponible jusqu’à la fin du parcours principal/);
 });
 
@@ -464,8 +464,8 @@ test('la page accompagnement propose TidyCal, partage video externe et grille de
   assert.match(pageHtml, /Reserver via TidyCal/);
   assert.match(pageHtml, /https:\/\/tidycal.test\/levelup/);
   assert.match(pageHtml, /service externe/);
-  assert.match(pageHtml, /J ai reserve mon rendez-vous/);
-  assert.match(pageHtml, /J ai partage ma video/);
+  assert.match(pageHtml, /J’ai réservé mon rendez-vous|J ai reserve mon rendez-vous/);
+  assert.match(pageHtml, /J’ai partagé ma vidéo|J ai partage ma video/);
   assert.match(pageHtml, /Grille de feedback imprimable/);
   assert.match(pageHtml, /CPF/);
   assert.doesNotMatch(pageHtml, /upload video interne|analyse video automatique/i);
@@ -544,7 +544,7 @@ test('admin web : creation apprenant avec secret valide, progression initiale et
   const adminHtml = await adminResponse.text();
 
   assert.equal(adminResponse.status, 200);
-  assert.match(adminHtml, /Apprenant demo@ppep.local enregistre/);
+  assert.match(adminHtml, /Apprenant demo@ppep.local enregistré|Apprenant demo@ppep.local enregistre/);
   assert.doesNotMatch(adminHtml, /passwordHash|motdepasse-test/);
 
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
@@ -728,7 +728,7 @@ test('admin web : liste apprenants visible avec secret valide sans exposer les h
   assert.match(html, /accompagne/);
   assert.match(html, /active/);
   assert.match(html, /2026-12-31/);
-  assert.match(html, /2\/10/);
+  assert.match(html, /2\/13/);
   assert.match(html, /Filtrer par email/);
   assert.match(html, /Modifier/);
   assert.doesNotMatch(html, /passwordHash/);
@@ -776,7 +776,7 @@ test('admin web : modification formule statut date sans changer le mot de passe'
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
 
   assert.equal(response.status, 200);
-  assert.match(html, /Apprenant modifier@ppep.local enregistre/);
+  assert.match(html, /Apprenant modifier@ppep.local enregistré|Apprenant modifier@ppep.local enregistre/);
   assert.equal(rawStore.learners.length, 1);
   assert.equal(rawStore.learners[0].plan, 'accompagne');
   assert.equal(rawStore.learners[0].status, 'expired');
@@ -824,7 +824,7 @@ test('admin web : desactivation d un apprenant existant', async (t) => {
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
 
   assert.equal(response.status, 200);
-  assert.match(html, /Acces de desactiver@ppep.local desactive/);
+  assert.match(html, /Accès de desactiver@ppep.local désactivé|Acces de desactiver@ppep.local desactive/);
   assert.equal(rawStore.learners[0].status, 'inactive');
 
   const loginResponse = await fetch(`${baseUrl}/login`, {

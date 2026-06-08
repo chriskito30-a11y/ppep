@@ -146,7 +146,7 @@ test('un module verrouille ne peut pas etre valide directement', () => {
 });
 
 test('les modules MVP portent un contenu pedagogique substantiel et une fiche contextualisee', () => {
-  assert.equal(CORE_MODULES.length, 10);
+  assert.equal(CORE_MODULES.length, 13);
 
   for (const module of CORE_MODULES) {
     assert.ok(Array.isArray(module.sourceMaterials), module.id);
@@ -206,7 +206,7 @@ test('le chemin nominal valide les modules 0 a 9 puis debloque les bonus', () =>
   }
 
   const snapshot = getLearnerSnapshot(store, learner.id, NOW);
-  assert.equal(snapshot.summary.completedCount, 10);
+  assert.equal(snapshot.summary.completedCount, 13);
   assert.equal(snapshot.bonusesUnlocked, true);
   assert.deepEqual(snapshot.progress.completedModuleIds, CORE_MODULES.map((module) => module.id));
 });
@@ -224,12 +224,12 @@ test('les bonus restent verrouilles avant validation du module final', () => {
   }
 
   const snapshot = getLearnerSnapshot(store, learner.id, NOW);
-  assert.equal(snapshot.currentModule.id, 'module-9');
+  assert.equal(snapshot.currentModule.id, CORE_MODULES.at(-1).id);
   assert.equal(snapshot.bonusesUnlocked, false);
 });
 
 test('le module final contient un plan d action autonome', () => {
-  const finalModule = CORE_MODULES.find((module) => module.id === 'module-9');
+  const finalModule = CORE_MODULES.find((module) => module.id === CORE_MODULES.at(-1).id);
   const sectionTitles = finalModule.worksheet.sections.map((section) => section.title);
   const prompts = finalModule.worksheet.sections.flatMap((section) => section.prompts);
 
@@ -259,4 +259,45 @@ test('un apprenant accompagne peut declarer reservation et partage video', () =>
   assert.equal(video.ok, true);
   assert.equal(video.accompaniment.appointmentReserved, true);
   assert.equal(video.accompaniment.videoShared, true);
+});
+
+test('les titres des modules suivent la structure pedagogique Level Up demandee', () => {
+  assert.deepEqual(CORE_MODULES.map((module) => module.title), [
+    'Démarrage',
+    'Comprendre mon rapport à l’oral',
+    'Apprivoiser mon trac',
+    'Clarifier mon objectif',
+    'Comprendre mon public',
+    'Trouver mon message central',
+    'Structurer ma prise de parole',
+    'Réussir mon introduction',
+    'Rendre mon discours plus vivant',
+    'Réussir ma conclusion',
+    'Préparer ma fiche de prise de parole',
+    'Répéter efficacement',
+    'Bilan et progression',
+  ]);
+});
+
+test('les videos YouTube integrees sont accompagnees pedagogiquement', () => {
+  const videos = CORE_MODULES.flatMap((module) => (module.videos || []).map((video) => ({ module, video })));
+  assert.ok(videos.length >= 8);
+
+  for (const { module, video } of videos) {
+    assert.match(video.url, /^https:\/\/(www\.)?(youtube\.com|youtu\.be)\//, module.id);
+    assert.ok(video.instruction.length >= 20, module.id);
+    assert.ok(video.observationQuestion.length >= 20, module.id);
+    assert.ok(video.exercise.length >= 20, module.id);
+    assert.ok(video.action.length >= 20, module.id);
+  }
+});
+
+test('les contenus apprenants conservent les accents et apostrophes principaux', () => {
+  const allContent = JSON.stringify(CORE_MODULES);
+  assert.match(allContent, /Démarrage/);
+  assert.match(allContent, /l’oral/);
+  assert.match(allContent, /Préparer/);
+  assert.match(allContent, /Répéter/);
+  assert.match(allContent, /progrès/);
+  assert.doesNotMatch(allContent, /d hesiter|meme duree|Materiel|Criteres|a l oral|n ai pas/);
 });
