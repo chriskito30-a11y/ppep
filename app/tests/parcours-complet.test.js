@@ -102,7 +102,7 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   assert.match(initialDashboard.html, /Module 0 - Démarrage/);
   assert.match(initialDashboard.html, /0\/13/);
   assert.match(initialDashboard.html, /formule/);
-  assert.match(initialDashboard.html, /autonome/);
+  assert.match(initialDashboard.html, /méthode guidée/);
   assert.match(initialDashboard.html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
   assert.doesNotMatch(initialDashboard.html, /Mon accompagnement/);
 
@@ -166,7 +166,7 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);
-  assert.match(finalDashboard.html, /Parcours terminé/);
+  assert.match(finalDashboard.html, /Méthode terminée/);
   assert.match(finalDashboard.html, /13\/13/);
   assert.match(finalDashboard.html, /Voir mon bilan final/);
   assert.match(finalDashboard.html, /Ouvrir ce bonus/);
@@ -203,7 +203,7 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
   const dashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(dashboard.response.status, 200);
   assert.match(dashboard.html, /Mon accompagnement/);
-  assert.match(dashboard.html, /Méthode autonome \+ regard professionnel/);
+  assert.match(dashboard.html, /Méthode guidée \+ regard professionnel/);
   assert.match(dashboard.html, /Rendez-vous à réserver/);
   assert.match(dashboard.html, /Vidéo à partager/);
 
@@ -245,7 +245,7 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
   assert.equal(completion.response.status, 200);
   assert.match(completion.html, /Bravo, vous avez construit votre méthode/);
   assert.match(completion.html, /Envisager l’accompagné/);
-  assert.match(completion.html, /CPF individuel/);
+  assert.match(completion.html, /Accompagnement individuel et personnalisé/);
 
   const bonus = await getHtml(`${baseUrl}/bonus/${BONUS_ITEMS[0].id}`, cookie);
   assert.equal(bonus.response.status, 200);
@@ -253,7 +253,7 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);
-  assert.match(finalDashboard.html, /Parcours terminé/);
+  assert.match(finalDashboard.html, /Méthode terminée/);
   assert.match(finalDashboard.html, /Rendez-vous réservé/);
   assert.match(finalDashboard.html, /Vidéo partagée/);
 

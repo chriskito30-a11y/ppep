@@ -129,6 +129,36 @@ test('la page module affiche le gabarit complet du module courant', async (t) =>
   assert.doesNotMatch(html, /Sources de référence/);
 });
 
+
+
+test('la page module embarque les videos et affiche les questionnaires sans sortir du module', async (t) => {
+  const { dataFile } = await createTempStore();
+  const server = createServer({
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+  });
+  t.after(() => server.close());
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const cookie = await login(baseUrl);
+  await fetch(`${baseUrl}/modules/module-0/validate`, {
+    method: 'POST',
+    headers: { cookie },
+    body: new URLSearchParams({ exerciseDone: 'yes', confidence: 'pret' }),
+    redirect: 'manual',
+  });
+
+  const response = await fetch(`${baseUrl}/modules/module-1`, { headers: { cookie } });
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /youtube-nocookie\.com\/embed/);
+  assert.match(html, /Questionnaire guidé/);
+  assert.match(html, /Voir ma piste de travail/);
+  assert.match(html, /data-questionnaire/);
+});
+
 test('la fiche imprimable du module courant est accessible au bon moment', async (t) => {
   const { dataFile } = await createTempStore();
   const server = createServer({
@@ -294,7 +324,7 @@ test('la validation du dernier module ouvre un vrai ecran de fin de parcours', a
   assert.match(html, /La plateforme ne les analyse pas et ne les stocke pas/);
   assert.match(html, /Ouvrir ma fiche finale/);
   assert.match(html, /Voir les bonus débloqués/);
-  assert.match(html, /CPF individuel/);
+  assert.match(html, /Accompagnement individuel et personnalisé/);
   assert.doesNotMatch(html, /feedback personnalise automatique|analyse video automatique|upload video/i);
 });
 
@@ -378,7 +408,7 @@ test('le tableau de bord termine oriente vers le bilan final et affiche les bonu
   const html = await dashboardResponse.text();
 
   assert.equal(dashboardResponse.status, 200);
-  assert.match(html, /Parcours terminé/);
+  assert.match(html, /Méthode terminée/);
   assert.match(html, /Voir mon bilan final/);
   assert.match(html, /13\/13/);
   assert.match(html, /Disponible jusqu’à la fin du parcours principal/);
@@ -437,7 +467,7 @@ test('le tableau de bord affiche le bloc accompagnement uniquement pour la formu
 
   assert.equal(accompaniedResponse.status, 200);
   assert.match(accompaniedHtml, /Mon accompagnement/);
-  assert.match(accompaniedHtml, /Méthode autonome \+ regard professionnel/);
+  assert.match(accompaniedHtml, /Méthode guidée \+ regard professionnel/);
   assert.match(accompaniedHtml, /Ouvrir mon accompagnement/);
 });
 
@@ -467,7 +497,7 @@ test('la page accompagnement propose TidyCal, partage video externe et grille de
   assert.match(pageHtml, /J’ai réservé mon rendez-vous|J ai reserve mon rendez-vous/);
   assert.match(pageHtml, /J’ai partagé ma vidéo|J ai partage ma video/);
   assert.match(pageHtml, /Grille de feedback imprimable/);
-  assert.match(pageHtml, /CPF/);
+  assert.match(pageHtml, /Accompagnement individuel et personnalisé/);
   assert.doesNotMatch(pageHtml, /upload video interne|analyse video automatique/i);
 
   const reservationResponse = await fetch(`${baseUrl}/accompagnement/reservation`, {

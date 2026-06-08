@@ -187,7 +187,7 @@ test('les bonus courts restent actionnables et secondaires', () => {
     assert.equal(typeof bonus.shortExercise, 'string');
     assert.equal(typeof bonus.action, 'string');
     assert.equal(typeof bonus.reminder, 'string');
-    assert.doesNotMatch(`${bonus.objective} ${bonus.simpleTip} ${bonus.shortExercise} ${bonus.action}`, /diagnostic complet|feedback personnalise|CPF individuel|analyse automatique/i);
+    assert.doesNotMatch(`${bonus.objective} ${bonus.simpleTip} ${bonus.shortExercise} ${bonus.action}`, /diagnostic complet|feedback personnalise|Accompagnement individuel et personnalisé|analyse automatique/i);
   }
 });
 
@@ -289,6 +289,31 @@ test('les videos YouTube integrees sont accompagnees pedagogiquement', () => {
     assert.ok(video.observationQuestion.length >= 20, module.id);
     assert.ok(video.exercise.length >= 20, module.id);
     assert.ok(video.action.length >= 20, module.id);
+  }
+});
+
+
+
+test('les exercices piliers de la methode presentielle sont bien presents', () => {
+  const content = JSON.stringify(CORE_MODULES);
+  assert.match(content, /objectif SMART/i);
+  assert.match(content, /Parler à tous/);
+  assert.match(content, /Post-it/);
+  assert.match(content, /Version bonjour \/ merci \/ cadre|bonjour \+ merci \+ cadre/);
+  assert.match(content, /Version synthèse|version “synthèse”/i);
+});
+
+test('les videos obligatoires sont conservees et les questionnaires restent non diagnostiques', () => {
+  const content = JSON.stringify(CORE_MODULES);
+  assert.match(content, /8EI000KdjNw/);
+  assert.match(content, /3LCIQj5Bf7E/);
+  assert.match(content, /cOycHbFvcas/);
+
+  const questionnaires = CORE_MODULES.filter((module) => module.questionnaire);
+  assert.ok(questionnaires.length >= 3);
+  for (const module of questionnaires) {
+    assert.match(module.questionnaire.intro, /pas une étiquette|pas un diagnostic/i, module.id);
+    assert.ok(module.questionnaire.ranges.length >= 2, module.id);
   }
 });
 
