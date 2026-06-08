@@ -3,7 +3,7 @@ const fs = require('node:fs/promises');
 const http = require('node:http');
 const path = require('node:path');
 const { getConfig } = require('./config');
-const { getBonusById, getProgressSummary } = require('./modules');
+const { CORE_MODULES, getBonusById, getProgressSummary } = require('./modules');
 const {
   activateLearner,
   authenticateLearner,
@@ -170,7 +170,7 @@ function buildAdminLearnerList(store) {
         accessEndsAt: toDateInputValue(learner.accessEndsAt),
         createdAt: learner.createdAt || '',
         updatedAt: learner.updatedAt || '',
-        progressLabel: summary ? `${summary.completedCount}/${summary.totalCount}` : '0/10',
+        progressLabel: summary ? `${summary.completedCount}/${summary.totalCount}` : `0/${CORE_MODULES.length}`, 
       };
     });
 }
@@ -178,14 +178,14 @@ function buildAdminLearnerList(store) {
 function getAdminErrorMessage(error) {
   const messages = {
     EMAIL_INVALID: 'Email apprenant invalide.',
-    PASSWORD_REQUIRED: 'Mot de passe requis pour creer un nouvel apprenant.',
+    PASSWORD_REQUIRED: 'Mot de passe requis pour créer un nouvel apprenant.',
     PLAN_INVALID: 'Formule invalide. Choisissez autonome ou accompagne.',
     STATUS_INVALID: 'Statut invalide. Choisissez active, inactive ou expired.',
-    ACCESS_END_REQUIRED: 'Date de fin d acces requise.',
-    ACCESS_END_INVALID: 'Date de fin d acces invalide.',
+    ACCESS_END_REQUIRED: 'Date de fin d’accès requise.',
+    ACCESS_END_INVALID: 'Date de fin d’accès invalide.',
   };
 
-  return messages[error.message] || "Impossible d enregistrer cet apprenant. Verifiez les champs.";
+  return messages[error.message] || "Impossible d’enregistrer cet apprenant. Vérifiez les champs.";
 }
 
 async function handleAdminGet(req, res, config) {
@@ -205,7 +205,7 @@ async function handleAdminLogin(req, res, config) {
   if (!isAdminSecretValid(config, secret)) {
     sendHtml(res, 403, renderAdmin({
       loginRequired: true,
-      error: 'Acces admin refuse : secret incorrect.',
+      error: 'Accès admin refusé : secret incorrect.',
     }));
     return;
   }
@@ -242,9 +242,9 @@ async function handleAdminPost(req, res, config) {
     await writeStore(config, store);
 
     const actionMessages = {
-      deactivate: `Acces de ${learner.email} desactive.`,
+      deactivate: `Accès de ${learner.email} désactivé.`,
       reset_password: `Mot de passe de ${learner.email} reinitialise.`,
-      save: `Apprenant ${learner.email} enregistre. Formule : ${learner.plan}. Statut : ${learner.status}. Fin d acces : ${learner.accessEndsAt}.`,
+      save: `Apprenant ${learner.email} enregistré. Formule : ${learner.plan}. Statut : ${learner.status}. Fin d’accès : ${learner.accessEndsAt}.`,
     };
 
     sendHtml(res, 200, renderAdmin({

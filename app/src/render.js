@@ -1,5 +1,5 @@
 const { DEFAULT_PRODUCT_CONFIG } = require('./config');
-const { BONUS_ITEMS } = require('./modules');
+const { BONUS_ITEMS, CORE_MODULES } = require('./modules');
 const { escapeHtml } = require('./security');
 
 function formatDate(value) {
@@ -88,6 +88,28 @@ function renderKeyIdeas(ideas) {
   </article>`;
 }
 
+function renderPedagogicalVideos(videos) {
+  if (!Array.isArray(videos) || videos.length === 0) {
+    return '';
+  }
+
+  return `<article class="wide-card video-card">
+    <p class="section-label">Vidéo guidée</p>
+    <p class="module-meta">Une vidéo n’est jamais à regarder seule : elle sert une observation, un exercice et une action concrète.</p>
+    <div class="video-list">
+      ${videos.map((video) => `
+        <section class="guided-video">
+          <h3><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(video.title)}</a></h3>
+          <p><strong>Consigne :</strong> ${escapeHtml(video.instruction)}</p>
+          <p><strong>Question d’observation :</strong> ${escapeHtml(video.observationQuestion)}</p>
+          <p><strong>Exercice :</strong> ${escapeHtml(video.exercise)}</p>
+          <p><strong>Action concrète :</strong> ${escapeHtml(video.action)}</p>
+        </section>
+      `).join('')}
+    </div>
+  </article>`;
+}
+
 const FINAL_DELIVERABLES = [
   'Vidéo de départ',
   'Objectif personnel',
@@ -108,8 +130,8 @@ const FINAL_DELIVERABLES = [
 
 function renderCompletionLinks() {
   return `<div class="completion-links">
-    <a class="secondary-link" href="/modules/module-8/fiche">Ouvrir ma fiche finale</a>
-    <a class="secondary-link" href="/modules/module-9/fiche">Ouvrir ma grille de bilan final</a>
+    <a class="secondary-link" href="/modules/module-10/fiche">Ouvrir ma fiche finale</a>
+    <a class="secondary-link" href="/modules/module-12/fiche">Ouvrir ma grille de bilan final</a>
     <a class="secondary-link" href="/dashboard#bonus-title">Voir les bonus débloqués</a>
   </div>`;
 }
@@ -286,7 +308,7 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     <p class="section-label">${escapeHtml(product.commercialWording)}</p>
     <h2 id="accompaniment-title">${escapeHtml(product.mainStatement)}</h2>
     <p><strong>${escapeHtml(product.autonomous.label)} (${escapeHtml(product.autonomous.priceLabel)}) :</strong> ${escapeHtml(product.autonomous.description)} <strong>${escapeHtml(product.accompanied.label)} (${escapeHtml(product.accompanied.priceLabel)}) :</strong> ${escapeHtml(product.accompanied.description)} <strong>${escapeHtml(product.cpf.label)} (${escapeHtml(product.cpf.priceLabel)}) :</strong> ${escapeHtml(product.cpf.description)}</p>
-    <p>Cette page reste volontairement simple : pas de messagerie, pas de calendrier interne, pas d upload video et pas d analyse automatique.</p>
+    <p>Cette page reste volontairement simple : pas de messagerie, pas de calendrier interne, pas d’upload vidéo et pas d’analyse automatique.</p>
   </section>
 
   ${isAccompanied ? `<section class="accompaniment-card" aria-labelledby="booking-title">
@@ -297,28 +319,28 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
       <a class="button-link" href="${escapeHtml(accompanimentBookingUrl)}" target="_blank" rel="noopener noreferrer">Reserver via TidyCal</a>
     </div>
     <form class="validation-form compact-validation" method="post" action="/accompagnement/reservation">
-      <button type="submit">J ai reserve mon rendez-vous</button>
-      <p class="form-state">Etat : ${state.appointmentReserved ? 'rendez-vous declare reserve.' : 'a declarer apres reservation.'}</p>
+      <button type="submit">J’ai réservé mon rendez-vous</button>
+      <p class="form-state">État : ${state.appointmentReserved ? 'rendez-vous déclaré réservé.' : 'à déclarer après réservation.'}</p>
     </form>
   </section>
 
   <section class="accompaniment-card" aria-labelledby="video-share-title">
     <p class="section-label">Video externe</p>
-    <h2 id="video-share-title">Partager ma video pour le retour formateur</h2>
+    <h2 id="video-share-title">Partager ma vidéo pour le retour formateur</h2>
     <p>Filmez une prise de parole courte de 3 a 5 minutes, puis partagez-la via un service externe : lien non liste YouTube, Google Drive, Dropbox, WeTransfer ou autre solution habituelle.</p>
     <ol>
-      <li>Verifiez que le lien est accessible au formateur.</li>
+      <li>Vérifiez que le lien est accessible au formateur.</li>
       <li>Ajoutez votre fiche finale ou vos notes principales si necessaire.</li>
       <li>Envoyez le lien par le canal indique lors de la reservation.</li>
     </ol>
     <form class="validation-form compact-validation" method="post" action="/accompagnement/video">
-      <button type="submit">J ai partage ma video</button>
-      <p class="form-state">Etat : ${state.videoShared ? 'video declaree partagee.' : 'a declarer apres partage externe.'}</p>
+      <button type="submit">J’ai partagé ma vidéo</button>
+      <p class="form-state">État : ${state.videoShared ? 'vidéo déclarée partagée.' : 'à déclarer après partage externe.'}</p>
     </form>
   </section>` : `<section class="accompaniment-card" aria-labelledby="autonomous-title">
     <p class="section-label">Votre formule actuelle</p>
     <h2 id="autonomous-title">Vous êtes en méthode autonome.</h2>
-    <p>Vous avez acces au parcours pas a pas, aux exercices, aux fiches et aux auto-evaluations. Le regard professionnel sur video appartient a ${escapeHtml(product.accompanied.label)}.</p>
+    <p>Vous avez accès au parcours pas à pas, aux exercices, aux fiches et aux auto-évaluations. Le regard professionnel sur vidéo appartient à ${escapeHtml(product.accompanied.label)}.</p>
   </section>`}
 
   <section class="accompaniment-card" aria-labelledby="feedback-grid-title">
@@ -374,7 +396,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
 <main class="completion-shell">
   <section class="completion-hero" aria-labelledby="completion-title">
-    <p class="section-label">Parcours autonome termine</p>
+    <p class="section-label">Parcours autonome terminé</p>
     <h2 id="completion-title">Bravo, vous avez construit votre méthode de prise de parole.</h2>
     <p>Vous n’avez pas cherché à devenir parfait. Vous avez préparé, testé, observé et clarifié une prise de parole simple de 3 à 5 minutes.</p>
     <p class="method-outcome"><strong>Ce que vous repartez avec :</strong> une méthode réutilisable pour préparer un oral plus clair, plus structuré et plus rassurant.</p>
@@ -442,7 +464,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
 function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   if (!snapshot.bonusesUnlocked) {
-    return renderDenied('Les bonus sont disponibles apres validation du parcours principal.', product);
+    return renderDenied('Les bonus sont disponibles après validation du parcours principal.', product);
   }
 
   if (!bonus) {
@@ -468,7 +490,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
     <p class="section-label">5 a 15 minutes</p>
     <h2 id="bonus-page-title">Une pratique simple a tester</h2>
     <p>${escapeHtml(bonus.objective)}</p>
-    <p class="method-outcome"><strong>Rappel :</strong> ce bonus donne une astuce autonome. Il ne remplace pas un retour personnalise ni un travail CPF.</p>
+    <p class="method-outcome"><strong>Rappel :</strong> ce bonus donne une astuce autonome. Il ne remplace pas un retour personnalisé ni un travail CPF.</p>
   </section>
 
   <section class="completion-card bonus-detail" aria-labelledby="bonus-detail-title">
@@ -488,7 +510,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
         <dd>${escapeHtml(bonus.shortExercise)}</dd>
       </div>
       <div>
-        <dt>Action a faire</dt>
+        <dt>Action à faire</dt>
         <dd>${escapeHtml(bonus.action)}</dd>
       </div>
       <div>
@@ -565,6 +587,7 @@ function renderModule(snapshot, { message = '' } = {}) {
         </ul>
       </article>
       ${renderKeyIdeas(selectedModule.keyIdeas)}
+      ${renderPedagogicalVideos(selectedModule.videos)}
       <article>
         <p class="section-label">Exercice</p>
         <h3>${escapeHtml(selectedModule.exercise.title)}</h3>
@@ -603,7 +626,7 @@ function renderModule(snapshot, { message = '' } = {}) {
   <section class="validation-section" aria-labelledby="validation-title">
     <h2 id="validation-title">Validation déclarative</h2>
     <p>Cette validation mémorise seulement l’état du module et une réponse courte. Les notes longues restent sur votre fiche papier.</p>
-    ${selectedModule.id === 'module-9'
+    ${selectedModule.id === CORE_MODULES.at(-1).id
       ? `<p class="completion-note">Ce bilan termine le parcours autonome : vous repartez avec une méthode réutilisable. Pour un retour personnalisé sur une vidéo, choisissez le parcours accompagné.</p>`
       : ''}
     ${form}
