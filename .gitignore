@@ -1,0 +1,12 @@
+*
+!app/
+!app/**
+!.gitignore
+README.md
+app/node_modules/
+app/data/learners.json
+app/.env
+app/.env.*
+*firebase-adminsdk*.json
+*.key
+*.pem
