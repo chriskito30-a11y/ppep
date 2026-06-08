@@ -983,6 +983,10 @@ legend {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.admin-logout-form {
+  margin: 0 0 18px;
+}
+
 .admin-actions,
 .admin-list-heading {
   display: flex;
