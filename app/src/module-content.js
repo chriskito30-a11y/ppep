@@ -3,67 +3,65 @@ const CORE_MODULES = [
     "id": "module-0",
     "title": "Démarrage",
     "actionLabel": "Créer mon point de départ",
-    "objective": "Comprendre le parcours, filmer une première prise de parole courte et poser une observation bienveillante.",
-    "methodOutcome": "J’ai une vidéo de départ, une première auto-évaluation et une intention de progression simple pour la suite.",
+    "objective": "Entrer dans la méthode, filmer une première prise de parole courte et poser une observation bienveillante.",
+    "methodOutcome": "J’ai une vidéo de départ, une première auto-évaluation et un axe prioritaire.",
     "sourceMaterials": [
       "Vidéo de départ",
       "Auto-évaluation initiale"
     ],
     "lesson": [
-      "Vous commencez par une vidéo de départ courte : 3 à 5 minutes, sans chercher la performance.",
-      "Cette vidéo sert de repère. Elle vous permettra de comparer, plus tard, votre clarté, votre structure et votre présence.",
-      "Préparez seulement trois éléments : à qui vous parlez, ce que vous voulez faire passer, et comment vous terminez.",
+      "Vous commencez par une vidéo de départ de 3 à 5 minutes. Elle n’est pas là pour vous juger : elle sert de repère.",
+      "Préparez seulement trois éléments : à qui vous parlez, l’idée que vous voulez faire passer, et la phrase de fin.",
       "Ne recommencez pas dix fois. Une prise imparfaite donne souvent de meilleures informations qu’une prise trop contrôlée.",
-      "Après la vidéo, observez trois choses : ce qui est clair, ce qui est confus, et ce que vous voulez améliorer en priorité.",
+      "Après la vidéo, observez ce qui est clair, ce qui se perd, et ce que vous voulez améliorer en priorité.",
       "On ne cherche pas à devenir parfait. On cherche à devenir plus clair, plus préparé et plus présent."
     ],
     "keyIdeas": [
       {
-        "title": "Point de départ",
-        "body": "Une première vidéo permet de comparer plus tard sans se fier uniquement au ressenti du moment."
+        "title": "Vidéo repère",
+        "body": "La première vidéo permet de comparer votre progression sans vous fier uniquement au ressenti."
       },
       {
-        "title": "Progression observable",
-        "body": "Vous avancez avec des critères simples : clarté du message, structure, voix, regard, rythme et gestion du trac."
+        "title": "Observation bienveillante",
+        "body": "Vous notez une force, une zone confuse et une action prioritaire, pas une liste de défauts."
       },
       {
         "title": "Méthode guidée",
-        "body": "Chaque module produit une fiche ou une action concrète. Les notes longues restent chez vous, sur papier ou dans vos documents personnels."
+        "body": "Chaque module produit une fiche ou une action concrète que vous pouvez appliquer seul."
       }
     ],
     "exercise": {
       "title": "Filmer ma prise de parole de départ",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
         "téléphone ou webcam",
         "chronomètre",
         "feuille de notes"
       ],
       "steps": [
-        "Choisissez un sujet réel et simple : un projet, une idée, une présentation de vous ou une situation professionnelle.",
-        "Notez seulement trois repères : public, message principal, conclusion.",
+        "Choisissez un sujet simple et réel.",
+        "Notez votre public, votre message principal et votre phrase de fin.",
         "Filmez-vous en plan fixe pendant 3 à 5 minutes.",
-        "Regardez la vidéo une seule fois, sans pause excessive.",
-        "Notez une force, un point confus et une action prioritaire pour la suite.",
-        "Gardez la vidéo : elle servira de comparaison au module final."
+        "Regardez la vidéo une seule fois.",
+        "Notez une force, un point confus et votre axe prioritaire."
       ]
     },
     "observableCriteria": [
-      "J’ai réalisé une vidéo de 3 à 5 minutes.",
-      "Je peux nommer une force déjà présente.",
-      "Je peux nommer un seul axe prioritaire pour progresser."
+      "J’ai filmé une prise de parole de 3 à 5 minutes.",
+      "J’ai identifié une force déjà présente.",
+      "J’ai choisi un axe prioritaire."
     ],
     "worksheet": {
       "title": "Fiche de départ",
-      "description": "Support pour poser le contexte, observer la première vidéo et définir un point de départ utile.",
+      "description": "Poser le contexte, observer la vidéo de départ et définir un axe de progression.",
       "sections": [
         {
           "title": "Contexte",
           "prompts": [
             "Sujet choisi",
             "Public imaginé",
-            "Durée réalisée",
-            "Message que je voulais transmettre"
+            "Message principal",
+            "Phrase de fin prévue"
           ]
         },
         {
@@ -85,97 +83,105 @@ const CORE_MODULES = [
       ]
     },
     "selfAssessment": {
-      "prompt": "Où en êtes-vous après cette première étape ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "J’ai besoin de refaire calmement"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai mon point de départ et je peux avancer"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je vois déjà ce que je veux améliorer"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Laissez passer quelques heures avant de poursuivre si la vidéo vous a mis sous pression.",
-    "shortChallenge": "Avant le prochain module, observez une situation où vous prenez la parole naturellement.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Gardez la vidéo sans la retravailler : elle servira de comparaison finale.",
+    "estimatedDuration": "30 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 0,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 6,
+      "totalMinutes": 30,
+      "justification": "lecture courte, vidéo de départ 3 à 5 minutes, exercice principal 15 minutes, observation et fiche 6 minutes"
+    }
   },
   {
     "id": "module-1",
     "title": "Comprendre mon rapport à l’oral",
     "actionLabel": "Identifier mes réflexes à l’oral",
-    "objective": "Observer simplement ce que l’oral déclenche chez vous pour choisir une phrase d’appui utile.",
-    "methodOutcome": "J’ai repéré mes phrases réflexes et choisi une phrase d’appui réaliste pour avancer sans me juger.",
+    "objective": "Repérer les pensées et réflexes qui apparaissent quand vous devez parler devant d’autres personnes.",
+    "methodOutcome": "J’ai identifié mes phrases réflexes et choisi une phrase d’appui réaliste.",
     "sourceMaterials": [
-      "Croyances et phrases réflexes",
+      "Croyances",
       "Questionnaire rapport à l’oral"
     ],
     "lesson": [
-      "Avant de préparer une intervention, il est utile d’observer ce qui se passe chez vous quand vous devez parler.",
-      "Certaines phrases reviennent souvent : « je vais oublier », « je dois être parfait », « je ne suis pas légitime ». Ce sont des croyances ou phrases réflexes.",
-      "Le but n’est pas de vous analyser en profondeur, mais de repérer ce qui vous freine et ce qui peut vous aider.",
-      "Une croyance limitante devient plus utile quand elle est transformée en consigne d’action.",
-      "Exemple : « je vais me tromper » peut devenir « je garde mon fil et je reprends calmement si je bloque ».",
-      "Ce travail prépare la suite : vous allez construire une méthode, pas seulement accumuler des conseils."
+      "Avant de préparer un discours, il est utile d’observer ce que l’oral déclenche chez vous.",
+      "Certaines phrases reviennent souvent : “je vais oublier”, “je dois être parfait”, “je ne suis pas légitime”.",
+      "Le but n’est pas de poser un diagnostic. Le but est de transformer une phrase de pression en consigne utile.",
+      "Exemple : “je vais me tromper” devient “je garde mon fil rouge et je reprends calmement”.",
+      "Cette étape installe une règle : vous n’êtes pas votre trac, vous êtes quelqu’un qui apprend à se préparer."
     ],
     "keyIdeas": [
       {
         "title": "Phrase réflexe",
-        "body": "C’est une pensée automatique qui apparaît avant ou pendant l’oral. On la note pour la voir, pas pour se juger."
+        "body": "Une pensée automatique apparaît souvent avant l’oral. On la note pour la voir, pas pour se juger."
       },
       {
-        "title": "Croyance utile",
-        "body": "Une phrase devient utile quand elle vous aide à agir concrètement : respirer, ralentir, revenir au message, regarder la fiche."
+        "title": "Phrase d’appui",
+        "body": "Une bonne phrase d’appui déclenche une action observable : respirer, ralentir, revenir au message."
       },
       {
-        "title": "Accompagnement personnalisé",
-        "body": "Si les blocages sont anciens, très forts ou liés à un enjeu sensible, le travail individuel permet d’aller plus loin."
+        "title": "Limite saine",
+        "body": "Si le blocage est très fort ou ancien, il relève davantage d’un accompagnement individuel et personnalisé."
       }
     ],
     "videos": [
       {
-        "title": "David Lefrançois — comprendre l’impact des croyances",
+        "title": "David Lefrançois — Le système de croyances",
         "url": "https://www.youtube.com/watch?v=cOycHbFvcas",
-        "instruction": "Regardez cette vidéo pour repérer l’idée générale : ce que l’on croit influence ce que l’on ose faire. Ne cherchez pas à tout appliquer.",
+        "durationLabel": "Extrait conseillé : 0:00 à 5:00",
+        "instruction": "Regardez seulement le début pour observer comment une croyance influence ce que l’on ose faire.",
         "observationQuestion": "Quelle phrase automatique reconnaissez-vous le plus souvent avant une prise de parole ?",
-        "exercise": "Écrivez cette phrase, puis reformulez-la en consigne utile, courte et réaliste.",
-        "action": "Placez votre nouvelle phrase d’appui en haut de votre fiche de préparation."
+        "exercise": "Transformez cette phrase en consigne d’action courte.",
+        "action": "Recopiez votre phrase d’appui en haut de votre fiche."
       }
     ],
     "exercise": {
       "title": "Transformer une croyance en phrase d’appui",
-      "duration": "30 à 40 minutes",
+      "duration": "15 minutes",
       "materials": [
         "fiche papier",
         "souvenir d’une prise de parole réelle"
       ],
       "steps": [
-        "Choisissez une prise de parole passée ou à venir.",
-        "Écrivez trois phrases qui vous traversent l’esprit quand vous pensez à cet oral.",
+        "Écrivez trois phrases qui vous traversent l’esprit avant de parler.",
         "Entourez celle qui met le plus de pression.",
-        "Demandez-vous : qu’est-ce que cette phrase me pousse à faire ou à éviter ?",
-        "Transformez-la en consigne d’action : « je… » + un comportement observable.",
-        "Testez cette phrase à voix haute avant de passer au module suivant."
+        "Notez ce qu’elle vous pousse à faire ou à éviter.",
+        "Transformez-la en consigne courte commençant par “je”.",
+        "Placez cette phrase en haut de votre fiche de préparation."
       ]
     },
     "observableCriteria": [
-      "Je sais nommer une phrase réflexe sans me juger.",
-      "J’ai transformé une phrase de pression en phrase d’appui.",
-      "J’ai choisi une action concrète à tester."
+      "Je sais nommer une phrase réflexe.",
+      "J’ai formulé une phrase d’appui.",
+      "Je sais quand l’utiliser."
     ],
     "worksheet": {
       "title": "Fiche rapport à l’oral",
-      "description": "Support pour observer vos réactions et créer une phrase d’appui personnelle.",
+      "description": "Observer vos réactions à l’oral et créer une phrase d’appui utilisable.",
       "sections": [
         {
           "title": "Mes phrases réflexes",
           "prompts": [
-            "Quand je pense à prendre la parole, je me dis…",
+            "Quand je pense à parler, je me dis…",
             "La phrase qui me met le plus de pression",
             "Ce que cette phrase provoque chez moi"
           ]
@@ -187,89 +193,90 @@ const CORE_MODULES = [
             "Ma consigne courte et réaliste",
             "Le moment où je vais l’utiliser"
           ]
-        },
-        {
-          "title": "Mon premier test",
-          "prompts": [
-            "Situation où je peux tester cette phrase",
-            "Ce que je vais observer",
-            "Ce que je garde pour la suite"
-          ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Qu’avez-vous identifié ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Je dois encore clarifier mes réactions"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai choisi une phrase d’appui utile"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je vois comment ajuster ma préparation"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Gardez cette phrase visible pendant les prochains modules.",
-    "shortChallenge": "Repérez une phrase limitante dans une situation réelle et reformulez-la immédiatement.",
-    "estimatedDuration": "45 à 60 minutes",
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "32 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 3,
+      "totalMinutes": 32,
+      "justification": "lecture 4 min, extrait vidéo 0:00-5:00, mini-questionnaire 5 min, exercice 15 min, fiche 3 min"
+    },
     "questionnaire": {
       "title": "Mini-test : mon rapport à l’oral",
-      "intro": "Répondez rapidement, sans chercher la bonne réponse. Le résultat donne une piste de travail, pas une étiquette.",
+      "intro": "Répondez vite. Le résultat propose une piste de travail, pas un diagnostic.",
       "questions": [
         {
-          "text": "Avant de parler, je pense surtout à ce qui peut mal se passer.",
+          "text": "Quand je dois parler, je pense d’abord…",
           "options": [
-            "Rarement",
-            "Parfois",
-            "Souvent"
+            "au message à transmettre",
+            "à ce que les autres vont penser",
+            "à ce que je risque d’oublier"
           ]
         },
         {
-          "text": "Je prépare beaucoup parce que j’ai peur d’oublier.",
+          "text": "Après une prise de parole, je retiens surtout…",
           "options": [
-            "Rarement",
-            "Parfois",
-            "Souvent"
+            "ce qui a été clair",
+            "les défauts",
+            "les réactions négatives"
           ]
         },
         {
-          "text": "Je me juge plus durement que je ne juge les autres.",
+          "text": "Pour me rassurer, j’ai tendance à…",
           "options": [
-            "Rarement",
-            "Parfois",
-            "Souvent"
+            "préparer des repères",
+            "tout rédiger",
+            "éviter la situation"
           ]
         },
         {
-          "text": "Quand je suis lancé, je peux retrouver du plaisir à expliquer.",
+          "text": "Ma priorité serait…",
           "options": [
-            "Rarement",
-            "Parfois",
-            "Souvent"
+            "clarifier mon message",
+            "réduire la pression",
+            "oser davantage répéter"
           ]
         }
       ],
       "ranges": [
         {
-          "max": 3,
-          "label": "Point d’appui déjà présent",
-          "advice": "Vous pouvez avancer en vous appuyant sur ce qui fonctionne déjà. Gardez une phrase d’appui simple."
-        },
-        {
           "max": 7,
-          "label": "Besoin de méthode",
-          "advice": "Votre priorité est de sécuriser la préparation : objectif clair, plan visible et répétition courte."
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
         },
         {
-          "max": 12,
-          "label": "Pression élevée",
-          "advice": "Avancez doucement : une seule action à la fois. Un accompagnement individuel peut aider si cette pression bloque vos prises de parole."
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
         }
       ]
     }
@@ -278,177 +285,167 @@ const CORE_MODULES = [
     "id": "module-2",
     "title": "Apprivoiser mon trac",
     "actionLabel": "Construire ma routine anti-trac",
-    "objective": "Identifier vos manifestations du trac et choisir des leviers simples pour revenir au message.",
-    "methodOutcome": "J’ai une carte simple de mon trac et une routine courte à utiliser avant de parler.",
+    "objective": "Comprendre le trac comme un signal et choisir une routine simple avant de parler.",
+    "methodOutcome": "J’ai une routine anti-trac courte, réaliste et réutilisable.",
     "sourceMaterials": [
-      "Gestion du trac",
+      "GERER LE TRAC",
       "Respiration 4-7-8"
     ],
     "lesson": [
-      "Le trac est une réaction normale face à un enjeu et au regard réel ou imaginé des autres.",
-      "Il peut être physique : respiration courte, cœur rapide, gorge sèche, tensions, mains moites.",
-      "Il peut être mental : peur d’oublier, de bafouiller, d’être jugé ou de ne pas être intéressant.",
-      "Le but n’est pas de supprimer toute anxiété. Un peu d’activation peut devenir une énergie utile.",
-      "Le cercle vicieux commence quand toute l’attention part vers les symptômes au lieu de rester sur la tâche.",
-      "Les leviers autonomes les plus sûrs sont simples : respirer, ralentir, préparer, répéter, revenir au message.",
-      "Si le trac est très fort, ancien ou envahissant, un accompagnement humain peut être plus adapté que ce méthode guidée."
+      "Le trac n’est pas forcément un ennemi. Il signale que la situation compte pour vous.",
+      "La méthode ne promet pas de supprimer le trac. Elle vous aide à retrouver assez de calme pour commencer.",
+      "Les leviers les plus sûrs sont simples : respirer, ralentir, préparer, répéter, revenir au message.",
+      "Une routine fonctionne si elle est courte et répétable : respiration, phrase d’appui, première phrase.",
+      "Vous gardez ce qui vous aide à agir, sans entrer dans une analyse personnelle profonde."
     ],
     "keyIdeas": [
       {
-        "title": "Carte du trac",
-        "body": "Vous repérez vos signes physiques, vos pensées et vos comportements pour ne plus les subir en bloc."
-      },
-      {
-        "title": "Retour au message",
-        "body": "Quand le trac monte, la priorité n’est pas de paraître calme : c’est de retrouver la prochaine idée à transmettre."
+        "title": "Trac utile",
+        "body": "On ne cherche pas à l’effacer : on apprend à le canaliser."
       },
       {
         "title": "Routine courte",
-        "body": "Une routine efficace doit pouvoir tenir en 2 à 3 minutes avant de parler."
+        "body": "Trois gestes suffisent : respirer, relire le message central, dire la première phrase."
+      },
+      {
+        "title": "Répétition",
+        "body": "La routine doit être testée avant le jour J, pas seulement pensée."
       }
     ],
     "videos": [
       {
-        "title": "Respiration 4-7-8 pour faire redescendre la pression",
+        "title": "Respiration 4-7-8 — anti-stress",
         "url": "https://www.youtube.com/watch?v=8EI000KdjNw",
-        "instruction": "Gardez cette vidéo comme exercice court avant un oral. L’objectif n’est pas de supprimer le trac, mais de retrouver un rythme plus stable.",
-        "observationQuestion": "Qu’est-ce qui change le plus chez vous après quelques cycles : souffle, épaules, débit intérieur ou sensation de contrôle ?",
-        "exercise": "Testez trois cycles 4-7-8, puis dites votre première phrase à voix basse.",
-        "action": "Ajoutez cette routine en trois lignes dans votre plan anti-trac."
-      },
-      {
-        "title": "Respiration pour gérer la pression avant une prise de parole",
-        "url": "https://www.youtube.com/watch?v=v2tI8I_ufDA",
-        "instruction": "Regardez cette ressource comme un complément pratique : gardez seulement un exercice respiratoire compatible avec vous.",
-        "observationQuestion": "Quel exercice paraît le plus simple à refaire juste avant de parler ?",
-        "exercise": "Testez l’exercice choisi pendant deux minutes, puis dites votre message central.",
-        "action": "Gardez ou écartez cet exercice selon son effet réel sur votre débit."
+        "durationLabel": "Durée utilisée : 5 min 05",
+        "instruction": "Suivez l’exercice une fois, puis observez uniquement ce qui change dans votre rythme.",
+        "observationQuestion": "Après l’exercice, qu’est-ce qui est un peu plus stable : souffle, épaules, débit, attention ?",
+        "exercise": "Refaites trois cycles avant de dire votre première phrase.",
+        "action": "Notez votre routine en trois gestes."
       }
     ],
     "exercise": {
       "title": "Créer ma routine anti-trac en trois gestes",
-      "duration": "30 à 40 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "fiche papier",
-        "chronomètre"
+        "chronomètre",
+        "fiche de préparation"
       ],
       "steps": [
-        "Listez vos trois signes de trac les plus fréquents : corps, pensées, comportement.",
-        "Choisissez le premier signe qui apparaît généralement.",
-        "Associez-lui une action simple : respirer, poser les pieds, ralentir, relire le message central.",
-        "Testez la respiration 4-7-8 ou une expiration lente pendant deux minutes.",
-        "Dites votre phrase d’appui à voix basse.",
-        "Écrivez votre plan anti-trac en trois étapes maximum."
+        "Choisissez une respiration courte.",
+        "Ajoutez votre phrase d’appui du module 1.",
+        "Ajoutez votre première phrase d’introduction provisoire.",
+        "Répétez la routine trois fois.",
+        "Notez ce qui vous aide le plus à commencer."
       ]
     },
     "observableCriteria": [
-      "Je sais reconnaître mes signes de trac.",
-      "J’ai une routine courte en trois étapes.",
-      "Je peux revenir au message même si le trac reste présent."
+      "J’ai nommé mes signaux de trac.",
+      "J’ai une routine en trois gestes.",
+      "Je l’ai testée à voix haute."
     ],
     "worksheet": {
-      "title": "Carte du trac et routine",
-      "description": "Support pour identifier vos réactions et préparer une réponse simple avant de parler.",
+      "title": "Fiche routine anti-trac",
+      "description": "Construire une routine courte avant prise de parole.",
       "sections": [
         {
-          "title": "Mes signes de trac",
+          "title": "Mes signaux",
           "prompts": [
-            "Dans mon corps",
-            "Dans mes pensées",
-            "Dans mes comportements"
+            "Ce que je ressens dans le corps",
+            "Ce que je fais quand la pression monte",
+            "Ce qui m’aide déjà un peu"
           ]
         },
         {
-          "title": "Mes leviers",
+          "title": "Ma routine",
           "prompts": [
-            "Geste de respiration ou d’ancrage",
+            "Respiration choisie",
             "Phrase d’appui",
-            "Action de reprise"
-          ]
-        },
-        {
-          "title": "Routine courte",
-          "prompts": [
-            "Étape 1",
-            "Étape 2",
-            "Étape 3",
-            "Phrase à relire avant de parler"
+            "Première phrase à dire"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre routine est-elle utilisable ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Elle est encore trop floue"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Elle est simple et testable"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux déjà l’utiliser avant un oral"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Testez la routine plusieurs fois hors enjeu avant de l’utiliser en situation réelle.",
-    "shortChallenge": "Avant une discussion simple, faites une respiration lente et commencez volontairement plus calmement.",
-    "estimatedDuration": "45 à 60 minutes",
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "35 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 6,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 5,
+      "totalMinutes": 35,
+      "justification": "lecture 4 min, vidéo respiration 4-7-8 5 min 05 arrondie à 5 min pour le total, questionnaire 6 min, exercice 15 min, test routine 5 min"
+    },
     "questionnaire": {
       "title": "Mini-test : mon trac en situation",
-      "intro": "Répondez rapidement, sans chercher la bonne réponse. Le résultat donne une piste de travail, pas une étiquette.",
+      "intro": "Ce mini-test oriente vers une action simple, sans interprétation médicale.",
       "questions": [
         {
-          "text": "Mon corps réagit fortement avant de parler.",
+          "text": "Mon trac se manifeste surtout par…",
           "options": [
-            "Peu",
-            "Moyennement",
-            "Fortement"
+            "des pensées rapides",
+            "des signes physiques",
+            "l’envie d’éviter"
           ]
         },
         {
-          "text": "Je pense surtout au regard des autres.",
+          "text": "Avant de parler, je prépare plutôt…",
           "options": [
-            "Peu",
-            "Moyennement",
-            "Fortement"
+            "des repères",
+            "un texte complet",
+            "rien ou presque"
           ]
         },
         {
-          "text": "Quand le trac monte, je vais plus vite.",
+          "text": "Quand je bloque, j’ai besoin de…",
           "options": [
-            "Peu",
-            "Moyennement",
-            "Fortement"
+            "revenir au fil",
+            "respirer",
+            "regarder ma fiche"
           ]
         },
         {
-          "text": "Une routine courte pourrait m’aider à commencer.",
+          "text": "Après coup, je veux apprendre à…",
           "options": [
-            "Peu",
-            "Moyennement",
-            "Fortement"
+            "ralentir",
+            "oser commencer",
+            "mieux répéter"
           ]
         }
       ],
       "ranges": [
         {
-          "max": 4,
-          "label": "Trac ponctuel",
-          "advice": "Gardez une routine légère et concentrez-vous surtout sur la clarté du message."
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
         },
         {
-          "max": 8,
-          "label": "Trac à canaliser",
-          "advice": "Préparez un rituel fixe : souffle, posture, première phrase. Répétez-le avant chaque essai."
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
         },
         {
-          "max": 12,
-          "label": "Trac très présent",
-          "advice": "Avancez module par module. Si le trac vous empêche réellement de parler, un accompagnement personnalisé sera plus adapté."
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
         }
       ]
     }
@@ -456,170 +453,176 @@ const CORE_MODULES = [
   {
     "id": "module-3",
     "title": "Clarifier mon objectif",
-    "actionLabel": "Formuler mon objectif de prise de parole",
-    "objective": "Définir clairement ce que vous voulez obtenir avec votre prise de parole.",
-    "methodOutcome": "J’ai un objectif SMART formulé en une phrase, relié à mon public et au résultat attendu.",
+    "actionLabel": "Formuler mon objectif SMART",
+    "objective": "Transformer une intention vague en objectif clair pour guider toute la préparation.",
+    "methodOutcome": "J’ai un objectif SMART qui précise ce que le public doit retenir, comprendre ou faire.",
     "sourceMaterials": [
-      "Objectif SMART",
-      "Fiche objectif"
+      "Exercice n°2 — Définissez votre objectif"
     ],
     "lesson": [
-      "Un objectif n’est pas le thème de votre intervention. C’est le changement que vous voulez produire chez votre public.",
-      "Dire « je veux parler de mon projet » reste trop vague. Dire « à la fin, mon équipe aura compris les trois prochaines étapes » est plus utile.",
-      "Un objectif SMART est Spécifique, Mesurable, Attractif, Réaliste et daté.",
-      "Dans une prise de parole courte, l’objectif doit tenir en une phrase.",
-      "Il peut commencer par : « À la fin de mon intervention, mon public aura… ».",
-      "Votre objectif devient le filtre qui permet de choisir les idées, les exemples et la conclusion."
+      "Un objectif n’est pas “réussir mon oral”. C’est le changement que votre prise de parole doit produire.",
+      "La formulation utile commence par l’effet attendu sur le public : à l’issue de mon intervention, ils auront…",
+      "La grille SMART rend l’objectif spécifique, mesurable, attractif, réaliste et daté.",
+      "Un objectif clair réduit le hors-sujet : il devient le filtre de vos idées, exemples et supports.",
+      "Vous préparez pour agir sur votre public, pas pour réciter tout ce que vous savez."
     ],
     "keyIdeas": [
       {
-        "title": "Sujet",
-        "body": "Le sujet dit de quoi vous parlez."
+        "title": "Effet public",
+        "body": "L’objectif décrit ce que le public doit comprendre, décider, retenir ou faire."
       },
       {
-        "title": "Objectif",
-        "body": "L’objectif dit ce que vous voulez produire chez votre public."
+        "title": "SMART",
+        "body": "La grille évite les objectifs vagues et les promesses impossibles."
       },
       {
-        "title": "Critère de tri",
-        "body": "Ce qui ne sert pas votre objectif doit être simplifié, déplacé ou supprimé."
+        "title": "Filtre",
+        "body": "Si une idée ne sert pas l’objectif, elle sort ou devient secondaire."
       }
     ],
     "videos": [
       {
         "title": "Clarifier l’intention de sa prise de parole",
         "url": "https://www.youtube.com/watch?v=zax-R6JkUYU",
-        "instruction": "Regardez seulement pour repérer les questions qui aident à clarifier l’intention. Votre objectif SMART reste la priorité.",
-        "observationQuestion": "Quelle question vous aide à passer d’un sujet vague à un résultat attendu ?",
-        "exercise": "Répondez en une phrase : à la fin, mon public aura compris, choisi ou fait quoi ?",
-        "action": "Réécrivez votre objectif SMART après la vidéo."
+        "durationLabel": "Extrait conseillé : 0:00 à 5:00",
+        "instruction": "Regardez l’extrait pour repérer l’importance de l’intention avant la forme.",
+        "observationQuestion": "Quelle différence faites-vous entre sujet, intention et objectif ?",
+        "exercise": "Réécrivez votre objectif en partant de l’effet voulu sur le public.",
+        "action": "Conservez une seule version SMART."
       }
     ],
     "exercise": {
       "title": "Formuler mon objectif SMART",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
         "fiche objectif",
-        "stylo"
+        "sujet réel"
       ],
       "steps": [
-        "Écrivez votre objectif spontané, même s’il est vague.",
-        "Reformulez-le avec la phrase : « À la fin de mon intervention, mon public aura… ».",
-        "Vérifiez qu’il contient une seule action principale.",
-        "Ajoutez un indice mesurable : décision, compréhension, choix, action, prochaine étape.",
-        "Vérifiez qu’il est réaliste pour une intervention de 3 à 5 minutes.",
-        "Écrivez la version finale en une phrase claire."
+        "Écrivez votre objectif en une phrase.",
+        "Vérifiez : spécifique, mesurable, attractif, réaliste, daté.",
+        "Remplacez les mots vagues par des actions observables.",
+        "Reformulez avec “À l’issue de mon intervention…”",
+        "Gardez la version finale en haut de votre fiche."
       ]
     },
     "observableCriteria": [
-      "Mon objectif tient en une phrase.",
-      "Il décrit un effet attendu chez le public.",
-      "Il m’aide à trier mes idées."
+      "Mon objectif commence par l’effet attendu.",
+      "J’ai vérifié les cinq critères SMART.",
+      "Je peux retirer une idée qui ne sert pas l’objectif."
     ],
     "worksheet": {
-      "title": "Fiche objectif",
-      "description": "Support pour transformer un sujet général en objectif clair et utilisable.",
+      "title": "Fiche objectif SMART",
+      "description": "Clarifier le résultat attendu de votre prise de parole.",
       "sections": [
         {
           "title": "Objectif brut",
           "prompts": [
-            "Sujet de mon intervention",
-            "Ce que je voudrais obtenir",
-            "Ce qui est encore trop vague"
+            "Mon sujet",
+            "Ce que je veux obtenir",
+            "Pourquoi c’est important"
           ]
         },
         {
           "title": "Vérification SMART",
           "prompts": [
-            "Spécifique : une seule action",
-            "Mesurable : à quoi verrai-je que c’est réussi ?",
-            "Attractif : pourquoi c’est motivant ?",
-            "Réaliste : est-ce possible en 3 à 5 minutes ?",
-            "Daté : à quel moment le résultat est-il attendu ?"
+            "Spécifique",
+            "Mesurable",
+            "Attractif",
+            "Réaliste",
+            "Daté"
           ]
         },
         {
-          "title": "Objectif final",
+          "title": "Version finale",
           "prompts": [
-            "À la fin de mon intervention, mon public aura…",
-            "Mot-clé central",
-            "Décision ou action attendue"
+            "À l’issue de mon intervention, mon public aura…",
+            "Ce que je retire car ce n’est pas prioritaire"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre objectif est-il clair ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Il est encore trop large"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Il est clair et utilisable"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Il guide déjà mes choix de contenu"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Ne cherchez pas la formulation parfaite : cherchez une phrase utile pour travailler.",
-    "shortChallenge": "Présentez votre objectif à quelqu’un en une seule phrase.",
-    "estimatedDuration": "45 à 60 minutes",
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "32 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 3,
+      "totalMinutes": 32,
+      "justification": "lecture 4 min, extrait vidéo 5 min, auto-vérification SMART 5 min, exercice 15 min, ajustement fiche 3 min"
+    },
     "questionnaire": {
       "title": "Auto-vérification SMART",
-      "intro": "Répondez rapidement, sans chercher la bonne réponse. Le résultat donne une piste de travail, pas une étiquette.",
+      "intro": "Vérifiez votre objectif avant de construire le plan. Ce n’est pas un diagnostic.",
       "questions": [
         {
-          "text": "Mon objectif contient une seule action principale.",
+          "text": "Mon objectif contient une action claire.",
           "options": [
-            "Non",
-            "Partiellement",
-            "Oui"
+            "oui",
+            "partiellement",
+            "non"
           ]
         },
         {
-          "text": "Je sais à quoi je verrai que l’objectif est atteint.",
+          "text": "Je saurai observer si l’objectif est atteint.",
           "options": [
-            "Non",
-            "Partiellement",
-            "Oui"
+            "oui",
+            "partiellement",
+            "non"
           ]
         },
         {
-          "text": "L’objectif est réaliste en 3 à 5 minutes.",
+          "text": "Il est réaliste pour le temps disponible.",
           "options": [
-            "Non",
-            "Partiellement",
-            "Oui"
+            "oui",
+            "partiellement",
+            "non"
           ]
         },
         {
-          "text": "Mon objectif parle du public, pas seulement de moi.",
+          "text": "Il est relié à une échéance ou une situation précise.",
           "options": [
-            "Non",
-            "Partiellement",
-            "Oui"
+            "oui",
+            "partiellement",
+            "non"
           ]
         }
       ],
       "ranges": [
         {
-          "max": 4,
-          "label": "Objectif à reprendre",
-          "advice": "Revenez à une seule action et utilisez la phrase : « À la fin, mon public aura… »."
-        },
-        {
           "max": 7,
-          "label": "Objectif presque clair",
-          "advice": "Précisez le résultat observable et retirez ce qui dépasse le format court."
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
         },
         {
-          "max": 8,
-          "label": "Objectif solide",
-          "advice": "Vous pouvez passer au public : que doit-il retenir, comprendre et ressentir ?"
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
         }
       ]
     }
@@ -627,1028 +630,1280 @@ const CORE_MODULES = [
   {
     "id": "module-4",
     "title": "Comprendre mon public",
-    "actionLabel": "Cadrer mon public et ses attentes",
-    "objective": "Adapter votre prise de parole à ceux qui vous écoutent sans vous perdre dans trop d’hypothèses.",
-    "methodOutcome": "J’ai une grille “Parler à tous” : ce que mon public doit retenir, comprendre et ressentir.",
+    "actionLabel": "Parler à tous",
+    "objective": "Préparer votre intervention pour que le public retienne, comprenne et ressente quelque chose.",
+    "methodOutcome": "J’ai une grille public avec trois colonnes : retenir, comprendre, ressentir.",
     "sourceMaterials": [
-      "Parlez à tous",
-      "Retenir comprendre ressentir"
+      "Exercice n°3b — Parlez à tous"
     ],
     "lesson": [
-      "Une prise de parole ne s’adresse pas seulement à des oreilles. Elle s’adresse à des personnes avec des attentes différentes.",
-      "Votre public a besoin de retenir des idées fortes, de comprendre un raisonnement, et parfois de ressentir une émotion ou une motivation.",
-      "La grille “Parler à tous” aide à équilibrer votre intervention.",
-      "Retenir : quelles sont les idées-forces ? Comprendre : quelles explications sont nécessaires ? Ressentir : quel état voulez-vous créer ?",
-      "Cette étape évite deux pièges : donner trop d’informations ou chercher seulement à faire joli.",
-      "Elle prépare directement la sélection des idées et le fil rouge."
+      "Une prise de parole efficace n’est pas centrée uniquement sur ce que vous savez.",
+      "Votre public doit pouvoir retenir des idées fortes, comprendre des explications et ressentir une intention.",
+      "La grille “Parler à tous” évite de parler seulement à un type d’auditeur.",
+      "Elle vous oblige à choisir des idées, des explications et une émotion dominante.",
+      "Cette étape prépare le message central et la structure."
     ],
     "keyIdeas": [
       {
         "title": "Retenir",
-        "body": "Les idées-forces que le public doit garder après votre intervention."
+        "body": "Les idées-forces doivent pouvoir rester en mémoire."
       },
       {
         "title": "Comprendre",
-        "body": "Les explications, étapes ou processus qui rendent votre message clair."
+        "body": "Le public a besoin d’explications claires, pas seulement d’affirmations."
       },
       {
         "title": "Ressentir",
-        "body": "L’émotion ou l’état utile : confiance, envie d’agir, curiosité, sécurité, motivation."
+        "body": "Une prise de parole transmet aussi une énergie : confiance, motivation, urgence ou envie d’agir."
       }
     ],
     "exercise": {
       "title": "Remplir la grille “Parler à tous”",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
         "fiche public",
-        "objectif du module précédent"
+        "objectif SMART"
       ],
       "steps": [
-        "Relisez votre objectif SMART.",
-        "Écrivez trois idées-forces que votre public doit retenir.",
-        "Écrivez ce qu’il doit comprendre : étapes, logique, causes, conséquences.",
-        "Écrivez ce que vous voulez lui faire ressentir : confiance, intérêt, urgence, fierté, sécurité.",
-        "Barrez ce qui ne sert pas l’objectif.",
-        "Gardez une version courte : 3 idées à retenir, 2 explications, 1 émotion principale."
+        "Notez ce que le public doit retenir.",
+        "Notez ce qu’il doit comprendre.",
+        "Notez ce que vous voulez lui faire ressentir.",
+        "Ajoutez un exemple ou une preuve pour chaque colonne.",
+        "Supprimez ce qui ne sert pas votre objectif."
       ]
     },
     "observableCriteria": [
-      "Je sais à qui je parle.",
-      "Je connais une attente ou un besoin probable.",
-      "J’ai choisi un exemple adapté."
+      "J’ai rempli les trois colonnes.",
+      "J’ai relié chaque colonne à mon objectif.",
+      "J’ai retiré au moins une idée secondaire."
     ],
     "worksheet": {
-      "title": "Fiche public",
-      "description": "Support pour adapter votre message à un public réel ou imaginé.",
+      "title": "Fiche public — retenir, comprendre, ressentir",
+      "description": "Adapter votre préparation aux attentes du public.",
       "sections": [
         {
           "title": "Mon public",
           "prompts": [
-            "Qui est mon public ?",
+            "Qui va m’écouter ?",
             "Ce qu’il sait déjà",
-            "Ce dont il a besoin maintenant"
+            "Ce qu’il attend ou craint"
           ]
         },
         {
           "title": "Parler à tous",
           "prompts": [
-            "Ce que je veux qu’il retienne",
-            "Ce que je veux qu’il comprenne",
-            "Ce que je veux qu’il ressente"
+            "Ce que je veux qu’ils retiennent",
+            "Ce que je veux qu’ils comprennent",
+            "Ce que je veux qu’ils ressentent"
           ]
         },
         {
           "title": "Tri",
           "prompts": [
-            "Ce qui sert vraiment mon objectif",
-            "Ce que je retire",
-            "Mon intention principale"
+            "Exemple utile",
+            "Preuve utile",
+            "Émotion principale"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre public est-il suffisamment clair ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Je reste trop général"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai des repères utiles"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux déjà adapter mes exemples"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Gardez votre fiche public courte : elle doit vous aider, pas vous enfermer.",
-    "shortChallenge": "Expliquez votre sujet à deux publics différents en changeant seulement l’exemple.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "30 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 6,
+      "totalMinutes": 30,
+      "justification": "lecture 4 min, questionnaire public 5 min, exercice principal 15 min, tri et fiche 6 min"
+    },
+    "questionnaire": {
+      "title": "Mini-test : mon public est-il clair ?",
+      "intro": "Ce test vérifie si votre public est assez précis pour préparer votre discours. Ce n’est pas un diagnostic.",
+      "questions": [
+        {
+          "text": "Je peux décrire mon public en une phrase.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je sais ce qu’il doit retenir.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je sais ce qu’il risque de ne pas comprendre.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je sais quelle émotion ou envie je veux créer.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        }
+      ],
+      "ranges": [
+        {
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
+        },
+        {
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
+        }
+      ]
+    }
   },
   {
     "id": "module-5",
     "title": "Trouver mon message central",
-    "actionLabel": "Formuler mon idée principale",
-    "objective": "Transformer vos idées en un message central clair, mémorisable et relié à votre objectif.",
-    "methodOutcome": "J’ai un message central en une phrase et trois idées d’appui maximum.",
+    "actionLabel": "Choisir mes trois idées essentielles",
+    "objective": "Réduire votre intervention à un message central et trois idées indispensables.",
+    "methodOutcome": "J’ai un message central clair et trois idées qui le soutiennent.",
     "sourceMaterials": [
-      "Trois idées essentielles",
-      "Message central"
+      "Exercice n°6 — Et si vous ne pouviez dire que trois choses ?"
     ],
     "lesson": [
-      "Votre message central est la phrase que le public doit pouvoir redire simplement.",
-      "Il se construit à partir de votre objectif SMART et de la grille “Parler à tous”.",
-      "Un bon test consiste à vous demander : si je ne pouvais dire que trois choses, lesquelles garderaient le sens de mon intervention ?",
-      "Le message central n’est pas un slogan forcé. C’est le noyau de votre prise de parole.",
-      "Il vous aide à choisir les exemples et à éviter les digressions.",
-      "Dans une intervention de 3 à 5 minutes, trois appuis suffisent souvent."
+      "Quand tout paraît important, le public ne sait plus quoi retenir.",
+      "La méthode vous force à choisir : si vous ne pouviez dire que trois choses, lesquelles garderiez-vous ?",
+      "Le message central est la phrase que vous voulez que le public emporte.",
+      "Les trois idées essentielles soutiennent ce message, sans devenir un catalogue.",
+      "Cette étape prépare directement le plan Post-it du module suivant."
     ],
     "keyIdeas": [
       {
         "title": "Message central",
-        "body": "La phrase qui résume ce que votre public doit retenir."
+        "body": "Une phrase courte qui donne la direction de tout le discours."
       },
       {
-        "title": "Idées d’appui",
-        "body": "Les deux ou trois points qui rendent le message compréhensible."
+        "title": "Trois idées",
+        "body": "Trois appuis suffisent souvent pour une prise de parole courte et claire."
       },
       {
         "title": "Renoncement utile",
-        "body": "Ce que vous retirez peut renforcer ce que vous gardez."
+        "body": "Retirer une idée n’est pas perdre du contenu : c’est protéger la clarté."
       }
     ],
-    "videos": [],
     "exercise": {
       "title": "Choisir mes trois idées indispensables",
-      "duration": "35 à 45 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "fiche message",
-        "objectif",
-        "fiche public"
+        "objectif SMART",
+        "grille public"
       ],
       "steps": [
-        "Relisez votre objectif SMART.",
-        "Relisez la grille “Retenir, comprendre, ressentir”.",
-        "Listez toutes les idées possibles en vrac pendant cinq minutes.",
-        "Choisissez seulement trois idées indispensables.",
+        "Écrivez toutes vos idées sans trier.",
+        "Entourez celles qui servent directement l’objectif.",
+        "Gardez trois idées indispensables.",
         "Formulez votre message central en une phrase.",
-        "Vérifiez que chaque idée sert ce message central."
+        "Associez chaque idée à un exemple ou une preuve."
       ]
     },
     "observableCriteria": [
-      "Mon message central tient en une phrase.",
-      "Mes idées d’appui sont limitées à trois.",
-      "Je sais ce que je retire de mon discours."
+      "J’ai une phrase centrale.",
+      "J’ai trois idées essentielles maximum.",
+      "Chaque idée sert mon objectif."
     ],
     "worksheet": {
       "title": "Fiche message central",
-      "description": "Support pour choisir une idée principale et éviter l’accumulation.",
+      "description": "Passer du sujet large au message clair.",
       "sections": [
         {
-          "title": "Matière brute",
+          "title": "Tri des idées",
           "prompts": [
-            "Toutes mes idées possibles",
-            "Exemples ou anecdotes utiles",
-            "Idées que je dois peut-être retirer"
-          ]
-        },
-        {
-          "title": "Trois idées indispensables",
-          "prompts": [
-            "Idée 1",
-            "Idée 2",
-            "Idée 3"
+            "Toutes mes idées",
+            "Idées utiles à l’objectif",
+            "Idées à garder pour plus tard"
           ]
         },
         {
           "title": "Message central",
           "prompts": [
-            "Si mon public ne retient qu’une phrase…",
-            "Ce que je veux éviter de disperser",
-            "Lien avec mon objectif SMART"
+            "Ma phrase centrale",
+            "Mes trois idées essentielles",
+            "Exemple ou preuve pour chaque idée"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre message central est-il prêt ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Il est encore trop long"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Il est clair et utilisable"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux le dire sans lire ma fiche"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Testez votre message à voix haute : s’il est trop difficile à dire, simplifiez-le.",
-    "shortChallenge": "Expliquez votre message central en une phrase à quelqu’un qui ne connaît pas votre sujet.",
-    "estimatedDuration": "35 à 50 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "25 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 3,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 0,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 7,
+      "totalMinutes": 25,
+      "justification": "lecture 3 min, exercice principal 15 min, tri et formulation finale 7 min"
+    }
   },
   {
     "id": "module-6",
     "title": "Structurer ma prise de parole",
-    "actionLabel": "Construire mon fil rouge",
-    "objective": "Organiser votre message en un parcours simple que le public peut suivre.",
-    "methodOutcome": "J’ai un fil rouge construit avec des Post-it : idées, exemples, arguments, transitions et ordre final.",
+    "actionLabel": "Construire mon fil rouge avec les Post-it",
+    "objective": "Organiser vos idées, exemples et transitions pour obtenir une structure claire.",
+    "methodOutcome": "J’ai un plan visuel en Post-it et un fil rouge que je peux suivre à voix haute.",
     "sourceMaterials": [
-      "Fil rouge",
-      "Post-it"
+      "Exercice n°4 — Structurez votre intervention : le fil rouge"
     ],
     "lesson": [
-      "Structurer, ce n’est pas rédiger. C’est organiser les idées pour que le public puisse suivre le chemin.",
-      "La méthode des Post-it est centrale : une idée, un exemple ou un argument par Post-it.",
-      "Les Post-it permettent de déplacer, regrouper, supprimer et hiérarchiser sans se perdre dans un texte.",
-      "Vous pouvez utiliser des couleurs : idées principales, exemples, arguments, anecdotes, transitions.",
-      "Le bon ordre est celui qui rend le message plus clair, pas celui qui garde tout ce que vous avez trouvé.",
-      "Quand vous bloquez en répétant, revenez au mur de Post-it et déplacez ce qui accroche.",
-      "À la fin, votre fil rouge doit tenir en deux ou trois grandes parties."
+      "Le module de structuration est central dans la méthode.",
+      "Chaque idée, exemple, anecdote, preuve ou transition est noté sur un Post-it séparé.",
+      "Vous organisez ensuite les Post-it sur un mur ou une table pour faire apparaître le fil rouge.",
+      "Si vous bloquez en présentant, vous ne forcez pas : vous déplacez les Post-it jusqu’à ce que le chemin devienne fluide.",
+      "Le plan n’est pas un texte à lire. C’est une carte pour parler clairement."
     ],
     "keyIdeas": [
       {
-        "title": "Un Post-it = une idée",
-        "body": "Évitez les blocs longs. Un Post-it doit pouvoir être déplacé facilement."
+        "title": "Post-it central",
+        "body": "Un Post-it = une idée. Cette règle rend la structure visible et manipulable."
       },
       {
-        "title": "Fil rouge visible",
-        "body": "L’ordre doit se voir sur un mur, une table ou une porte avant d’être parlé."
+        "title": "Fil rouge",
+        "body": "Le fil rouge est l’ordre qui permet au public de vous suivre sans effort."
       },
       {
-        "title": "Supprimer, c’est structurer",
-        "body": "Une idée intéressante peut être retirée si elle ne sert pas l’objectif."
+        "title": "Structure vivante",
+        "body": "Vous testez le plan à voix haute, puis vous réorganisez ce qui bloque."
       }
     ],
     "exercise": {
       "title": "Structurer mon intervention avec les Post-it",
-      "duration": "60 à 75 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "Post-it de couleurs différentes",
-        "mur, table ou porte",
-        "feutre",
-        "objectif SMART",
-        "grille “Parler à tous”"
+        "Post-it de plusieurs couleurs",
+        "mur ou table",
+        "feutre"
       ],
       "steps": [
-        "Écrivez une seule idée, un exemple ou un argument par Post-it.",
-        "Utilisez des couleurs si possible : idées, exemples, arguments, anecdotes, transitions.",
-        "Collez tous les Post-it sur un mur ou une table.",
-        "Regroupez ce qui va ensemble.",
-        "Ordonnez les groupes pour créer un début, un développement et une fin.",
-        "Dites votre intervention à voix haute en suivant le fil rouge.",
-        "Si vous bloquez, déplacez les Post-it jusqu’à ce que le chemin soit plus fluide.",
-        "Retirez les Post-it qui ne servent pas votre objectif."
+        "Écrivez une idée, un exemple ou une transition par Post-it.",
+        "Utilisez des couleurs pour distinguer idées, exemples, preuves et transitions.",
+        "Organisez les Post-it dans un ordre provisoire.",
+        "Présentez votre plan à voix haute en suivant le fil rouge.",
+        "Déplacez les Post-it aux endroits où le discours bloque."
       ]
     },
     "observableCriteria": [
-      "Mon plan tient sur une page.",
-      "Chaque partie sert le message central.",
-      "Je peux expliquer le chemin du discours en moins de 30 secondes."
+      "J’ai utilisé des Post-it ou équivalent.",
+      "Je peux expliquer mon ordre.",
+      "J’ai testé le plan à voix haute."
     ],
     "worksheet": {
-      "title": "Fiche fil rouge",
-      "description": "Support pour organiser votre prise de parole sans écrire tout le texte.",
+      "title": "Fiche fil rouge et Post-it",
+      "description": "Stabiliser une structure claire avant de rédiger l’introduction et la conclusion.",
       "sections": [
         {
           "title": "Inventaire Post-it",
           "prompts": [
-            "Couleur idées principales",
-            "Couleur exemples",
-            "Couleur arguments ou preuves",
-            "Couleur transitions"
+            "Idées principales",
+            "Exemples / anecdotes",
+            "Preuves / chiffres",
+            "Transitions possibles"
           ]
         },
         {
           "title": "Fil rouge",
           "prompts": [
-            "Partie 1",
-            "Partie 2",
-            "Partie 3 si nécessaire",
-            "Transition entre les parties"
+            "Ordre choisi",
+            "Pourquoi cet ordre aide le public",
+            "Endroit où le plan bloque encore"
           ]
         },
         {
-          "title": "Nettoyage",
+          "title": "Version testée",
           "prompts": [
-            "Post-it retirés",
-            "Passage qui bloque encore",
-            "Nouvel ordre testé à voix haute"
+            "Ce que j’ai déplacé",
+            "Ce que je garde",
+            "Phrase de transition clé"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre plan est-il facile à suivre ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Il ressemble encore à une liste"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Il a un fil rouge clair"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux parler avec ce plan sans tout écrire"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Ne figez pas encore les phrases : stabilisez d’abord l’ordre des idées.",
-    "shortChallenge": "Présentez votre plan en 30 secondes à voix haute.",
-    "estimatedDuration": "60 à 75 minutes",
-    "videos": [
-      {
-        "title": "Structurer une conférence ou un discours",
-        "url": "https://www.youtube.com/watch?v=jV8mO1u4LtE",
-        "instruction": "Regardez pour observer la logique de structure, puis revenez à votre mur de Post-it.",
-        "observationQuestion": "Quel ordre rend le chemin le plus facile à suivre pour le public ?",
-        "exercise": "Déplacez vos Post-it pour obtenir un début, deux ou trois parties, et une fin claire.",
-        "action": "Photographiez votre fil rouge final avant de préparer votre fiche."
-      }
-    ]
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Testez votre fil rouge sans regarder vos notes pendant une minute.",
+    "estimatedDuration": "37 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 0,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 18,
+      "totalMinutes": 37,
+      "justification": "lecture 4 min, exercice Post-it 15 min, manipulation du plan et test oral du fil rouge 18 min"
+    }
   },
   {
     "id": "module-7",
     "title": "Réussir mon introduction",
-    "actionLabel": "Préparer mon ouverture",
-    "objective": "Créer une introduction simple qui capte l’attention, pose le sujet et annonce le chemin.",
-    "methodOutcome": "J’ai une introduction courte, claire et répétable sans récitation mécanique.",
+    "actionLabel": "Écrire mon ouverture",
+    "objective": "Préparer des premiers mots qui installent le lien, le cadre et l’envie d’écouter.",
+    "methodOutcome": "J’ai trois versions d’introduction et je choisis celle qui sert le mieux mon public.",
     "sourceMaterials": [
-      "Introduction",
-      "Accroche"
+      "Exercice n°5a — Soignez l’introduction"
     ],
     "lesson": [
-      "L’introduction sert à entrer clairement dans la relation avec le public.",
-      "Elle rassure l’orateur parce que les premiers mots sont préparés.",
-      "Elle peut contenir trois mouvements simples : saluer et remercier, se présenter si nécessaire, déclencher l’intérêt.",
-      "Une question d’ouverture peut impliquer le public : « Avez-vous déjà… ? », « Vous êtes-vous déjà demandé… ? », « Que se passerait-il si… ? ».",
-      "L’accroche doit rester cohérente avec votre sujet. Elle ne sert pas à faire un effet gratuit.",
-      "Pour 3 à 5 minutes, votre introduction doit être courte et très claire."
+      "L’introduction n’est pas un décor. Elle donne envie d’écouter et installe votre légitimité.",
+      "Elle peut contenir un bonjour, un remerciement, une présentation courte et une question déclencheuse.",
+      "Préparer plusieurs options évite de rester bloqué sur une seule phrase trop fragile.",
+      "Vous choisissez ensuite l’introduction qui sert le mieux votre objectif et votre public.",
+      "Les premiers mots doivent être simples, assumés et faciles à dire à voix haute."
     ],
     "keyIdeas": [
       {
-        "title": "Trois entrées possibles",
-        "body": "Remercier et poser le cadre, se présenter brièvement, ou commencer par une question déclencheuse."
+        "title": "Lien",
+        "body": "Les premiers mots créent la relation avec le public."
       },
       {
-        "title": "Première phrase préparée",
-        "body": "Elle limite l’hésitation du départ et donne une direction nette."
+        "title": "Cadre",
+        "body": "L’introduction annonce pourquoi on écoute et où l’on va."
       },
       {
-        "title": "Accroche sobre",
-        "body": "Mieux vaut une accroche simple et juste qu’une formule spectaculaire mais artificielle."
-      }
-    ],
-    "videos": [
-      {
-        "title": "Observer une ouverture de prise de parole",
-        "url": "https://youtu.be/4po9h1uYmh4",
-        "instruction": "Regardez seulement le début, environ les premières minutes, pour observer l’entrée en relation et la mise en place du sujet. Si la vidéo vous éloigne de votre objectif, ignorez-la.",
-        "observationQuestion": "Qu’est-ce qui installe l’attention : le ton, la première phrase, le cadre ou la relation au public ?",
-        "exercise": "Notez une seule idée d’ouverture que vous pouvez adapter sobrement à votre sujet.",
-        "action": "Écrivez votre première phrase, puis testez-la trois fois à voix haute."
-      },
-      {
-        "title": "Commencer un discours : exemples d’introductions",
-        "url": "https://www.youtube.com/watch?v=E1foFuGOkuI",
-        "instruction": "Regardez pour repérer des familles d’accroches, sans copier une formule toute faite.",
-        "observationQuestion": "Quelle accroche serait naturelle pour votre sujet et votre public ?",
-        "exercise": "Écrivez trois premières phrases possibles, puis dites-les à voix haute.",
-        "action": "Choisissez celle qui lance le mieux votre fil rouge."
+        "title": "Déclencheur",
+        "body": "Une question, une image ou une situation concrète peut ouvrir l’attention."
       }
     ],
     "exercise": {
       "title": "Écrire trois introductions possibles",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "fiche introduction",
-        "plan du module précédent"
+        "objectif SMART",
+        "fil rouge"
       ],
       "steps": [
-        "Écrivez une version “bonjour + merci + cadre”. Exemple : « Bonjour à tous, merci d’être là. En quelques minutes, je vais vous montrer… ».",
-        "Écrivez une version “présentation + légitimité”. Exemple : « Je suis…, et je travaille sur ce sujet parce que… ».",
-        "Écrivez une version “question déclencheuse”. Exemple : « Vous est-il déjà arrivé de… ? ».",
-        "Choisissez la version la plus naturelle pour votre public.",
-        "Répétez-la trois fois à voix haute sans la lire entièrement.",
-        "Gardez seulement les mots-clés sur votre fiche."
+        "Écrivez une introduction simple : bonjour, merci, cadre.",
+        "Écrivez une introduction par question déclencheuse.",
+        "Écrivez une introduction par image ou situation concrète.",
+        "Lisez les trois à voix haute.",
+        "Choisissez celle qui sert le mieux votre public."
       ]
     },
     "observableCriteria": [
-      "Mon introduction dure moins d’une minute.",
-      "Le sujet et l’intérêt sont compréhensibles.",
-      "Je peux la dire sans lire mot à mot."
+      "J’ai écrit trois introductions.",
+      "Je les ai lues à voix haute.",
+      "J’ai choisi une version cohérente avec mon objectif."
     ],
     "worksheet": {
       "title": "Fiche introduction",
-      "description": "Support pour préparer une ouverture claire et rassurante.",
+      "description": "Préparer trois ouvertures et choisir celle qui lance le mieux la prise de parole.",
       "sections": [
         {
-          "title": "Mes trois ouvertures",
+          "title": "Trois exemples de phrases",
           "prompts": [
-            "Version bonjour / merci / cadre",
-            "Version présentation / légitimité",
-            "Version question déclencheuse"
+            "Bonjour à tous, merci d’être là. Aujourd’hui, je voudrais vous aider à…",
+            "Une question pour commencer : vous est-il déjà arrivé de… ?",
+            "Imaginez la situation suivante : …"
           ]
         },
         {
-          "title": "Choix final",
+          "title": "Mon choix",
           "prompts": [
-            "Version choisie",
+            "Version retenue",
             "Pourquoi elle convient à mon public",
-            "Première phrase exacte"
-          ]
-        },
-        {
-          "title": "Test oral",
-          "prompts": [
-            "Ce qui sonne naturel",
-            "Ce qui est trop long",
-            "Version courte finale"
+            "Premier mot que je veux poser calmement"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre introduction est-elle prête ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Elle est encore trop longue"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Elle est claire et testable"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux commencer avec plus de confiance"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Répétez surtout la première phrase : elle sert de rampe de lancement.",
-    "shortChallenge": "Dites votre introduction à voix haute en regardant un point fixe, puis en levant le regard.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "32 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 0,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 13,
+      "totalMinutes": 32,
+      "justification": "lecture 4 min, exercice principal 15 min, lecture à voix haute et choix final 13 min"
+    }
   },
   {
     "id": "module-8",
     "title": "Rendre mon discours plus vivant",
     "actionLabel": "Ajouter de la présence sans surjouer",
-    "objective": "Travailler quelques leviers d’incarnation : exemples, voix, pauses, regard, gestes et posture.",
-    "methodOutcome": "J’ai choisi deux leviers simples pour rendre mon discours plus vivant sans le transformer en performance.",
+    "objective": "Choisir quelques leviers simples pour rendre le discours plus vivant : exemple, pause, voix, regard, image.",
+    "methodOutcome": "J’ai enrichi mon discours avec deux leviers de présence utiles et sobres.",
     "sourceMaterials": [
-      "Discours vivant",
-      "Exemples pauses voix"
+      "Workshop éloquence",
+      "Exercices voix / pauses"
     ],
     "lesson": [
-      "Un discours vivant n’est pas un discours théâtral. C’est un discours plus facile à suivre.",
-      "Les leviers principaux sont simples : exemples concrets, variations de voix, pauses, regard, gestes disponibles, posture stable.",
-      "La voix gagne en clarté quand l’intention est claire et le débit respirable.",
-      "Les pauses aident le public à comprendre et vous aident à reprendre le fil.",
-      "Le regard sert à créer le lien, pas à contrôler toutes les réactions.",
-      "Les gestes doivent accompagner le sens. Inutile de fabriquer une gestuelle compliquée.",
-      "Dans cette méthode, choisissez deux leviers maximum pour éviter la surcharge."
+      "Un discours vivant n’est pas un discours théâtral forcé.",
+      "Il devient vivant quand le public voit, entend ou ressent mieux ce que vous dites.",
+      "Les leviers simples sont les exemples, les pauses, les images, les variations de rythme, le regard et les gestes utiles.",
+      "Le workshop sur l’éloquence est adapté ici uniquement comme support d’observation : l’idée utile est que l’éloquence se travaille.",
+      "Vous choisissez deux leviers, pas dix. La clarté reste prioritaire."
     ],
     "keyIdeas": [
       {
-        "title": "Présence simple",
-        "body": "Être présent, c’est rester relié au message, au corps et au public."
+        "title": "Présence sobre",
+        "body": "Être vivant ne veut pas dire surjouer. Cela veut dire rendre l’idée plus accessible."
+      },
+      {
+        "title": "Exemple concret",
+        "body": "Un exemple transforme une idée abstraite en situation compréhensible."
       },
       {
         "title": "Pause utile",
-        "body": "Une pause courte peut remplacer un mot parasite et donner du poids à une idée."
-      },
-      {
-        "title": "Geste significatif",
-        "body": "Un geste est utile s’il clarifie, rythme ou souligne une idée."
+        "body": "Une pause laisse au public le temps de suivre et à vous le temps de respirer."
       }
     ],
     "videos": [
       {
-        "title": "Rendre son discours plus vivant sans surjouer",
-        "url": "https://www.youtube.com/watch?v=MuTuS9Yxtk0",
-        "instruction": "Regardez pour choisir un seul levier d’attention. Ne transformez pas votre discours en spectacle.",
-        "observationQuestion": "Quel levier peut rendre votre message plus facile à suivre : exemple, pause, variation de voix ou question ?",
-        "exercise": "Ajoutez un exemple concret et une pause dans une partie de votre intervention.",
-        "action": "Marquez ce levier sur votre fiche avec un symbole simple."
+        "title": "Workshop — La parole en public, l’éloquence n’est pas un don",
+        "url": "https://youtu.be/4po9h1uYmh4",
+        "durationLabel": "Extrait conseillé : 0:00 à 6:00",
+        "instruction": "Regardez cet extrait comme une observation : l’éloquence se travaille, elle ne remplace pas votre méthode.",
+        "observationQuestion": "Quel élément rend une parole plus vivante sans la rendre artificielle ?",
+        "exercise": "Ajoutez un exemple, une pause ou une image à une idée de votre plan.",
+        "action": "Gardez deux leviers maximum sur votre fiche."
       }
     ],
     "exercise": {
       "title": "Ajouter deux leviers de présence",
-      "duration": "40 à 50 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "plan",
-        "téléphone ou miroir",
-        "fiche présence"
+        "fil rouge",
+        "message central"
       ],
       "steps": [
-        "Relisez votre plan et repérez les moments importants.",
-        "Choisissez un exemple concret pour rendre une idée plus visible.",
-        "Ajoutez une pause après une phrase importante.",
-        "Choisissez un geste simple qui accompagne le sens.",
-        "Dites une partie de votre discours en testant ces leviers.",
-        "Gardez seulement ce qui vous aide à être plus clair."
+        "Choisissez une idée importante.",
+        "Ajoutez un exemple concret ou une image.",
+        "Ajoutez une pause à un endroit précis.",
+        "Testez une variation de voix ou de rythme.",
+        "Gardez seulement les deux leviers les plus naturels."
       ]
     },
     "observableCriteria": [
-      "J’ai choisi deux leviers maximum.",
-      "Ces leviers servent la clarté du message.",
-      "Je ne cherche pas à surjouer."
+      "J’ai ajouté un exemple ou une image.",
+      "J’ai placé une pause utile.",
+      "Je n’ai pas surchargé mon discours."
     ],
     "worksheet": {
       "title": "Fiche discours vivant",
-      "description": "Support pour rendre le discours plus incarné sans perdre la simplicité.",
+      "description": "Rendre une intervention plus incarnée sans perdre la structure.",
       "sections": [
         {
-          "title": "Moments clés",
+          "title": "Idées à rendre vivantes",
           "prompts": [
-            "Phrase importante",
-            "Exemple concret",
-            "Pause à marquer"
+            "Idée qui mérite un exemple",
+            "Exemple choisi",
+            "Image ou comparaison possible"
           ]
         },
         {
           "title": "Présence",
           "prompts": [
-            "Geste utile",
-            "Regard ou adresse",
-            "Rythme à ralentir"
+            "Pause à placer",
+            "Mot à appuyer",
+            "Geste ou regard utile"
           ]
         },
         {
           "title": "Tri",
           "prompts": [
-            "Ce que je garde",
-            "Ce que je retire",
-            "Ce qui reste naturel"
+            "Levier retenu 1",
+            "Levier retenu 2",
+            "Ce que je retire car cela surjoue"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Vos leviers rendent-ils le discours plus clair ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "J’en ai ajouté trop"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai deux leviers utiles"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je sens plus de présence sans forcer"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Travaillez un levier à la fois : la clarté avant l’effet.",
-    "shortChallenge": "Dites une phrase importante avec une pause avant et après.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "35 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 6,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 5,
+      "totalMinutes": 35,
+      "justification": "lecture 4 min, extrait workshop 0:00-6:00, questionnaire clarté/vivant 5 min, exercice 15 min, ajustement final 5 min"
+    },
+    "questionnaire": {
+      "title": "Mini-test : mon discours est-il vivant ?",
+      "intro": "Vérifiez que vous rendez le message plus clair sans surcharger. Ce n’est pas un diagnostic.",
+      "questions": [
+        {
+          "text": "J’ai au moins un exemple concret.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "J’ai prévu une pause importante.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Mes mots restent simples.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je sais quelle idée doit être mise en valeur.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        }
+      ],
+      "ranges": [
+        {
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
+        },
+        {
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
+        }
+      ]
+    }
   },
   {
     "id": "module-9",
     "title": "Réussir ma conclusion",
-    "actionLabel": "Préparer ma fin",
-    "objective": "Construire une conclusion courte qui rappelle l’essentiel et donne une sortie claire.",
-    "methodOutcome": "J’ai une conclusion qui résume le message, donne une dernière direction et évite la fin qui s’éteint.",
+    "actionLabel": "Écrire ma sortie",
+    "objective": "Préparer les derniers mots pour synthétiser, ouvrir et remercier clairement.",
+    "methodOutcome": "J’ai trois versions de conclusion et une phrase finale mémorisable.",
     "sourceMaterials": [
-      "Conclusion",
-      "Dernière phrase"
+      "Exercice n°5b — Soignez la conclusion"
     ],
     "lesson": [
-      "La conclusion est l’écho final de votre intervention.",
-      "Elle ne sert pas à tout répéter. Elle rappelle l’essentiel, ouvre une suite et remercie le public si c’est pertinent.",
-      "Une conclusion préparée évite les fins qui s’éteignent : « voilà », « j’ai fini », « désolé si c’était long ».",
-      "Vous pouvez conclure avec trois mouvements : synthèse, ouverture, remerciement ou invitation.",
-      "La dernière phrase doit être assumée et courte.",
-      "Pour 3 à 5 minutes, 20 à 40 secondes suffisent souvent."
+      "La conclusion reste souvent dans la mémoire du public.",
+      "Elle doit rappeler l’essentiel, ouvrir sur la suite et remercier ou inviter à l’échange.",
+      "Comme pour l’introduction, préparer plusieurs versions évite la fin précipitée.",
+      "La conclusion doit faire revenir le sentiment principal : motivation, confiance, adhésion, envie d’agir.",
+      "Une bonne fin est courte, claire et assumée."
     ],
     "keyIdeas": [
       {
-        "title": "Boucle fermée",
-        "body": "La fin renvoie au message central et au besoin du public."
+        "title": "Synthèse",
+        "body": "La conclusion rappelle l’idée principale sans refaire tout le discours."
+      },
+      {
+        "title": "Ouverture",
+        "body": "Elle indique la suite : décision, action, question, rendez-vous ou réflexion."
       },
       {
         "title": "Dernière phrase",
-        "body": "Elle doit être simple, assumée et facile à dire."
-      },
-      {
-        "title": "Sortie claire",
-        "body": "Vous terminez au lieu de vous excuser ou de prolonger inutilement."
+        "body": "La dernière phrase doit être facile à dire et à retenir."
       }
     ],
     "exercise": {
       "title": "Écrire trois conclusions possibles",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "plan",
         "message central",
-        "fiche conclusion"
+        "fil rouge"
       ],
       "steps": [
-        "Écrivez une version “synthèse”. Exemple : « Si vous ne gardez qu’une chose, c’est que… ».",
-        "Écrivez une version “ouverture”. Exemple : « La prochaine étape, maintenant, c’est… ».",
-        "Écrivez une version “merci + échange”. Exemple : « Merci pour votre attention. Je suis prêt à répondre à vos questions. ».",
-        "Choisissez la conclusion qui sert le mieux votre objectif SMART.",
-        "Écrivez votre dernière phrase exacte.",
-        "Répétez la conclusion avec une pause avant la dernière phrase."
+        "Écrivez une conclusion de synthèse.",
+        "Écrivez une conclusion ouverte vers l’avenir.",
+        "Écrivez une conclusion avec remerciement et invitation aux questions.",
+        "Lisez les trois versions à voix haute.",
+        "Choisissez votre phrase finale."
       ]
     },
     "observableCriteria": [
-      "Ma conclusion rappelle l’essentiel.",
-      "Elle donne une sortie claire.",
-      "Je connais ma dernière phrase."
+      "J’ai écrit trois conclusions.",
+      "J’ai une phrase finale claire.",
+      "Ma conclusion rappelle le message central."
     ],
     "worksheet": {
       "title": "Fiche conclusion",
-      "description": "Support pour préparer une fin claire et assumée.",
+      "description": "Préparer trois fins possibles et choisir une phrase finale claire.",
       "sections": [
         {
-          "title": "Mes trois fins possibles",
+          "title": "Trois exemples de phrases",
           "prompts": [
-            "Version synthèse",
-            "Version ouverture",
-            "Version remerciement / échange"
+            "Ainsi, l’idée essentielle à retenir est…",
+            "À partir de maintenant, nous pouvons…",
+            "Merci pour votre attention. Je suis prêt à répondre à vos questions sur…"
           ]
         },
         {
-          "title": "Choix final",
+          "title": "Ma conclusion",
           "prompts": [
-            "Conclusion choisie",
-            "Sentiment final à laisser",
-            "Dernière phrase exacte"
-          ]
-        },
-        {
-          "title": "Nettoyage",
-          "prompts": [
-            "Formules d’excuse à supprimer",
-            "Ce qui est trop long",
-            "Version finale en 20 à 40 secondes"
+            "Version retenue",
+            "Émotion ou énergie à laisser",
+            "Phrase finale exacte"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre conclusion est-elle claire ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Elle se disperse encore"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Elle ferme bien le discours"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux terminer sans m’excuser"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Répétez la dernière phrase jusqu’à pouvoir la dire calmement.",
-    "shortChallenge": "Dites uniquement votre conclusion en 30 secondes.",
-    "estimatedDuration": "45 à 60 minutes",
-    "videos": [
-      {
-        "title": "Terminer un discours : exemples de conclusions",
-        "url": "https://www.youtube.com/watch?v=703-p4q0Nsw",
-        "instruction": "Regardez pour comparer plusieurs façons de finir, puis choisissez une conclusion sobre et adaptée à votre public.",
-        "observationQuestion": "Quelle fin donne le plus envie de retenir ou de faire quelque chose ?",
-        "exercise": "Écrivez une version synthèse, une version ouverture et une version invitation.",
-        "action": "Gardez la dernière phrase la plus claire et répétez-la avec une pause."
-      }
-    ]
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "30 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 3,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 0,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 12,
+      "totalMinutes": 30,
+      "justification": "lecture 3 min, exercice principal 15 min, lecture à voix haute et phrase finale 12 min"
+    }
   },
   {
     "id": "module-10",
     "title": "Préparer ma fiche de prise de parole",
     "actionLabel": "Construire ma fiche finale",
-    "objective": "Rassembler les éléments utiles dans une fiche courte qui aide à parler sans lire un texte complet.",
-    "methodOutcome": "J’ai une fiche finale claire : objectif, public, message central, plan, introduction, conclusion et repères de présence.",
+    "objective": "Transformer le plan en fiche utilisable pendant l’oral, sans rédiger tout le texte.",
+    "methodOutcome": "J’ai une fiche de prise de parole avec objectif, message, plan, mots-clés et transitions.",
     "sourceMaterials": [
-      "Fiche de prise de parole",
-      "Mots-clés"
+      "Exercice n°34 — Préparez vos fiches"
     ],
     "lesson": [
-      "Votre fiche n’est pas un texte à lire. C’est un outil pour retrouver votre fil.",
-      "Préparez une fiche par grande séquence ou une page très aérée.",
-      "Écrivez gros, utilisez de la couleur et gardez seulement les mots-clés.",
-      "Numérotez les parties et marquez les transitions importantes.",
-      "Ajoutez vos repères : première phrase, dernière phrase, pause, respiration, exemple à ne pas oublier.",
-      "N’écrivez pas au verso si cela vous oblige à chercher partout.",
-      "Levez les yeux : la fiche vous soutient, elle ne remplace pas votre présence."
+      "La fiche n’est pas un script. Elle sert à garder le cap sans lire.",
+      "Elle contient votre objectif, votre public, votre message central, votre fil rouge, vos transitions et quelques mots-clés.",
+      "Les fiches efficaces sont lisibles : gros, aérées, numérotées, avec de la couleur si besoin.",
+      "Une fiche par grande séquence suffit souvent.",
+      "Le but est de pouvoir lever les yeux et rester en lien avec le public."
     ],
     "keyIdeas": [
       {
-        "title": "Fiche repère",
-        "body": "Elle guide votre parole sans la remplacer."
+        "title": "Pas un texte",
+        "body": "Plus vous rédigez, plus vous risquez de lire."
       },
       {
         "title": "Mots-clés",
-        "body": "Ils déclenchent les idées au lieu de vous pousser à lire."
+        "body": "Les mots-clés déclenchent la mémoire sans enfermer la parole."
       },
       {
-        "title": "Signaux personnels",
-        "body": "Quelques symboles peuvent rappeler une pause, un regard ou une respiration."
+        "title": "Lisibilité",
+        "body": "Une fiche utile doit être comprise en un coup d’œil."
       }
     ],
     "exercise": {
       "title": "Construire ma fiche finale",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "toutes les fiches précédentes",
-        "feuille A4 ou cartes"
+        "fiches bristol ou feuille A4",
+        "feutres",
+        "plan Post-it"
       ],
       "steps": [
-        "Rassemblez votre objectif SMART, votre grille “Parler à tous”, votre fil rouge Post-it, votre introduction et votre conclusion.",
-        "Choisissez un format : une page A4 aérée ou plusieurs cartes numérotées.",
-        "Écrivez les grandes parties et les transitions.",
-        "Remplacez les phrases longues par des mots-clés.",
-        "Ajoutez des repères visuels : pause, regard, respiration, exemple.",
-        "Testez la fiche une minute à voix haute en levant les yeux régulièrement."
+        "Numérotez vos grandes séquences.",
+        "Notez seulement les mots-clés utiles.",
+        "Ajoutez vos transitions principales.",
+        "Ajoutez introduction et conclusion en version courte.",
+        "Testez la fiche en parlant sans lire de phrases complètes."
       ]
     },
     "observableCriteria": [
-      "Ma fiche ne contient pas un texte complet.",
-      "Je retrouve facilement le fil.",
-      "Les repères visuels m’aident à parler plus clairement."
+      "Ma fiche ne contient pas de texte complet.",
+      "Je retrouve le fil rouge rapidement.",
+      "Je peux parler en levant les yeux."
     ],
     "worksheet": {
-      "title": "Fiche finale de prise de parole",
-      "description": "Support central à utiliser pour votre répétition et votre vidéo finale.",
+      "title": "Fiche de prise de parole",
+      "description": "Assembler les éléments produits depuis le début en une fiche utilisable.",
       "sections": [
         {
-          "title": "Mes repères essentiels",
+          "title": "Repères principaux",
           "prompts": [
             "Objectif SMART",
-            "Public : retenir / comprendre / ressentir",
-            "Message central"
+            "Public",
+            "Message central",
+            "Trois idées essentielles"
           ]
         },
         {
-          "title": "Mon fil rouge",
+          "title": "Plan",
           "prompts": [
-            "Première phrase",
-            "Partie 1",
-            "Transition",
-            "Partie 2",
-            "Partie 3 si nécessaire",
-            "Dernière phrase"
+            "Introduction courte",
+            "Séquence 1",
+            "Séquence 2",
+            "Séquence 3",
+            "Conclusion courte"
           ]
         },
         {
-          "title": "Mes signes visuels",
+          "title": "Aides mémoire",
           "prompts": [
-            "Pause",
-            "Regard",
-            "Respiration",
-            "Exemple important",
-            "Ce que je dois alléger"
+            "Transitions",
+            "Mots-clés",
+            "Phrase d’appui anti-trac",
+            "Temps prévu"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre fiche vous aide-t-elle à parler ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Elle ressemble encore à un texte complet"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "Elle me sert de guide"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux parler avec cette fiche sans tout lire"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Une fiche trop remplie donne envie de lire. Allégez-la avant de répéter.",
-    "shortChallenge": "Dites votre plan complet en utilisant uniquement les mots-clés.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "35 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 0,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 11,
+      "totalMinutes": 35,
+      "justification": "lecture 4 min, checklist fiche 5 min, exercice principal 15 min, test oral avec fiche 11 min"
+    },
+    "questionnaire": {
+      "title": "Checklist : ma fiche est-elle utilisable ?",
+      "intro": "Vérifiez que votre fiche aide à parler au lieu de vous pousser à lire. Ce n’est pas un diagnostic.",
+      "questions": [
+        {
+          "text": "Ma fiche contient surtout des mots-clés.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je vois les transitions rapidement.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "L’introduction et la conclusion tiennent en peu de mots.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je peux lever les yeux régulièrement.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        }
+      ],
+      "ranges": [
+        {
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
+        },
+        {
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
+        }
+      ]
+    }
   },
   {
     "id": "module-11",
     "title": "Répéter efficacement",
-    "actionLabel": "Organiser ma répétition",
-    "objective": "Répéter votre prise de parole avec méthode, sans chercher à réciter parfaitement.",
-    "methodOutcome": "J’ai une checklist de répétition et une version prête à filmer en 3 à 5 minutes.",
+    "actionLabel": "Faire une répétition utile",
+    "objective": "Répéter pour ajuster la clarté, le rythme et l’usage de la fiche, sans chercher une récitation parfaite.",
+    "methodOutcome": "J’ai fait une répétition filmée ou chronométrée et j’ai choisi trois corrections simples.",
     "sourceMaterials": [
-      "Répétition générale",
-      "Imitation utile"
+      "Exercice n°50 — Répétition générale",
+      "Pascal Haumont"
     ],
     "lesson": [
-      "Répéter efficacement ne veut pas dire répéter jusqu’à se bloquer.",
-      "La répétition sert à stabiliser le chemin, le temps, le début, la fin et les passages fragiles.",
-      "Commencez par répéter le plan, puis les transitions, puis l’ensemble.",
-      "Filmez ou enregistrez une répétition courte pour vérifier la durée et la clarté.",
-      "Ne corrigez pas tout à la fois. Choisissez un critère par passage.",
-      "Acceptez une parole vivante : elle peut varier sans perdre le fil.",
-      "La répétition finale doit vous donner un plan d’action, pas une liste infinie de défauts."
+      "Répéter efficacement ne veut pas dire apprendre un texte par cœur.",
+      "Vous répétez pour tester le fil rouge, le temps, les transitions et la fiche.",
+      "La vidéo ou le public cobaye sert à observer des critères simples : structure, clarté, pauses, regard, voix, supports.",
+      "La vidéo de Pascal Haumont est conservée ici : imiter peut aider à apprendre, si l’on imite un procédé et non une personnalité entière.",
+      "Après la répétition, vous choisissez trois corrections maximum."
     ],
     "keyIdeas": [
       {
-        "title": "Répétition progressive",
-        "body": "Plan, morceaux, ensemble : on construit avant de chercher la fluidité."
+        "title": "Répétition ciblée",
+        "body": "On ne répète pas tout pour tout corriger : on cible quelques critères."
       },
       {
-        "title": "Un critère à la fois",
-        "body": "Clarté, durée, rythme ou regard : choisissez un axe par répétition."
+        "title": "Imitation utile",
+        "body": "Observer d’autres orateurs donne des idées de procédés : pause, rythme, regard, entrée."
       },
       {
-        "title": "Droit à la variation",
-        "body": "Vous n’avez pas besoin de réciter exactement les mêmes mots pour rester clair."
+        "title": "Trois corrections",
+        "body": "Trop de corrections rendent la progression confuse. Trois suffisent."
       }
     ],
     "videos": [
       {
-        "title": "Pascal Haumont — imiter les autres pour progresser",
+        "title": "Pascal Haumont — Devenir un meilleur orateur : imiter les autres",
         "url": "https://www.youtube.com/watch?v=3LCIQj5Bf7E",
-        "instruction": "Regardez cette vidéo comme un outil d’observation : vous ne copiez pas une personne, vous testez un détail utile.",
-        "observationQuestion": "Quel détail observable pouvez-vous tester : pause, regard, énergie, articulation ou rythme ?",
-        "exercise": "Choisissez une minute de votre discours et testez ce détail une seule fois.",
-        "action": "Gardez ce détail uniquement s’il rend votre message plus clair et plus naturel."
+        "durationLabel": "Extrait conseillé : 0:00 à 5:00",
+        "instruction": "Regardez l’extrait pour repérer un procédé à imiter : pause, rythme, regard, construction, pas la personnalité entière.",
+        "observationQuestion": "Quel procédé simple pourriez-vous tester dans votre répétition ?",
+        "exercise": "Refaites une minute de votre discours en testant ce procédé.",
+        "action": "Gardez ou retirez ce procédé selon votre naturel."
       }
     ],
     "exercise": {
       "title": "Faire une répétition générale utile",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
         "fiche finale",
         "chronomètre",
-        "téléphone ou webcam"
+        "téléphone ou public cobaye"
       ],
       "steps": [
-        "Répétez le plan sans développer.",
-        "Répétez l’introduction seule.",
-        "Répétez la conclusion seule.",
-        "Faites une version complète chronométrée.",
-        "Testez un détail observé chez un bon orateur, sans copier sa personnalité.",
-        "Notez un point clair, un passage fragile et une correction prioritaire.",
-        "Refaites seulement le passage fragile, puis arrêtez la répétition."
+        "Répétez votre intervention avec la fiche.",
+        "Chronométrez sans vous interrompre.",
+        "Filmez ou demandez un retour simple.",
+        "Cochez trois critères à améliorer.",
+        "Refaites seulement l’introduction et une transition."
       ]
     },
     "observableCriteria": [
-      "Je respecte une durée de 3 à 5 minutes.",
-      "Je connais mon début et ma fin.",
-      "Je choisis une correction prioritaire au lieu de tout corriger."
+      "J’ai répété avec ma fiche.",
+      "J’ai observé des critères simples.",
+      "J’ai choisi trois corrections maximum."
     ],
     "worksheet": {
       "title": "Checklist de répétition",
-      "description": "Support pour organiser les essais et éviter la répétition confuse.",
+      "description": "Observer une répétition sans chercher une analyse complète.",
       "sections": [
         {
-          "title": "Avant de répéter",
+          "title": "Rigueur et synthèse",
           "prompts": [
-            "Objectif relu",
-            "Message central relu",
-            "Fiche allégée"
+            "Le discours est structuré",
+            "Les points essentiels sont mis en avant",
+            "Le temps est respecté"
           ]
         },
         {
-          "title": "Pendant",
+          "title": "Communication",
           "prompts": [
-            "Durée",
-            "Début",
-            "Transitions",
-            "Conclusion",
-            "Pause ou respiration"
+            "Phrases courtes",
+            "Vocabulaire clair",
+            "Pauses utiles",
+            "Volume adapté"
           ]
         },
         {
-          "title": "Après",
+          "title": "Après répétition",
           "prompts": [
-            "Ce qui fonctionne",
-            "Passage fragile",
-            "Correction prioritaire",
-            "Prochaine répétition"
+            "Correction 1",
+            "Correction 2",
+            "Correction 3",
+            "Ce que je garde"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Votre répétition vous fait-elle avancer ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Je corrige trop de choses à la fois"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai une version prête à filmer"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je peux répéter sans me bloquer"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Arrêtez une répétition quand vous avez identifié une correction utile. Continuer trop longtemps peut brouiller le travail.",
-    "shortChallenge": "Répétez seulement l’introduction et la conclusion, puis faites une pause.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "36 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 7,
+      "totalMinutes": 36,
+      "justification": "lecture 4 min, extrait Pascal Haumont 5 min, checklist 5 min, répétition principale 15 min, trois corrections 7 min"
+    },
+    "questionnaire": {
+      "title": "Checklist : ma répétition est-elle utile ?",
+      "intro": "Le résultat donne une priorité de répétition, pas une notation de performance. Ce n’est pas un diagnostic.",
+      "questions": [
+        {
+          "text": "J’ai respecté le temps prévu.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Mon fil rouge reste clair.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "J’utilise la fiche sans lire.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "J’ai identifié trois corrections maximum.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        }
+      ],
+      "ranges": [
+        {
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
+        },
+        {
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
+        }
+      ]
+    }
   },
   {
     "id": "module-12",
     "title": "Bilan et progression",
-    "actionLabel": "Filmer ma vidéo finale et faire le bilan",
-    "objective": "Comparer votre vidéo de départ et votre vidéo finale pour identifier vos progrès et votre prochain pas.",
-    "methodOutcome": "J’ai une vidéo finale, une auto-évaluation, trois progrès observables et un plan d’action personnel.",
+    "actionLabel": "Comparer et décider du prochain pas",
+    "objective": "Filmer une version finale, comparer avec le point de départ et définir un plan d’action réaliste.",
+    "methodOutcome": "J’ai une vidéo finale, une auto-évaluation et un plan d’action pour mes prochaines prises de parole.",
     "sourceMaterials": [
-      "Bilan final",
-      "Plan d’action"
+      "Exercice n°50 — Répétition générale",
+      "Bilan final"
     ],
     "lesson": [
-      "Le bilan final sert à mesurer une progression, pas à distribuer une note.",
-      "Reprenez le même format que la vidéo de départ : 3 à 5 minutes, sujet préparé, plan fixe si possible.",
-      "Comparez des critères concrets : clarté du message, structure, rythme, gestion du trac, présence.",
-      "Cherchez d’abord les progrès. Le cerveau repère souvent plus vite les défauts que les avancées.",
-      "Choisissez ensuite un seul axe prioritaire pour la suite.",
-      "Votre plan d’action doit être réaliste : une routine, une fiche, une prochaine situation, un point de vigilance.",
-      "Pour un retour précis sur votre posture, votre voix, votre regard ou votre discours, l’étape suivante est l’accompagnement individuel."
+      "Le bilan final ne cherche pas la perfection. Il mesure ce qui est plus clair, plus préparé et plus présent.",
+      "Vous refilmez une prise de parole de 3 à 5 minutes avec la méthode complète.",
+      "Vous comparez avec la vidéo de départ sur quelques critères simples : message, structure, rythme, regard, fiche, gestion du trac.",
+      "Vous notez les progrès visibles et un prochain axe réaliste.",
+      "Pour une correction fine de posture, voix, regard ou enjeu professionnel, il faut un accompagnement individuel et personnalisé."
     ],
     "keyIdeas": [
       {
-        "title": "Comparaison juste",
-        "body": "On compare deux traces vidéo avec les mêmes critères, pas deux ressentis du moment."
+        "title": "Comparaison",
+        "body": "La progression se voit mieux en comparant deux repères qu’en jugeant une seule prestation."
       },
       {
-        "title": "Progrès visibles",
-        "body": "Un progrès peut être petit : début plus clair, plan plus net, débit plus stable, fin plus assumée."
+        "title": "Plan d’action",
+        "body": "Le parcours se termine avec une méthode réutilisable, pas avec une note."
       },
       {
-        "title": "Prochain pas",
-        "body": "Le parcours se termine avec une action réelle à venir, pas avec une perfection théorique."
+        "title": "Limite claire",
+        "body": "La formule guidée transmet la méthode ; le regard humain transforme plus finement la personne."
       }
     ],
     "exercise": {
       "title": "Filmer, comparer et décider du prochain pas",
-      "duration": "45 à 60 minutes",
+      "duration": "15 minutes",
       "materials": [
-        "fiche finale",
         "vidéo de départ",
-        "téléphone ou webcam",
-        "grille de bilan"
+        "fiche finale",
+        "téléphone ou webcam"
       ],
       "steps": [
-        "Relisez votre fiche finale et votre routine anti-trac.",
-        "Filmez votre prise de parole de 3 à 5 minutes.",
-        "Regardez la vidéo après une courte pause.",
-        "Comparez avec la vidéo de départ sur trois critères.",
-        "Notez trois progrès visibles et un axe prioritaire.",
-        "Écrivez votre plan d’action final pour votre prochain oral réel."
+        "Filmez une nouvelle prise de parole de 3 à 5 minutes.",
+        "Comparez-la à la vidéo de départ sur cinq critères simples.",
+        "Notez trois progrès visibles.",
+        "Notez un axe à travailler ensuite.",
+        "Écrivez votre plan d’action pour une prochaine vraie prise de parole."
       ]
     },
     "observableCriteria": [
-      "La vidéo finale dure 3 à 5 minutes.",
-      "Je peux nommer trois progrès visibles.",
-      "J’ai choisi un seul axe prioritaire.",
-      "J’ai un plan d’action réutilisable."
+      "J’ai réalisé une vidéo finale.",
+      "J’ai comparé avec la vidéo de départ.",
+      "J’ai un plan d’action simple."
     ],
     "worksheet": {
-      "title": "Grille de bilan final",
-      "description": "Support pour comparer les deux vidéos et repartir avec un plan d’action simple.",
+      "title": "Bilan final et plan d’action",
+      "description": "Comparer votre progression et repartir avec une méthode réutilisable.",
       "sections": [
         {
-          "title": "Comparaison",
+          "title": "Comparaison vidéo",
           "prompts": [
-            "Ce qui a changé depuis la vidéo de départ",
-            "Trois progrès visibles",
-            "Un point encore fragile"
+            "Ce qui est plus clair",
+            "Ce qui est mieux structuré",
+            "Ce qui est plus présent",
+            "Ce qui reste à travailler"
           ]
         },
         {
-          "title": "Critères",
+          "title": "Progression",
           "prompts": [
-            "Clarté du message",
-            "Structure",
-            "Rythme",
-            "Gestion du trac",
-            "Présence"
-          ]
-        },
-        {
-          "title": "Plan d’action final",
-          "prompts": [
-            "Mon prochain oral réel",
-            "Ma routine de préparation",
+            "Mes trois progrès visibles",
             "Mon axe prioritaire",
-            "Ce que je garde de la méthode"
+            "Situation réelle où je vais réutiliser la méthode"
+          ]
+        },
+        {
+          "title": "Plan d’action",
+          "prompts": [
+            "Avant mon prochain oral, je préparerai…",
+            "Pendant mon oral, je surveillerai…",
+            "Après mon oral, j’observerai…"
           ]
         }
       ]
     },
     "selfAssessment": {
-      "prompt": "Que montre votre bilan final ?",
+      "prompt": "Où en êtes-vous à la fin de ce module ?",
       "options": [
         {
           "value": "a-revoir",
-          "label": "Je dois refaire une comparaison plus calme"
+          "label": "Je dois reprendre calmement"
         },
         {
           "value": "pret",
-          "label": "J’ai identifié mes progrès et mon prochain axe"
+          "label": "J’ai produit le livrable attendu"
         },
         {
           "value": "solide",
-          "label": "Je vois clairement ce qui a changé"
+          "label": "Je peux le réutiliser dans une vraie prise de parole"
         }
       ]
     },
-    "rhythmTip": "Gardez votre fiche finale : elle devient votre modèle pour les prochaines prises de parole.",
-    "shortChallenge": "Choisissez dès maintenant une occasion réelle pour réutiliser la méthode.",
-    "estimatedDuration": "45 à 60 minutes"
+    "rhythmTip": "Gardez une trace simple de ce que vous venez de produire avant de passer à la suite.",
+    "shortChallenge": "Relisez votre fiche une fois à voix haute avant le prochain module.",
+    "estimatedDuration": "31 minutes",
+    "durationBreakdown": {
+      "readingMinutes": 4,
+      "videoMinutes": 5,
+      "questionnaireMinutes": 5,
+      "exerciseMinutes": 15,
+      "integrationMinutes": 2,
+      "totalMinutes": 31,
+      "justification": "lecture 4 min, vidéo finale 3 à 5 minutes comptée 5 min, questionnaire final 5 min, exercice principal 15 min, plan d’action 2 min"
+    },
+    "questionnaire": {
+      "title": "Auto-évaluation finale",
+      "intro": "Ce bilan aide à choisir le prochain pas. Il ne remplace pas un retour personnalisé.",
+      "questions": [
+        {
+          "text": "Mon message central est plus clair.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Ma structure est plus facile à suivre.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je gère mieux le début malgré le trac.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        },
+        {
+          "text": "Je sais quoi travailler ensuite.",
+          "options": [
+            "oui",
+            "partiellement",
+            "non"
+          ]
+        }
+      ],
+      "ranges": [
+        {
+          "max": 7,
+          "label": "Point d’appui simple",
+          "advice": "Choisissez une seule action concrète à tester."
+        },
+        {
+          "max": 11,
+          "label": "Zone de travail prioritaire",
+          "advice": "Gardez la méthode et avancez par petites étapes."
+        },
+        {
+          "max": 99,
+          "label": "Besoin de sécuriser davantage",
+          "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
+        }
+      ]
+    }
   }
 ];
 
@@ -1689,7 +1944,7 @@ const BONUS_ITEMS = [
     "duration": "5 à 12 minutes",
     "objective": "Transformer un trou ou une hésitation en pause gérable.",
     "simpleTip": "Quand un blanc arrive, respirez, regardez votre fiche, puis repartez avec la dernière idée claire.",
-    "shortExercise": "Entraînez-vous à dire volontairement une phrase, à faire deux secondes de silence, puis à reprendre avec « je reprends » ou « l’idée importante est… ».",
+    "shortExercise": "Entraînez-vous à dire volontairement une phrase, à faire deux secondes de silence, puis à reprendre avec “je reprends” ou “l’idée importante est…”.",
     "action": "Ajoutez sur votre fiche une phrase de reprise courte que vous acceptez d’utiliser.",
     "reminder": "Un blanc court paraît souvent plus long pour celui qui parle que pour le public."
   },
@@ -1711,7 +1966,7 @@ const BONUS_ITEMS = [
     "simpleTip": "Une diapositive doit aider le public à suivre une idée, pas remplacer votre parole.",
     "shortExercise": "Prenez une diapositive existante et réduisez-la à un titre, une idée forte et un exemple ou visuel.",
     "action": "Pour votre prochain support, gardez une seule idée principale par diapositive.",
-    "reminder": "Un support simple sert votre message central ; il ne doit pas devenir le méthode elle-même."
+    "reminder": "Un support simple sert votre message central ; il ne doit pas devenir la méthode elle-même."
   }
 ];
 

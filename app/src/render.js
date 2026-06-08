@@ -70,6 +70,34 @@ function renderInlineList(items, className = '') {
   </ul>`;
 }
 
+
+function renderDurationBreakdown(breakdown) {
+  if (!breakdown || typeof breakdown !== 'object') {
+    return '';
+  }
+
+  const rows = [
+    ['Lecture guidée', breakdown.readingMinutes],
+    ['Vidéos ou extraits intégrés', breakdown.videoMinutes],
+    ['Questionnaire', breakdown.questionnaireMinutes],
+    ['Exercice principal', breakdown.exerciseMinutes],
+    ['Mise au propre / fiche', breakdown.integrationMinutes],
+  ].filter(([, minutes]) => Number(minutes) > 0);
+
+  if (rows.length === 0) {
+    return '';
+  }
+
+  return `<article class="duration-card">
+    <p class="section-label">Durée estimée</p>
+    <h3>${escapeHtml(String(breakdown.totalMinutes || ''))} minutes</h3>
+    <ul class="duration-list">
+      ${rows.map(([label, minutes]) => `<li><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(minutes))} min</strong></li>`).join('')}
+    </ul>
+    ${breakdown.justification ? `<p class="module-meta">${escapeHtml(breakdown.justification)}</p>` : ''}
+  </article>`;
+}
+
 function renderKeyIdeas(ideas) {
   if (!Array.isArray(ideas) || ideas.length === 0) {
     return '';
@@ -652,6 +680,7 @@ function renderModule(snapshot, { message = '' } = {}) {
         </ul>
       </article>
       ${renderKeyIdeas(selectedModule.keyIdeas)}
+      ${renderDurationBreakdown(selectedModule.durationBreakdown)}
       ${renderPedagogicalVideos(selectedModule.videos)}
       ${renderQuestionnaire(selectedModule.questionnaire, selectedModule.id)}
       <article>
