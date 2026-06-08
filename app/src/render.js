@@ -88,6 +88,12 @@ function renderKeyIdeas(ideas) {
   </article>`;
 }
 
+function getYoutubeId(url = '') {
+  const value = String(url || '');
+  const match = value.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return match ? match[1] : '';
+}
+
 function renderPedagogicalVideos(videos) {
   if (!Array.isArray(videos) || videos.length === 0) {
     return '';
@@ -95,19 +101,78 @@ function renderPedagogicalVideos(videos) {
 
   return `<article class="wide-card video-card">
     <p class="section-label">Vidéo guidée</p>
-    <p class="module-meta">Une vidéo n’est jamais à regarder seule : elle sert une observation, un exercice et une action concrète.</p>
+    <p class="module-meta">La vidéo reste dans le module. Regardez-la avec une consigne précise, puis passez à l’action.</p>
     <div class="video-list">
-      ${videos.map((video) => `
+      ${videos.map((video) => {
+        const youtubeId = getYoutubeId(video.url);
+        return `
         <section class="guided-video">
-          <h3><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(video.title)}</a></h3>
+          <h3>${escapeHtml(video.title)}</h3>
+          ${youtubeId ? `<div class="video-embed"><iframe title="${escapeHtml(video.title)}" src="https://www.youtube-nocookie.com/embed/${escapeHtml(youtubeId)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>` : `<p><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">Ouvrir la vidéo</a></p>`}
           <p><strong>Consigne :</strong> ${escapeHtml(video.instruction)}</p>
           <p><strong>Question d’observation :</strong> ${escapeHtml(video.observationQuestion)}</p>
           <p><strong>Exercice :</strong> ${escapeHtml(video.exercise)}</p>
           <p><strong>Action concrète :</strong> ${escapeHtml(video.action)}</p>
-        </section>
-      `).join('')}
+        </section>`;
+      }).join('')}
     </div>
   </article>`;
+}
+
+function renderQuestionnaire(questionnaire, moduleId) {
+  if (!questionnaire || !Array.isArray(questionnaire.questions) || questionnaire.questions.length === 0) {
+    return '';
+  }
+
+  const ranges = JSON.stringify(questionnaire.ranges || []);
+  return `<article class="wide-card questionnaire-card" data-questionnaire data-ranges="${escapeHtml(ranges)}">
+    <p class="section-label">Questionnaire guidé</p>
+    <h3>${escapeHtml(questionnaire.title)}</h3>
+    <p>${escapeHtml(questionnaire.intro || 'Répondez simplement, puis lisez la piste de travail proposée.')}</p>
+    ${questionnaire.questions.map((question, questionIndex) => `
+      <fieldset class="questionnaire-question">
+        <legend>${escapeHtml(question.text)}</legend>
+        ${(question.options || []).map((option, optionIndex) => `
+          <label class="choice">
+            <input type="radio" name="${escapeHtml(moduleId)}-question-${questionIndex}" value="${optionIndex + 1}">
+            <span>${escapeHtml(option)}</span>
+          </label>
+        `).join('')}
+      </fieldset>
+    `).join('')}
+    <button class="secondary-button" type="button" data-questionnaire-button>Voir ma piste de travail</button>
+    <p class="questionnaire-result" data-questionnaire-result aria-live="polite">Répondez aux questions pour afficher une piste de travail.</p>
+  </article>`;
+}
+
+function renderQuestionnaireScript() {
+  return `<script>
+    document.querySelectorAll('[data-questionnaire]').forEach((card) => {
+      const button = card.querySelector('[data-questionnaire-button]');
+      const result = card.querySelector('[data-questionnaire-result]');
+      if (!button || !result) return;
+      button.addEventListener('click', () => {
+        const groups = new Map();
+        card.querySelectorAll('input[type="radio"]').forEach((input) => {
+          if (!groups.has(input.name)) groups.set(input.name, []);
+          groups.get(input.name).push(input);
+        });
+        let score = 0;
+        for (const inputs of groups.values()) {
+          const checked = inputs.find((input) => input.checked);
+          if (!checked) {
+            result.textContent = 'Répondez à toutes les questions pour obtenir une piste de travail.';
+            return;
+          }
+          score += Number(checked.value || 0);
+        }
+        let ranges = [];
+        try { ranges = JSON.parse(card.dataset.ranges || '[]'); } catch (error) { ranges = []; }
+        const range = ranges.find((item) => score <= Number(item.max));
+        result.textContent = range ? range.label + ' — ' + range.advice : 'Score ' + score + ' : gardez une action simple pour le prochain exercice.';
+      });
+    });
+  </script>`;
 }
 
 const FINAL_DELIVERABLES = [
@@ -165,7 +230,7 @@ function isAccompaniedPlan(plan) {
 }
 
 function formatPlan(plan) {
-  return isAccompaniedPlan(plan) ? 'accompagne' : 'autonome';
+  return isAccompaniedPlan(plan) ? 'accompagné' : 'méthode guidée';
 }
 
 function renderAccompanimentDashboardBlock(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
@@ -182,7 +247,7 @@ function renderAccompanimentDashboardBlock(snapshot, product = DEFAULT_PRODUCT_C
       <p class="section-label">${escapeHtml(product.accompanied.label)}</p>
       <h2 id="accompaniment-dashboard-title">Mon accompagnement</h2>
     </div>
-    <p><strong>Méthode autonome + regard professionnel :</strong> ${escapeHtml(product.offerDistinctionMessage)}</p>
+    <p><strong>Méthode guidée + regard professionnel :</strong> ${escapeHtml(product.offerDistinctionMessage)}</p>
     <div class="accompaniment-status" aria-label="État accompagnement">
       <span>${escapeHtml(appointmentLabel)}</span>
       <span>${escapeHtml(videoLabel)}</span>
@@ -210,9 +275,9 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 <main class="dashboard">
   <section class="focus-panel" aria-labelledby="current-module-title">
     <div>
-      <p class="section-label">${isPathCompleted ? 'Parcours terminé' : 'À faire maintenant'}</p>
-      <h2 id="current-module-title">${isPathCompleted ? 'Bravo, vous avez terminé la méthode autonome' : `Module ${currentModule.number} - ${escapeHtml(currentModule.title)}`}</h2>
-      <p>${isPathCompleted ? 'Votre parcours principal est validé. Vous pouvez maintenant relire votre bilan final, réutiliser la méthode pour un nouvel oral et accéder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
+      <p class="section-label">${isPathCompleted ? 'Méthode terminée' : 'À faire maintenant'}</p>
+      <h2 id="current-module-title">${isPathCompleted ? 'Bravo, vous avez terminé la méthode guidée' : `Module ${currentModule.number} - ${escapeHtml(currentModule.title)}`}</h2>
+      <p>${isPathCompleted ? 'Votre méthode est validée. Vous pouvez maintenant relire votre bilan final, réutiliser la méthode pour un nouvel oral et accéder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
     </div>
     <a class="button-link" href="${isPathCompleted ? '/fin-parcours' : `/modules/${escapeHtml(currentModule.id)}`}">${isPathCompleted ? 'Voir mon bilan final' : 'Continuer le module'}</a>
   </section>
@@ -244,7 +309,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   <section id="parcours" class="path-section" aria-labelledby="path-title">
     <div class="section-heading">
       <p class="section-label">Progression rattachée au compte</p>
-      <h2 id="path-title">Modules du parcours MVP</h2>
+      <h2 id="path-title">Modules de la méthode</h2>
     </div>
     <ol class="module-list">
       ${modules.map((module) => `
@@ -339,14 +404,14 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     </form>
   </section>` : `<section class="accompaniment-card" aria-labelledby="autonomous-title">
     <p class="section-label">Votre formule actuelle</p>
-    <h2 id="autonomous-title">Vous êtes en méthode autonome.</h2>
+    <h2 id="autonomous-title">Vous êtes en méthode guidée.</h2>
     <p>Vous avez accès au parcours pas à pas, aux exercices, aux fiches et aux auto-évaluations. Le regard professionnel sur vidéo appartient à ${escapeHtml(product.accompanied.label)}.</p>
   </section>`}
 
   <section class="accompaniment-card" aria-labelledby="feedback-grid-title">
     <p class="section-label">Grille formateur simple</p>
     <h2 id="feedback-grid-title">Grille de feedback imprimable</h2>
-    <p>Cette grille sert de support de retour professionnel simple. Elle aide a orienter l apprenant sans entrer dans un diagnostic CPF complet.</p>
+    <p>Cette grille sert de support de retour professionnel simple. Elle aide à orienter l’apprenant sans entrer dans un diagnostic complet.</p>
     <div class="feedback-grid" role="table" aria-label="Grille simple de feedback formateur">
       <div class="feedback-row feedback-head" role="row">
         <span role="columnheader">Point observe</span>
@@ -364,8 +429,8 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
   <section class="accompaniment-card" aria-labelledby="cpf-orientation-title">
     <p class="section-label">Orientation</p>
-    <h2 id="cpf-orientation-title">Quand envisager le CPF individuel ?</h2>
-    <p>Le CPF devient pertinent si la difficulte demande un travail plus profond : enjeu professionnel fort, blocage persistant, besoin d entrainement live, correction fine ou adaptation a une situation reelle complexe.</p>
+    <h2 id="cpf-orientation-title">Quand envisager l’accompagnement individuel et personnalisé ?</h2>
+    <p>L’accompagnement individuel et personnalisé devient pertinent si la difficulté demande un travail plus profond : enjeu professionnel fort, blocage persistant, besoin d’entraînement live, correction fine ou adaptation à une situation réelle complexe.</p>
     <p>${escapeHtml(product.offerDistinctionMessage)}</p>
     <p class="form-state">${escapeHtml(product.supportText)}</p>
   </section>
@@ -380,7 +445,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     return renderDenied("La fin de parcours sera disponible après validation du dernier module.", product);
   }
 
-  return layout('Fin de parcours autonome', `
+  return layout('Fin de méthode guidée', `
 <header class="topbar">
   <div>
     <p class="eyebrow">${escapeHtml(product.methodName)}</p>
@@ -396,7 +461,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
 <main class="completion-shell">
   <section class="completion-hero" aria-labelledby="completion-title">
-    <p class="section-label">Parcours autonome terminé</p>
+    <p class="section-label">Méthode guidée terminée</p>
     <h2 id="completion-title">Bravo, vous avez construit votre méthode de prise de parole.</h2>
     <p>Vous n’avez pas cherché à devenir parfait. Vous avez préparé, testé, observé et clarifié une prise de parole simple de 3 à 5 minutes.</p>
     <p class="method-outcome"><strong>Ce que vous repartez avec :</strong> une méthode réutilisable pour préparer un oral plus clair, plus structuré et plus rassurant.</p>
@@ -453,7 +518,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
         <p>Utile si vous voulez un regard professionnel sur votre vidéo, votre posture, votre voix ou votre regard.</p>
       </article>
       <article>
-        <h3>CPF individuel</h3>
+        <h3>Accompagnement individuel et personnalisé</h3>
         <p>Réservé à un travail profond, personnalisé et lié à un cas professionnel réel.</p>
       </article>
     </div>
@@ -468,7 +533,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   }
 
   if (!bonus) {
-    return renderDenied('Ce bonus n existe pas dans le parcours autonome.', product);
+    return renderDenied('Ce bonus n existe pas dans le méthode guidée.', product);
   }
 
   return layout(bonus.title, `
@@ -490,7 +555,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
     <p class="section-label">5 a 15 minutes</p>
     <h2 id="bonus-page-title">Une pratique simple a tester</h2>
     <p>${escapeHtml(bonus.objective)}</p>
-    <p class="method-outcome"><strong>Rappel :</strong> ce bonus donne une astuce autonome. Il ne remplace pas un retour personnalisé ni un travail CPF.</p>
+    <p class="method-outcome"><strong>Rappel :</strong> ce bonus donne une astuce à pratiquer seul. Il ne remplace pas un retour personnalisé ni un travail individuel approfondi.</p>
   </section>
 
   <section class="completion-card bonus-detail" aria-labelledby="bonus-detail-title">
@@ -588,6 +653,7 @@ function renderModule(snapshot, { message = '' } = {}) {
       </article>
       ${renderKeyIdeas(selectedModule.keyIdeas)}
       ${renderPedagogicalVideos(selectedModule.videos)}
+      ${renderQuestionnaire(selectedModule.questionnaire, selectedModule.id)}
       <article>
         <p class="section-label">Exercice</p>
         <h3>${escapeHtml(selectedModule.exercise.title)}</h3>
@@ -627,10 +693,11 @@ function renderModule(snapshot, { message = '' } = {}) {
     <h2 id="validation-title">Validation déclarative</h2>
     <p>Cette validation mémorise seulement l’état du module et une réponse courte. Les notes longues restent sur votre fiche papier.</p>
     ${selectedModule.id === CORE_MODULES.at(-1).id
-      ? `<p class="completion-note">Ce bilan termine le parcours autonome : vous repartez avec une méthode réutilisable. Pour un retour personnalisé sur une vidéo, choisissez le parcours accompagné.</p>`
+      ? `<p class="completion-note">Ce bilan termine la méthode guidée : vous repartez avec une méthode réutilisable. Pour un retour personnalisé sur une vidéo, choisissez le parcours accompagné.</p>`
       : ''}
     ${form}
   </section>
+  ${renderQuestionnaireScript()}
 </main>`);
 }
 

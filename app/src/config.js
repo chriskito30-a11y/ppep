@@ -6,27 +6,27 @@ const DEFAULT_PRODUCT_CONFIG = {
   name: 'Level Up',
   methodName: 'Méthode Level Up',
   audienceLabel: 'Formation prise de parole en public',
-  mainStatement: "La formule autonome transmet la méthode. L’accompagnement individuel transforme la personne.",
+  mainStatement: "La méthode guidée transmet la méthode. L’accompagnement individuel transforme la personne.",
   autonomous: {
-    label: 'Méthode autonome',
+    label: 'Méthode guidée',
     priceLabel: '149 euros',
-    description: 'Parcours pas à pas, exercices guidés, fiches, validations déclaratives, vidéo de départ, vidéo finale, auto-évaluation et plan d’action final.',
+    description: 'Méthode pas à pas, exercices guidés, fiches, validations déclaratives, vidéo de départ, vidéo finale, auto-évaluation et plan d’action final.',
   },
   accompanied: {
     label: 'Parcours accompagné',
     priceLabel: '390 a 690 euros',
-    description: 'Accès au parcours autonome, rendez-vous externe, partage de vidéo externe et regard professionnel simple.',
+    description: 'Accès à la méthode guidée, rendez-vous externe, partage de vidéo externe et regard professionnel simple.',
   },
   cpf: {
-    label: 'Formation CPF individuelle 14h',
+    label: 'Accompagnement individuel et personnalisé',
     priceLabel: '1600 euros',
-    description: 'Travail individuel approfondi, diagnostic fin, entraînement live et adaptation à un cas professionnel réel.',
+    description: 'Travail individuel approfondi, diagnostic fin, entraînement live et adaptation à une situation réelle.',
   },
   defaultAccessMonths: 12,
   accompanimentBookingUrl: 'https://tidycal.com/levelup/accompagnement',
   supportText: 'Contactez le formateur si votre accès ou votre réservation pose problème.',
   commercialWording: 'Une méthode guidée pour préparer une prise de parole claire, structurée et rassurante.',
-  offerDistinctionMessage: 'L’autonome transmet la méthode. L’accompagné ajoute un regard professionnel. Le CPF travaille en profondeur sur une situation individuelle.',
+  offerDistinctionMessage: 'La méthode guidée transmet la méthode. L’accompagnement ajoute un regard professionnel. L’accompagnement individuel personnalisé permet un travail plus profond sur une situation réelle.',
 };
 
 function readPositiveInteger(value, fallback) {
