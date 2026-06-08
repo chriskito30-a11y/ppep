@@ -25,6 +25,7 @@ test('getConfig expose les anciens alias utiles sans dupliquer les valeurs', () 
     PORT: '4000',
     PPEP_DATA_FILE: '/tmp/learners.json',
     PPEP_SESSION_SECRET: 'secret',
+    PPEP_ADMIN_SECRET: 'admin-secret',
     LEVELUP_TIDYCAL_URL: 'https://tidycal.test/custom',
   });
 
@@ -32,6 +33,7 @@ test('getConfig expose les anciens alias utiles sans dupliquer les valeurs', () 
   assert.equal(config.product.accompanimentBookingUrl, 'https://tidycal.test/custom');
   assert.equal(config.accompanimentBookingUrl, config.product.accompanimentBookingUrl);
   assert.equal(config.defaultAccessMonths, config.product.defaultAccessMonths);
+  assert.equal(config.adminSecret, 'admin-secret');
 });
 
 test('le CLI admin peut appliquer la duree d acces par defaut configuree', () => {

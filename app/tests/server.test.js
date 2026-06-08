@@ -470,3 +470,114 @@ test('la page accompagnement propose TidyCal, partage video externe et grille de
   assert.equal(rawStore.progress[0].accompaniment.appointmentReserved, true);
   assert.equal(rawStore.progress[0].accompaniment.videoShared, true);
 });
+
+
+test('admin web : acces refuse sans secret', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/admin`);
+  const html = await response.text();
+
+  assert.equal(response.status, 403);
+  assert.match(html, /Acces admin refuse/);
+  assert.match(html, /Secret admin/);
+});
+
+test('admin web : creation apprenant avec secret valide, progression initiale et connexion', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const adminResponse = await fetch(`${baseUrl}/admin`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: 'admin-secret',
+      email: 'demo@ppep.local',
+      password: 'motdepasse-test',
+      plan: 'autonome',
+      status: 'active',
+      accessEndsAt: '2026-12-31',
+    }),
+  });
+  const adminHtml = await adminResponse.text();
+
+  assert.equal(adminResponse.status, 200);
+  assert.match(adminHtml, /Apprenant demo@ppep.local enregistre/);
+  assert.doesNotMatch(adminHtml, /passwordHash|motdepasse-test/);
+
+  const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
+  assert.equal(rawStore.learners.length, 1);
+  assert.equal(rawStore.learners[0].email, 'demo@ppep.local');
+  assert.equal(rawStore.learners[0].plan, 'autonome');
+  assert.equal(rawStore.learners[0].status, 'active');
+  assert.ok(rawStore.learners[0].passwordHash);
+  assert.equal(rawStore.progress.length, 1);
+  assert.equal(rawStore.progress[0].learnerId, rawStore.learners[0].id);
+  assert.equal(rawStore.progress[0].currentModuleId, 'module-0');
+
+  const loginResponse = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'demo@ppep.local',
+      password: 'motdepasse-test',
+    }),
+    redirect: 'manual',
+  });
+
+  assert.equal(loginResponse.status, 303);
+  assert.equal(loginResponse.headers.get('location'), '/dashboard');
+});
+
+test('admin web : mauvais secret ne modifie pas le stockage configure', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  await writeStore({ storageBackend: 'json', dataFile }, createEmptyStore());
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/admin`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: 'mauvais-secret',
+      email: 'intrus@ppep.local',
+      password: 'motdepasse-test',
+      plan: 'autonome',
+      status: 'active',
+      accessEndsAt: '2026-12-31',
+    }),
+  });
+  const html = await response.text();
+  const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
+
+  assert.equal(response.status, 403);
+  assert.match(html, /secret incorrect/);
+  assert.deepEqual(rawStore, { learners: [], progress: [] });
+});
