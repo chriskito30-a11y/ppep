@@ -55,7 +55,7 @@ test('un acces absent, inactif ou expire est refuse avec un message clair', () =
   }, NOW);
   assert.equal(missing.ok, false);
   assert.equal(missing.reason, 'missing');
-  assert.match(missing.message, /Aucun acces actif/);
+  assert.match(missing.message, /Aucun accès actif/);
 
   const inactiveStore = createEmptyStore();
   activateDefault(inactiveStore, { status: 'inactive' });
@@ -65,7 +65,7 @@ test('un acces absent, inactif ou expire est refuse avec un message clair', () =
   }, NOW);
   assert.equal(inactive.ok, false);
   assert.equal(inactive.reason, 'inactive');
-  assert.match(inactive.message, /pas active/);
+  assert.match(inactive.message, /pas activé/);
 
   const expiredStore = createEmptyStore();
   activateDefault(expiredStore, { accessEndsAt: '2026-01-01' });
@@ -233,11 +233,11 @@ test('le module final contient un plan d action autonome', () => {
   const sectionTitles = finalModule.worksheet.sections.map((section) => section.title);
   const prompts = finalModule.worksheet.sections.flatMap((section) => section.prompts);
 
-  assert.ok(sectionTitles.includes('Plan d action final'));
-  assert.ok(prompts.includes('Mon prochain oral reel'));
-  assert.ok(prompts.includes('Ma routine de preparation'));
+  assert.ok(sectionTitles.includes('Plan d’action final'));
+  assert.ok(prompts.includes('Mon prochain oral réel'));
+  assert.ok(prompts.includes('Ma routine de préparation'));
   assert.ok(prompts.includes('Mon axe prioritaire'));
-  assert.ok(prompts.includes('Ce que je garde de la methode'));
+  assert.ok(prompts.includes('Ce que je garde de la méthode'));
 });
 
 test('la formule accompagnee historique est normalisee en accompagne', () => {

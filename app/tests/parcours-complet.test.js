@@ -99,24 +99,24 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const initialDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(initialDashboard.response.status, 200);
-  assert.match(initialDashboard.html, /Module 0 - Video de depart/);
+  assert.match(initialDashboard.html, /Module 0 - Vidéo de départ/);
   assert.match(initialDashboard.html, /0\/10/);
   assert.match(initialDashboard.html, /formule/);
   assert.match(initialDashboard.html, /autonome/);
-  assert.match(initialDashboard.html, /Verrouille jusqu'a la fin du parcours principal/);
+  assert.match(initialDashboard.html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
   assert.doesNotMatch(initialDashboard.html, /Mon accompagnement/);
 
   const lockedModule = await getHtml(`${baseUrl}/modules/module-1`, cookie);
   assert.equal(lockedModule.response.status, 403);
-  assert.match(lockedModule.html, /encore verrouille/);
+  assert.match(lockedModule.html, /encore verrouillé/);
 
   const lockedWorksheet = await getHtml(`${baseUrl}/modules/module-1/fiche`, cookie);
   assert.equal(lockedWorksheet.response.status, 403);
-  assert.match(lockedWorksheet.html, /encore verrouille/);
+  assert.match(lockedWorksheet.html, /encore verrouillé/);
 
   const lockedCompletion = await getHtml(`${baseUrl}/fin-parcours`, cookie);
   assert.equal(lockedCompletion.response.status, 403);
-  assert.match(lockedCompletion.html, /disponible apres validation du dernier module/);
+  assert.match(lockedCompletion.html, /disponible après validation du dernier module/);
 
   const lockedBonus = await getHtml(`${baseUrl}/bonus/${firstBonus.id}`, cookie);
   assert.equal(lockedBonus.response.status, 403);
@@ -129,20 +129,25 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   });
   const refusedAccompanimentHtml = await refusedAccompanimentPost.text();
   assert.equal(refusedAccompanimentPost.status, 403);
-  assert.match(refusedAccompanimentHtml, /reservee aux apprenants du parcours accompagne/);
+  assert.match(refusedAccompanimentHtml, /réservée aux apprenants du parcours accompagné/);
 
   for (let index = 0; index < CORE_MODULES.length; index += 1) {
     const module = CORE_MODULES[index];
     const modulePage = await getHtml(`${baseUrl}/modules/${module.id}`, cookie);
     assert.equal(modulePage.response.status, 200, module.id);
     assert.match(modulePage.html, new RegExp(`Module ${index}`));
-    assert.match(modulePage.html, /Fiche associee/);
-    assert.match(modulePage.html, /Validation declarative/);
+    assert.match(modulePage.html, /Fiche associée/);
+    assert.match(modulePage.html, /Validation déclarative/);
+    assert.doesNotMatch(modulePage.html, /\.pptx/);
+    assert.doesNotMatch(modulePage.html, /\.pdf/);
 
     const worksheet = await getHtml(`${baseUrl}/modules/${module.id}/fiche`, cookie);
     assert.equal(worksheet.response.status, 200, module.id);
     assert.match(worksheet.html, /Fiche de travail/);
-    assert.match(worksheet.html, /La plateforme ne stocke pas vos reponses longues/);
+    assert.match(worksheet.html, /La plateforme ne stocke pas vos réponses longues/);
+    assert.doesNotMatch(worksheet.html, /Source modernisée/);
+    assert.doesNotMatch(worksheet.html, /\.pptx/);
+    assert.doesNotMatch(worksheet.html, /\.pdf/);
 
     if (index + 1 < CORE_MODULES.length) {
       const futureModule = CORE_MODULES[index + 1];
@@ -161,18 +166,18 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);
-  assert.match(finalDashboard.html, /Parcours termine/);
+  assert.match(finalDashboard.html, /Parcours terminé/);
   assert.match(finalDashboard.html, /10\/10/);
   assert.match(finalDashboard.html, /Voir mon bilan final/);
   assert.match(finalDashboard.html, /Ouvrir ce bonus/);
 
   const completion = await getHtml(`${baseUrl}/fin-parcours`, cookie);
   assert.equal(completion.response.status, 200);
-  assert.match(completion.html, /Video de depart/);
-  assert.match(completion.html, /Video finale/);
-  assert.match(completion.html, /Auto-evaluation finale/);
-  assert.match(completion.html, /Plan d action personnel/);
-  assert.match(completion.html, /Voir les bonus debloques/);
+  assert.match(completion.html, /Vidéo de départ/);
+  assert.match(completion.html, /Vidéo finale/);
+  assert.match(completion.html, /Auto-évaluation finale/);
+  assert.match(completion.html, /Plan d’action personnel/);
+  assert.match(completion.html, /Voir les bonus débloqués/);
 
   const unlockedBonus = await getHtml(`${baseUrl}/bonus/${firstBonus.id}`, cookie);
   assert.equal(unlockedBonus.response.status, 200);
@@ -198,9 +203,9 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
   const dashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(dashboard.response.status, 200);
   assert.match(dashboard.html, /Mon accompagnement/);
-  assert.match(dashboard.html, /Methode autonome \+ regard professionnel/);
-  assert.match(dashboard.html, /Rendez-vous a reserver/);
-  assert.match(dashboard.html, /Video a partager/);
+  assert.match(dashboard.html, /Méthode autonome \+ regard professionnel/);
+  assert.match(dashboard.html, /Rendez-vous à réserver/);
+  assert.match(dashboard.html, /Vidéo à partager/);
 
   const accompaniment = await getHtml(`${baseUrl}/accompagnement`, cookie);
   assert.equal(accompaniment.response.status, 200);
@@ -238,8 +243,8 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
 
   const completion = await getHtml(`${baseUrl}/fin-parcours`, cookie);
   assert.equal(completion.response.status, 200);
-  assert.match(completion.html, /Bravo, vous avez construit votre methode/);
-  assert.match(completion.html, /Envisager l accompagne/);
+  assert.match(completion.html, /Bravo, vous avez construit votre méthode/);
+  assert.match(completion.html, /Envisager l’accompagné/);
   assert.match(completion.html, /CPF individuel/);
 
   const bonus = await getHtml(`${baseUrl}/bonus/${BONUS_ITEMS[0].id}`, cookie);
@@ -248,9 +253,9 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);
-  assert.match(finalDashboard.html, /Parcours termine/);
-  assert.match(finalDashboard.html, /Rendez-vous reserve/);
-  assert.match(finalDashboard.html, /Video partagee/);
+  assert.match(finalDashboard.html, /Parcours terminé/);
+  assert.match(finalDashboard.html, /Rendez-vous réservé/);
+  assert.match(finalDashboard.html, /Vidéo partagée/);
 
   const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
   assert.equal(rawStore.learners[0].plan, 'accompagne');
@@ -271,7 +276,7 @@ test('acces inactif ou expire : connexion refusee et ancienne session nettoyee',
   });
   const inactiveLoginHtml = await inactiveLogin.text();
   assert.equal(inactiveLogin.status, 401);
-  assert.match(inactiveLoginHtml, /pas active/);
+  assert.match(inactiveLoginHtml, /pas activé/);
 
   const inactiveCookie = `${SESSION_COOKIE}=${createSessionToken(inactive.learner.id, 'test-secret')}`;
   const inactiveDashboard = await fetch(`${inactive.baseUrl}/dashboard`, {
@@ -279,7 +284,7 @@ test('acces inactif ou expire : connexion refusee et ancienne session nettoyee',
   });
   const inactiveDashboardHtml = await inactiveDashboard.text();
   assert.equal(inactiveDashboard.status, 403);
-  assert.match(inactiveDashboardHtml, /pas active/);
+  assert.match(inactiveDashboardHtml, /pas activé/);
   assert.match(inactiveDashboard.headers.get('set-cookie'), new RegExp(`${SESSION_COOKIE}=`));
 
   const expired = await startServer(t, {

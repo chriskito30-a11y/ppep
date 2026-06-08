@@ -78,10 +78,10 @@ test('le tableau de bord affiche module courant, progression, fin acces et bonus
   const html = await dashboardResponse.text();
 
   assert.equal(dashboardResponse.status, 200);
-  assert.match(html, /Module 0 - Video de depart/);
+  assert.match(html, /Module 0 - Vidéo de départ/);
   assert.match(html, /0\/10/);
-  assert.match(html, /fin d'acces/);
-  assert.match(html, /Verrouille jusqu'a la fin du parcours principal/);
+  assert.match(html, /fin d’accès/);
+  assert.match(html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
   assert.match(html, /<meta name="viewport"/);
 
   const cssResponse = await fetch(`${baseUrl}/assets/styles.css`);
@@ -111,19 +111,22 @@ test('la page module affiche le gabarit complet du module courant', async (t) =>
   assert.equal(moduleResponse.status, 200);
   assert.match(html, /Gabarit du module/);
   assert.match(html, /Apport/);
-  assert.match(html, /Sources de reference/);
-  assert.match(html, /GERER LE TRAC\.pptx/);
-  assert.match(html, /A la fin de ce module, j'obtiens/);
-  assert.match(html, /Notions cles/);
-  assert.match(html, /Duree :/);
-  assert.match(html, /Points d observation/);
+  assert.match(html, /Gabarit du module/);
+  assert.match(html, /Vidéo de départ/);
+  assert.match(html, /À la fin de ce module, j’obtiens/);
+  assert.match(html, /Notions clés/);
+  assert.match(html, /Durée :/);
+  assert.match(html, /Points d’observation/);
   assert.match(html, /Exercice/);
-  assert.match(html, /Fiche associee/);
+  assert.match(html, /Fiche associée/);
   assert.match(html, /href="\/modules\/module-0\/fiche"/);
-  assert.match(html, /Auto-evaluation courte/);
+  assert.match(html, /Auto-évaluation courte/);
   assert.equal((html.match(/name="confidence"/g) || []).length, 3);
-  assert.match(html, /Validation declarative/);
-  assert.match(html, /Rythme et defi/);
+  assert.match(html, /Validation déclarative/);
+  assert.match(html, /Rythme et défi/);
+  assert.doesNotMatch(html, /\.pptx/);
+  assert.doesNotMatch(html, /\.pdf/);
+  assert.doesNotMatch(html, /Sources de référence/);
 });
 
 test('la fiche imprimable du module courant est accessible au bon moment', async (t) => {
@@ -144,7 +147,7 @@ test('la fiche imprimable du module courant est accessible au bon moment', async
   const html = await worksheetResponse.text();
 
   assert.equal(worksheetResponse.status, 200);
-  assert.match(html, /Fiche de depart papier/);
+  assert.match(html, /Fiche de départ papier/);
   assert.match(html, /Sujet choisi/);
   assert.match(html, /Observation bienveillante/);
   assert.match(html, /window.print/);
@@ -155,7 +158,7 @@ test('la fiche imprimable du module courant est accessible au bon moment', async
   const lockedHtml = await lockedWorksheetResponse.text();
 
   assert.equal(lockedWorksheetResponse.status, 403);
-  assert.match(lockedHtml, /encore verrouille/);
+  assert.match(lockedHtml, /encore verrouillé/);
 
   const cssResponse = await fetch(`${baseUrl}/assets/styles.css`);
   const css = await cssResponse.text();
@@ -221,7 +224,7 @@ test('un module verrouille est refuse avec un message clair', async (t) => {
   const html = await lockedResponse.text();
 
   assert.equal(lockedResponse.status, 403);
-  assert.match(html, /encore verrouille/);
+  assert.match(html, /encore verrouillé/);
 });
 
 
@@ -243,7 +246,7 @@ test('la fin de parcours reste inaccessible avant le dernier module', async (t) 
   const html = await response.text();
 
   assert.equal(response.status, 403);
-  assert.match(html, /disponible apres validation du dernier module/);
+  assert.match(html, /disponible après validation du dernier module/);
 });
 
 test('la validation du dernier module ouvre un vrai ecran de fin de parcours', async (t) => {
@@ -284,13 +287,13 @@ test('la validation du dernier module ouvre un vrai ecran de fin de parcours', a
 
   assert.equal(completionResponse.status, 200);
   assert.match(html, /Fin de parcours/);
-  assert.match(html, /Bravo, vous avez construit votre methode/);
-  assert.match(html, /Video de depart/);
-  assert.match(html, /Video finale/);
-  assert.match(html, /Plan d action personnel/);
+  assert.match(html, /Bravo, vous avez construit votre méthode/);
+  assert.match(html, /Vidéo de départ/);
+  assert.match(html, /Vidéo finale/);
+  assert.match(html, /Plan d’action personnel/);
   assert.match(html, /La plateforme ne les analyse pas et ne les stocke pas/);
   assert.match(html, /Ouvrir ma fiche finale/);
-  assert.match(html, /Voir les bonus debloques/);
+  assert.match(html, /Voir les bonus débloqués/);
   assert.match(html, /CPF individuel/);
   assert.doesNotMatch(html, /feedback personnalise automatique|analyse video automatique|upload video/i);
 });
@@ -375,10 +378,10 @@ test('le tableau de bord termine oriente vers le bilan final et affiche les bonu
   const html = await dashboardResponse.text();
 
   assert.equal(dashboardResponse.status, 200);
-  assert.match(html, /Parcours termine/);
+  assert.match(html, /Parcours terminé/);
   assert.match(html, /Voir mon bilan final/);
   assert.match(html, /10\/10/);
-  assert.match(html, /Disponible jusqu'a la fin du parcours principal/);
+  assert.match(html, /Disponible jusqu’à la fin du parcours principal/);
 });
 
 async function createTempStoreForPlan(plan) {
@@ -434,7 +437,7 @@ test('le tableau de bord affiche le bloc accompagnement uniquement pour la formu
 
   assert.equal(accompaniedResponse.status, 200);
   assert.match(accompaniedHtml, /Mon accompagnement/);
-  assert.match(accompaniedHtml, /Methode autonome \+ regard professionnel/);
+  assert.match(accompaniedHtml, /Méthode autonome \+ regard professionnel/);
   assert.match(accompaniedHtml, /Ouvrir mon accompagnement/);
 });
 
@@ -618,7 +621,7 @@ test('admin web : le secret en query string ne connecte pas l admin', async (t) 
 
   assert.equal(response.status, 200);
   assert.match(html, /Connexion admin/);
-  assert.doesNotMatch(html, /Gestion des acces apprenants/);
+  assert.doesNotMatch(html, /Gestion des accès apprenants/);
   assert.doesNotMatch(html, /admin-secret|passwordHash/);
 });
 
@@ -720,7 +723,7 @@ test('admin web : liste apprenants visible avec secret valide sans exposer les h
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /Gestion des acces apprenants/);
+  assert.match(html, /Gestion des accès apprenants/);
   assert.match(html, /liste@ppep.local/);
   assert.match(html, /accompagne/);
   assert.match(html, /active/);
@@ -835,7 +838,7 @@ test('admin web : desactivation d un apprenant existant', async (t) => {
   const loginHtml = await loginResponse.text();
 
   assert.equal(loginResponse.status, 401);
-  assert.match(loginHtml, /pas active/);
+  assert.match(loginHtml, /pas activé/);
 });
 
 test('admin web : reinitialisation mot de passe puis connexion avec le nouveau mot de passe', async (t) => {

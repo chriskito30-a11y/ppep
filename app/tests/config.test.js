@@ -17,7 +17,7 @@ test('la configuration produit centralise les valeurs commerciales principales',
   assert.equal(product.accompanimentBookingUrl, 'https://tidycal.test/levelup');
   assert.equal(product.defaultAccessMonths, 6);
   assert.equal(product.supportText, 'support test');
-  assert.match(product.mainStatement, /autonome transmet la methode/);
+  assert.match(product.mainStatement, /autonome transmet la méthode/);
 });
 
 test('getConfig expose les anciens alias utiles sans dupliquer les valeurs', () => {
