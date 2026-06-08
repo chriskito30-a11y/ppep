@@ -658,43 +658,93 @@ function renderWorksheet(snapshot) {
 </main>`);
 }
 
-function renderAdmin({ message = '', error = '', values = {} } = {}) {
+function formatAdminDateTime(value) {
+  if (!value) {
+    return '-';
+  }
+
+  const parsed = new Date(value);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return String(value).slice(0, 10) || '-';
+  }
+
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(parsed);
+}
+
+function renderAdminLearnerRows(learners = []) {
+  if (!Array.isArray(learners) || learners.length === 0) {
+    return `<tr><td colspan="7">Aucun apprenant pour le moment.</td></tr>`;
+  }
+
+  return learners.map((learner) => `
+    <tr data-admin-learner-row data-email="${escapeHtml(learner.email || '')}">
+      <td>${escapeHtml(learner.email || '')}</td>
+      <td>${escapeHtml(learner.plan || '')}</td>
+      <td><span class="admin-status admin-status-${escapeHtml(learner.status || 'unknown')}">${escapeHtml(learner.status || '')}</span></td>
+      <td>${escapeHtml(learner.accessEndsAt || '')}</td>
+      <td>${escapeHtml(learner.progressLabel || '-')}</td>
+      <td>
+        <span>Creation : ${escapeHtml(formatAdminDateTime(learner.createdAt))}</span><br>
+        <span>Mise a jour : ${escapeHtml(formatAdminDateTime(learner.updatedAt))}</span>
+      </td>
+      <td>
+        <button class="secondary-button admin-edit-button" type="button"
+          data-email="${escapeHtml(learner.email || '')}"
+          data-plan="${escapeHtml(learner.plan || 'autonome')}"
+          data-status="${escapeHtml(learner.status || 'active')}"
+          data-access-ends-at="${escapeHtml(learner.accessEndsAt || '')}">
+          Modifier
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderAdmin({ message = '', error = '', values = {}, learners = [] } = {}) {
   const today = new Date().toISOString().slice(0, 10);
-  const accessEndsAt = values.accessEndsAt || today;
+  const accessEndsAt = String(values.accessEndsAt || today).slice(0, 10);
   const plan = values.plan || 'autonome';
   const status = values.status || 'active';
 
   return layout('Administration apprenants', `
-<main class="auth-shell">
-  <section class="auth-panel" aria-labelledby="admin-title">
+<main class="admin-shell">
+  <section class="auth-panel admin-panel" aria-labelledby="admin-title">
     <p class="eyebrow">Administration Level Up</p>
-    <h1 id="admin-title">Creer ou mettre a jour un apprenant</h1>
-    <p class="intro">Cette page minimale sert a activer un acces apprenant sans terminal. Le secret admin est verifie cote serveur a chaque envoi et n'est pas conserve dans la page.</p>
+    <h1 id="admin-title">Gestion des acces apprenants</h1>
+    <p class="intro">Creer, mettre a jour, reinitialiser un mot de passe ou desactiver un acces sans terminal. Le secret admin est verifie cote serveur a chaque envoi et n'est pas conserve dans la page.</p>
     ${message ? `<p class="message success-message" role="status">${escapeHtml(message)}</p>` : ''}
     ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
-    <form class="login-form" method="post" action="/admin" autocomplete="off">
+
+    <form class="login-form admin-form" method="post" action="/admin" autocomplete="off">
       <label>
         Secret admin
         <input name="secret" type="password" autocomplete="off" required>
       </label>
       <label>
         Email apprenant
-        <input name="email" type="email" autocomplete="email" value="${escapeHtml(values.email || '')}" required>
+        <input id="admin-email" name="email" type="email" autocomplete="email" value="${escapeHtml(values.email || '')}" required>
       </label>
       <label>
         Mot de passe initial ou nouveau mot de passe
-        <input name="password" type="password" autocomplete="new-password" ${values.isUpdate ? '' : 'required'}>
+        <input id="admin-password" name="password" type="password" autocomplete="new-password" ${values.isUpdate ? '' : 'required'}>
       </label>
       <label>
         Formule
-        <select name="plan" required>
+        <select id="admin-plan" name="plan" required>
           <option value="autonome" ${plan === 'autonome' ? 'selected' : ''}>autonome</option>
           <option value="accompagne" ${plan === 'accompagne' ? 'selected' : ''}>accompagne</option>
         </select>
       </label>
       <label>
         Statut
-        <select name="status" required>
+        <select id="admin-status" name="status" required>
           <option value="active" ${status === 'active' ? 'selected' : ''}>active</option>
           <option value="inactive" ${status === 'inactive' ? 'selected' : ''}>inactive</option>
           <option value="expired" ${status === 'expired' ? 'selected' : ''}>expired</option>
@@ -702,14 +752,80 @@ function renderAdmin({ message = '', error = '', values = {} } = {}) {
       </label>
       <label>
         Date de fin d'acces
-        <input name="accessEndsAt" type="date" value="${escapeHtml(accessEndsAt)}" required>
+        <input id="admin-access-ends-at" name="accessEndsAt" type="date" value="${escapeHtml(accessEndsAt)}" required>
       </label>
-      <button type="submit">Creer / mettre a jour</button>
+      <div class="admin-actions">
+        <button type="submit" name="action" value="save">Creer / mettre a jour</button>
+        <button class="secondary-button" type="submit" name="action" value="reset_password">Reinitialiser le mot de passe</button>
+        <button class="danger-button" type="submit" name="action" value="deactivate">Desactiver l'acces</button>
+      </div>
     </form>
   </section>
-</main>`);
-}
 
+  <section class="auth-panel admin-panel admin-list-panel" aria-labelledby="admin-list-title">
+    <div class="admin-list-heading">
+      <div>
+        <p class="eyebrow">Acces existants</p>
+        <h2 id="admin-list-title">Apprenants</h2>
+      </div>
+      <label class="admin-search">
+        Filtrer par email
+        <input id="admin-email-filter" type="search" autocomplete="off" placeholder="ex. lea@example.com">
+      </label>
+    </div>
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Formule</th>
+            <th>Statut</th>
+            <th>Fin d'acces</th>
+            <th>Progression</th>
+            <th>Dates</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="admin-learner-rows">
+          ${renderAdminLearnerRows(learners)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  var filter = document.getElementById('admin-email-filter');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('[data-admin-learner-row]'));
+  var email = document.getElementById('admin-email');
+  var password = document.getElementById('admin-password');
+  var plan = document.getElementById('admin-plan');
+  var status = document.getElementById('admin-status');
+  var accessEndsAt = document.getElementById('admin-access-ends-at');
+
+  if (filter) {
+    filter.addEventListener('input', function () {
+      var query = filter.value.trim().toLowerCase();
+      rows.forEach(function (row) {
+        row.hidden = query && !String(row.dataset.email || '').toLowerCase().includes(query);
+      });
+    });
+  }
+
+  document.querySelectorAll('.admin-edit-button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      email.value = button.dataset.email || '';
+      plan.value = button.dataset.plan || 'autonome';
+      status.value = button.dataset.status || 'active';
+      accessEndsAt.value = button.dataset.accessEndsAt || '';
+      password.required = false;
+      password.value = '';
+      email.focus();
+    });
+  });
+}());
+</script>`);
+}
 module.exports = {
   renderDashboard,
   renderDenied,

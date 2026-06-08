@@ -3,7 +3,7 @@ const fs = require('node:fs/promises');
 const http = require('node:http');
 const path = require('node:path');
 const { getConfig } = require('./config');
-const { getBonusById } = require('./modules');
+const { getBonusById, getProgressSummary } = require('./modules');
 const {
   activateLearner,
   authenticateLearner,
@@ -118,12 +118,41 @@ function isAdminSecretValid(config, secret) {
 
 function getAdminValues(form) {
   return {
+    action: String(form.get('action') || 'save'),
     email: String(form.get('email') || '').trim(),
     password: String(form.get('password') || ''),
     plan: String(form.get('plan') || 'autonome'),
     status: String(form.get('status') || 'active'),
     accessEndsAt: String(form.get('accessEndsAt') || '').trim(),
   };
+}
+
+function toDateInputValue(value) {
+  return String(value || '').slice(0, 10);
+}
+
+function buildAdminLearnerList(store) {
+  const progressByLearnerId = new Map(
+    (store.progress || []).map((progress) => [progress.learnerId, progress]),
+  );
+
+  return [...(store.learners || [])]
+    .sort((a, b) => String(a.email || '').localeCompare(String(b.email || '')))
+    .map((learner) => {
+      const progress = progressByLearnerId.get(learner.id);
+      const summary = progress ? getProgressSummary(progress) : null;
+
+      return {
+        id: learner.id,
+        email: learner.email,
+        plan: learner.plan,
+        status: learner.status,
+        accessEndsAt: toDateInputValue(learner.accessEndsAt),
+        createdAt: learner.createdAt || '',
+        updatedAt: learner.updatedAt || '',
+        progressLabel: summary ? `${summary.completedCount}/${summary.totalCount}` : '0/10',
+      };
+    });
 }
 
 function getAdminErrorMessage(error) {
@@ -148,7 +177,8 @@ async function handleAdminGet(req, res, config) {
     return;
   }
 
-  sendHtml(res, 200, renderAdmin());
+  const store = await readStore(config);
+  sendHtml(res, 200, renderAdmin({ learners: buildAdminLearnerList(store) }));
 }
 
 async function handleAdminPost(req, res, config) {
@@ -167,10 +197,25 @@ async function handleAdminPost(req, res, config) {
   const store = await readStore(config);
 
   try {
-    const learner = activateLearner(store, values);
+    const requestedAction = values.action;
+    const activationInput = { ...values };
+
+    if (requestedAction === 'deactivate') {
+      activationInput.status = 'inactive';
+      activationInput.password = '';
+    }
+
+    const learner = activateLearner(store, activationInput);
     await writeStore(config, store);
+
+    const actionMessages = {
+      deactivate: `Acces de ${learner.email} desactive.`,
+      reset_password: `Mot de passe de ${learner.email} reinitialise.`,
+      save: `Apprenant ${learner.email} enregistre. Formule : ${learner.plan}. Statut : ${learner.status}. Fin d acces : ${learner.accessEndsAt}.`,
+    };
+
     sendHtml(res, 200, renderAdmin({
-      message: `Apprenant ${learner.email} enregistre. Formule : ${learner.plan}. Statut : ${learner.status}. Fin d acces : ${learner.accessEndsAt}.`,
+      message: actionMessages[requestedAction] || actionMessages.save,
       values: {
         email: learner.email,
         plan: learner.plan,
@@ -178,11 +223,13 @@ async function handleAdminPost(req, res, config) {
         accessEndsAt: learner.accessEndsAt,
         isUpdate: true,
       },
+      learners: buildAdminLearnerList(store),
     }));
   } catch (error) {
     sendHtml(res, 422, renderAdmin({
       error: getAdminErrorMessage(error),
       values: { ...values, password: '', isUpdate: true },
+      learners: buildAdminLearnerList(store),
     }));
   }
 }
