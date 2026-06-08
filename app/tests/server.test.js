@@ -581,3 +581,212 @@ test('admin web : mauvais secret ne modifie pas le stockage configure', async (t
   assert.match(html, /secret incorrect/);
   assert.deepEqual(rawStore, { learners: [], progress: [] });
 });
+
+test('admin web : liste apprenants visible avec secret valide sans exposer les hashes', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  const learner = activateLearner(store, {
+    email: 'liste@ppep.local',
+    password: 'motdepasse-test',
+    plan: 'accompagne',
+    status: 'active',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  store.progress[0].completedModuleIds = ['module-0', 'module-1'];
+  await writeStore({ storageBackend: 'json', dataFile }, store);
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/admin?secret=admin-secret`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Gestion des acces apprenants/);
+  assert.match(html, /liste@ppep.local/);
+  assert.match(html, /accompagne/);
+  assert.match(html, /active/);
+  assert.match(html, /2026-12-31/);
+  assert.match(html, /2\/10/);
+  assert.match(html, /Filtrer par email/);
+  assert.match(html, /Modifier/);
+  assert.doesNotMatch(html, /passwordHash/);
+  assert.doesNotMatch(html, new RegExp(learner.passwordHash.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+});
+
+test('admin web : modification formule statut date sans changer le mot de passe', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  const learner = activateLearner(store, {
+    email: 'modifier@ppep.local',
+    password: 'motdepasse-test',
+    plan: 'autonome',
+    status: 'active',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  const originalHash = learner.passwordHash;
+  await writeStore({ storageBackend: 'json', dataFile }, store);
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const response = await fetch(`${baseUrl}/admin`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: 'admin-secret',
+      action: 'save',
+      email: 'modifier@ppep.local',
+      password: '',
+      plan: 'accompagne',
+      status: 'expired',
+      accessEndsAt: '2027-01-31',
+    }),
+  });
+  const html = await response.text();
+  const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Apprenant modifier@ppep.local enregistre/);
+  assert.equal(rawStore.learners.length, 1);
+  assert.equal(rawStore.learners[0].plan, 'accompagne');
+  assert.equal(rawStore.learners[0].status, 'expired');
+  assert.equal(rawStore.learners[0].accessEndsAt, '2027-01-31');
+  assert.equal(rawStore.learners[0].passwordHash, originalHash);
+});
+
+test('admin web : desactivation d un apprenant existant', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  activateLearner(store, {
+    email: 'desactiver@ppep.local',
+    password: 'motdepasse-test',
+    plan: 'autonome',
+    status: 'active',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  await writeStore({ storageBackend: 'json', dataFile }, store);
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const response = await fetch(`${baseUrl}/admin`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: 'admin-secret',
+      action: 'deactivate',
+      email: 'desactiver@ppep.local',
+      password: '',
+      plan: 'autonome',
+      status: 'active',
+      accessEndsAt: '2026-12-31',
+    }),
+  });
+  const html = await response.text();
+  const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Acces de desactiver@ppep.local desactive/);
+  assert.equal(rawStore.learners[0].status, 'inactive');
+
+  const loginResponse = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'desactiver@ppep.local',
+      password: 'motdepasse-test',
+    }),
+    redirect: 'manual',
+  });
+  const loginHtml = await loginResponse.text();
+
+  assert.equal(loginResponse.status, 401);
+  assert.match(loginHtml, /pas active/);
+});
+
+test('admin web : reinitialisation mot de passe puis connexion avec le nouveau mot de passe', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  const learner = activateLearner(store, {
+    email: 'reset@ppep.local',
+    password: 'ancien-motdepasse',
+    plan: 'autonome',
+    status: 'active',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  const originalHash = learner.passwordHash;
+  await writeStore({ storageBackend: 'json', dataFile }, store);
+  const server = createServer({
+    storageBackend: 'json',
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const adminResponse = await fetch(`${baseUrl}/admin`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      secret: 'admin-secret',
+      action: 'reset_password',
+      email: 'reset@ppep.local',
+      password: 'nouveau-motdepasse',
+      plan: 'autonome',
+      status: 'active',
+      accessEndsAt: '2026-12-31',
+    }),
+  });
+  const adminHtml = await adminResponse.text();
+  const rawStore = JSON.parse(await fs.readFile(dataFile, 'utf8'));
+
+  assert.equal(adminResponse.status, 200);
+  assert.match(adminHtml, /Mot de passe de reset@ppep.local reinitialise/);
+  assert.notEqual(rawStore.learners[0].passwordHash, originalHash);
+  assert.doesNotMatch(adminHtml, /passwordHash|nouveau-motdepasse/);
+
+  const oldLogin = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'reset@ppep.local',
+      password: 'ancien-motdepasse',
+    }),
+    redirect: 'manual',
+  });
+  assert.equal(oldLogin.status, 401);
+
+  const newLogin = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'reset@ppep.local',
+      password: 'nouveau-motdepasse',
+    }),
+    redirect: 'manual',
+  });
+  assert.equal(newLogin.status, 303);
+  assert.equal(newLogin.headers.get('location'), '/dashboard');
+});
