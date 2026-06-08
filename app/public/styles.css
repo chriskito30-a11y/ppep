@@ -1068,3 +1068,27 @@ legend {
     grid-template-columns: 1fr;
   }
 }
+
+.video-card {
+  grid-column: 1 / -1;
+}
+
+.video-list {
+  display: grid;
+  gap: 16px;
+}
+
+.guided-video {
+  padding: 16px;
+  border: 1px solid rgba(22, 117, 103, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.guided-video h3 {
+  margin-top: 0;
+}
+
+.guided-video p {
+  margin: 8px 0;
+}
