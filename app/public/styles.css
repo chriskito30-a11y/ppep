@@ -966,3 +966,101 @@ legend {
     break-inside: avoid;
   }
 }
+
+.admin-shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.admin-panel {
+  width: 100%;
+}
+
+.admin-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-actions,
+.admin-list-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.admin-actions {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+}
+
+.danger-button {
+  background: var(--danger);
+}
+
+.danger-button:hover {
+  background: #7f1712;
+}
+
+.admin-list-panel {
+  padding: 24px;
+}
+
+.admin-search {
+  min-width: min(320px, 100%);
+}
+
+.admin-table-wrapper {
+  margin-top: 18px;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.admin-status {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #edf5f1;
+  font-weight: 800;
+}
+
+.admin-status-inactive,
+.admin-status-expired {
+  background: #fff5f4;
+  color: var(--danger);
+}
+
+.success-message {
+  border-color: #b6dfcf;
+  background: #effaf5;
+  color: var(--accent-dark);
+}
+
+@media (max-width: 760px) {
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+}
