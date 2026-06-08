@@ -1,9 +1,11 @@
+const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
 const http = require('node:http');
 const path = require('node:path');
 const { getConfig } = require('./config');
 const { getBonusById } = require('./modules');
 const {
+  activateLearner,
   authenticateLearner,
   getLearnerSnapshot,
   getModuleSnapshot,
@@ -11,6 +13,7 @@ const {
   validateModuleForLearner,
 } = require('./learners');
 const {
+  renderAdmin,
   renderDashboard,
   renderCompletion,
   renderAccompaniment,
@@ -96,6 +99,92 @@ async function parseForm(req) {
 function getSession(req, secret) {
   const cookies = parseCookies(req.headers.cookie);
   return readSessionToken(cookies[SESSION_COOKIE], secret);
+}
+
+function isAdminSecretValid(config, secret) {
+  const expected = String(config.adminSecret || '');
+  const received = String(secret || '');
+
+  if (!expected || !received) {
+    return false;
+  }
+
+  const expectedBuffer = Buffer.from(expected);
+  const receivedBuffer = Buffer.from(received);
+
+  return expectedBuffer.length === receivedBuffer.length
+    && crypto.timingSafeEqual(expectedBuffer, receivedBuffer);
+}
+
+function getAdminValues(form) {
+  return {
+    email: String(form.get('email') || '').trim(),
+    password: String(form.get('password') || ''),
+    plan: String(form.get('plan') || 'autonome'),
+    status: String(form.get('status') || 'active'),
+    accessEndsAt: String(form.get('accessEndsAt') || '').trim(),
+  };
+}
+
+function getAdminErrorMessage(error) {
+  const messages = {
+    EMAIL_INVALID: 'Email apprenant invalide.',
+    PASSWORD_REQUIRED: 'Mot de passe requis pour creer un nouvel apprenant.',
+    PLAN_INVALID: 'Formule invalide. Choisissez autonome ou accompagne.',
+    STATUS_INVALID: 'Statut invalide. Choisissez active, inactive ou expired.',
+    ACCESS_END_REQUIRED: 'Date de fin d acces requise.',
+    ACCESS_END_INVALID: 'Date de fin d acces invalide.',
+  };
+
+  return messages[error.message] || "Impossible d enregistrer cet apprenant. Verifiez les champs.";
+}
+
+async function handleAdminGet(req, res, config) {
+  const url = new URL(req.url, 'http://localhost');
+  const secret = url.searchParams.get('secret');
+
+  if (!isAdminSecretValid(config, secret)) {
+    sendHtml(res, 403, renderAdmin({ error: 'Acces admin refuse : secret manquant ou incorrect.' }));
+    return;
+  }
+
+  sendHtml(res, 200, renderAdmin());
+}
+
+async function handleAdminPost(req, res, config) {
+  const form = await parseForm(req);
+  const secret = form.get('secret');
+  const values = getAdminValues(form);
+
+  if (!isAdminSecretValid(config, secret)) {
+    sendHtml(res, 403, renderAdmin({
+      error: 'Acces admin refuse : secret incorrect.',
+      values: { ...values, password: '', isUpdate: true },
+    }));
+    return;
+  }
+
+  const store = await readStore(config);
+
+  try {
+    const learner = activateLearner(store, values);
+    await writeStore(config, store);
+    sendHtml(res, 200, renderAdmin({
+      message: `Apprenant ${learner.email} enregistre. Formule : ${learner.plan}. Statut : ${learner.status}. Fin d acces : ${learner.accessEndsAt}.`,
+      values: {
+        email: learner.email,
+        plan: learner.plan,
+        status: learner.status,
+        accessEndsAt: learner.accessEndsAt,
+        isUpdate: true,
+      },
+    }));
+  } catch (error) {
+    sendHtml(res, 422, renderAdmin({
+      error: getAdminErrorMessage(error),
+      values: { ...values, password: '', isUpdate: true },
+    }));
+  }
 }
 
 async function handleDashboard(req, res, config) {
@@ -339,6 +428,12 @@ function createServer(config = getConfig()) {
         return;
       }
 
+
+      if (req.method === 'GET' && url.pathname === '/admin') {
+        await handleAdminGet(req, res, runtimeConfig);
+        return;
+      }
+
       if (req.method === 'GET' && url.pathname === '/login') {
         sendHtml(res, 200, renderLogin({}, runtimeConfig.product));
         return;
@@ -377,6 +472,12 @@ function createServer(config = getConfig()) {
 
       if (req.method === 'GET' && moduleMatch) {
         await handleModule(req, res, runtimeConfig, decodeURIComponent(moduleMatch[1]));
+        return;
+      }
+
+
+      if (req.method === 'POST' && url.pathname === '/admin') {
+        await handleAdminPost(req, res, runtimeConfig);
         return;
       }
 

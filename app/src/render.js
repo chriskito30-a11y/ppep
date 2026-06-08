@@ -658,10 +658,63 @@ function renderWorksheet(snapshot) {
 </main>`);
 }
 
+function renderAdmin({ message = '', error = '', values = {} } = {}) {
+  const today = new Date().toISOString().slice(0, 10);
+  const accessEndsAt = values.accessEndsAt || today;
+  const plan = values.plan || 'autonome';
+  const status = values.status || 'active';
+
+  return layout('Administration apprenants', `
+<main class="auth-shell">
+  <section class="auth-panel" aria-labelledby="admin-title">
+    <p class="eyebrow">Administration Level Up</p>
+    <h1 id="admin-title">Creer ou mettre a jour un apprenant</h1>
+    <p class="intro">Cette page minimale sert a activer un acces apprenant sans terminal. Le secret admin est verifie cote serveur a chaque envoi et n'est pas conserve dans la page.</p>
+    ${message ? `<p class="message success-message" role="status">${escapeHtml(message)}</p>` : ''}
+    ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
+    <form class="login-form" method="post" action="/admin" autocomplete="off">
+      <label>
+        Secret admin
+        <input name="secret" type="password" autocomplete="off" required>
+      </label>
+      <label>
+        Email apprenant
+        <input name="email" type="email" autocomplete="email" value="${escapeHtml(values.email || '')}" required>
+      </label>
+      <label>
+        Mot de passe initial ou nouveau mot de passe
+        <input name="password" type="password" autocomplete="new-password" ${values.isUpdate ? '' : 'required'}>
+      </label>
+      <label>
+        Formule
+        <select name="plan" required>
+          <option value="autonome" ${plan === 'autonome' ? 'selected' : ''}>autonome</option>
+          <option value="accompagne" ${plan === 'accompagne' ? 'selected' : ''}>accompagne</option>
+        </select>
+      </label>
+      <label>
+        Statut
+        <select name="status" required>
+          <option value="active" ${status === 'active' ? 'selected' : ''}>active</option>
+          <option value="inactive" ${status === 'inactive' ? 'selected' : ''}>inactive</option>
+          <option value="expired" ${status === 'expired' ? 'selected' : ''}>expired</option>
+        </select>
+      </label>
+      <label>
+        Date de fin d'acces
+        <input name="accessEndsAt" type="date" value="${escapeHtml(accessEndsAt)}" required>
+      </label>
+      <button type="submit">Creer / mettre a jour</button>
+    </form>
+  </section>
+</main>`);
+}
+
 module.exports = {
   renderDashboard,
   renderDenied,
   renderLogin,
+  renderAdmin,
   renderCompletion,
   renderAccompaniment,
   renderBonus,

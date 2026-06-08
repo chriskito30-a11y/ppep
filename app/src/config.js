@@ -60,6 +60,7 @@ function getConfig(env = process.env) {
     firebaseServiceAccountBase64: env.PPEP_FIREBASE_SERVICE_ACCOUNT_BASE64 || '',
     firebaseStorePath: env.PPEP_FIREBASE_STORE_PATH || 'levelup/learners-store',
     sessionSecret: env.PPEP_SESSION_SECRET || 'ppep-local-dev-secret-change-me',
+    adminSecret: env.PPEP_ADMIN_SECRET || '',
     product,
     accompanimentBookingUrl: product.accompanimentBookingUrl,
     defaultAccessMonths: product.defaultAccessMonths,
