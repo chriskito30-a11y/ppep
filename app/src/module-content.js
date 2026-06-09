@@ -1121,7 +1121,7 @@ const CORE_MODULES = [
     "lesson": [
       "Un discours vivant n’est pas un discours théâtral forcé.",
       "Il devient vivant quand le public voit, entend ou ressent mieux ce que vous dites.",
-      "Les leviers simples sont les exemples, les pauses, les images, les variations de rythme, le regard et les gestes utiles.",
+      "La méthode DIVAS vous donne cinq leviers simples : Débit, Intention, Volume, Appui du regard, Silence.",
       "Le workshop sur l’éloquence est adapté ici uniquement comme support d’observation : l’idée utile est que l’éloquence se travaille.",
       "Vous choisissez deux leviers, pas dix. La clarté reste prioritaire."
     ],
@@ -1137,6 +1137,39 @@ const CORE_MODULES = [
       {
         "title": "Pause utile",
         "body": "Une pause laisse au public le temps de suivre et à vous le temps de respirer."
+      },
+      {
+        "title": "DIVAS",
+        "body": "Débit, Intention, Volume, Appui du regard et Silence : cinq réglages simples à tester un par un."
+      }
+    ],
+    "methodTools": [
+      {
+        "title": "Méthode DIVAS",
+        "intro": "Utilisez DIVAS comme une grille de réglage, pas comme une performance à réussir. Choisissez un ou deux leviers maximum pour votre intervention.",
+        "items": [
+          {
+            "label": "D — Débit",
+            "body": "Ralentir légèrement les phrases importantes pour laisser le public suivre."
+          },
+          {
+            "label": "I — Intention",
+            "body": "Savoir ce que chaque passage doit produire : informer, rassurer, convaincre ou faire agir."
+          },
+          {
+            "label": "V — Volume",
+            "body": "Parler assez fort pour être entendu sans forcer la voix ni crier."
+          },
+          {
+            "label": "A — Appui du regard",
+            "body": "Poser le regard sur des zones du public pour inclure tout le monde."
+          },
+          {
+            "label": "S — Silence",
+            "body": "Accepter une pause courte avant ou après une idée importante."
+          }
+        ],
+        "action": "Sur votre fiche, notez seulement deux lettres DIVAS à travailler lors de la prochaine répétition."
       }
     ],
     "videos": [
@@ -1161,7 +1194,7 @@ const CORE_MODULES = [
         "Choisissez une idée importante.",
         "Ajoutez un exemple concret ou une image.",
         "Ajoutez une pause à un endroit précis.",
-        "Testez une variation de voix ou de rythme.",
+        "Testez une variation de voix ou de rythme avec la méthode DIVAS.",
         "Gardez seulement les deux leviers les plus naturels."
       ]
     },
@@ -1185,9 +1218,9 @@ const CORE_MODULES = [
         {
           "title": "Présence",
           "prompts": [
-            "Pause à placer",
-            "Mot à appuyer",
-            "Geste ou regard utile"
+            "Levier DIVAS choisi 1",
+            "Levier DIVAS choisi 2",
+            "Pause, regard ou volume à tester"
           ]
         },
         {
@@ -1735,6 +1768,41 @@ const CORE_MODULES = [
           "advice": "Réduisez l’objectif, préparez votre fiche et demandez un regard humain si l’enjeu est fort."
         }
       ]
+    },
+    "progressivePractice": {
+      "title": "Échelle de mise en situation",
+      "intro": "Avancez d’un niveau seulement quand le précédent devient faisable. Cette échelle ne remplace pas un retour personnalisé ; elle sert à répéter dans des conditions de plus en plus réalistes.",
+      "levels": [
+        "Dire seulement l’introduction seul, sans caméra.",
+        "Dire l’introduction et le fil rouge devant la caméra.",
+        "Faire 2 minutes devant une personne de confiance.",
+        "Faire 3 à 5 minutes devant deux ou trois personnes.",
+        "Refaire la prise de parole dans un contexte proche du réel."
+      ],
+      "action": "Choisissez le prochain niveau réaliste et notez la date de votre tentative."
+    },
+    "feedbackRequest": {
+      "title": "Demander un retour utile",
+      "intro": "Le retour extérieur doit rester simple. Ne demandez pas une analyse complète : demandez trois observations concrètes.",
+      "questions": [
+        "Qu’est-ce que tu as retenu de mon message ?",
+        "À quel moment ai-je été le plus clair ?",
+        "Quel passage dois-je simplifier en priorité ?"
+      ],
+      "action": "Gardez un seul ajustement issu de ce retour pour la prochaine répétition."
+    },
+    "readinessChecklist": {
+      "title": "Mini-test : suis-je prêt à refaire une prise ?",
+      "intro": "Cochez ce qui est prêt. Les cases non cochées deviennent vos priorités avant la vidéo finale.",
+      "items": [
+        "Mon message central tient en une phrase.",
+        "Mon plan tient en trois à cinq repères.",
+        "Mon introduction est prête.",
+        "Ma conclusion est prête.",
+        "J’ai répété à voix haute avec ma fiche.",
+        "Je sais quoi faire si je perds le fil."
+      ],
+      "action": "Si plus de deux cases restent floues, reprenez seulement le module concerné avant de passer au bilan."
     }
   },
   {
@@ -1768,6 +1836,25 @@ const CORE_MODULES = [
         "body": "La formule guidée transmet la méthode ; le regard humain transforme plus finement la personne."
       }
     ],
+    "finalKit": {
+      "title": "Votre kit de prise de parole est prêt",
+      "intro": "À la fin, vous ne repartez pas avec une note. Vous repartez avec des repères concrets pour préparer vos prochains oraux.",
+      "items": [
+        "ma vidéo de départ",
+        "mon objectif",
+        "mon public",
+        "mon message central",
+        "mon plan avec fil rouge",
+        "mon introduction",
+        "ma conclusion",
+        "ma fiche de prise de parole",
+        "ma routine anti-trac",
+        "ma vidéo finale",
+        "mes trois progrès",
+        "mon prochain pas"
+      ],
+      "closing": "Ce kit prouve que vous êtes plus clair, plus préparé et plus présent. Pour aller plus loin, le regard humain sert à affiner ce que la méthode guidée ne peut pas corriger seule."
+    },
     "exercise": {
       "title": "Filmer, comparer et décider du prochain pas",
       "duration": "15 minutes",

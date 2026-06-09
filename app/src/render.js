@@ -172,6 +172,98 @@ function renderPracticeVariations(practiceVariations) {
   </article>`;
 }
 
+
+function renderMethodTools(methodTools) {
+  if (!Array.isArray(methodTools) || methodTools.length === 0) {
+    return '';
+  }
+
+  return `<article class="wide-card method-tool-card">
+    <p class="section-label">Méthode pratique</p>
+    <div class="tool-list">
+      ${methodTools.map((tool) => `
+        <section class="tool-item">
+          <h3>${escapeHtml(tool.title)}</h3>
+          ${tool.intro ? `<p>${escapeHtml(tool.intro)}</p>` : ''}
+          ${Array.isArray(tool.items)
+            ? `<div class="tool-grid">${tool.items.map((item) => `
+              <div class="tool-point">
+                <strong>${escapeHtml(item.label)}</strong>
+                <p>${escapeHtml(item.body)}</p>
+              </div>
+            `).join('')}</div>`
+            : ''}
+          ${tool.action ? `<p><strong>Action :</strong> ${escapeHtml(tool.action)}</p>` : ''}
+        </section>
+      `).join('')}
+    </div>
+  </article>`;
+}
+
+function renderProgressivePractice(progressivePractice) {
+  if (!progressivePractice || !Array.isArray(progressivePractice.levels)) {
+    return '';
+  }
+
+  return `<article class="wide-card progression-card">
+    <p class="section-label">Mise en situation progressive</p>
+    <h3>${escapeHtml(progressivePractice.title)}</h3>
+    <p>${escapeHtml(progressivePractice.intro || '')}</p>
+    <ol class="level-list">
+      ${progressivePractice.levels.map((level, index) => `<li><span>Niveau ${index + 1}</span>${escapeHtml(level)}</li>`).join('')}
+    </ol>
+    ${progressivePractice.action ? `<p><strong>Action :</strong> ${escapeHtml(progressivePractice.action)}</p>` : ''}
+  </article>`;
+}
+
+function renderFeedbackRequest(feedbackRequest) {
+  if (!feedbackRequest || !Array.isArray(feedbackRequest.questions)) {
+    return '';
+  }
+
+  return `<article class="wide-card feedback-card">
+    <p class="section-label">Retour extérieur cadré</p>
+    <h3>${escapeHtml(feedbackRequest.title)}</h3>
+    <p>${escapeHtml(feedbackRequest.intro || '')}</p>
+    <ul>
+      ${feedbackRequest.questions.map((question) => `<li>${escapeHtml(question)}</li>`).join('')}
+    </ul>
+    ${feedbackRequest.action ? `<p><strong>Action :</strong> ${escapeHtml(feedbackRequest.action)}</p>` : ''}
+  </article>`;
+}
+
+function renderReadinessChecklist(readinessChecklist) {
+  if (!readinessChecklist || !Array.isArray(readinessChecklist.items)) {
+    return '';
+  }
+
+  return `<article class="wide-card readiness-card">
+    <p class="section-label">Mini-test</p>
+    <h3>${escapeHtml(readinessChecklist.title)}</h3>
+    <p>${escapeHtml(readinessChecklist.intro || '')}</p>
+    <ul class="checklist-list">
+      ${readinessChecklist.items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
+    </ul>
+    ${readinessChecklist.action ? `<p><strong>Action :</strong> ${escapeHtml(readinessChecklist.action)}</p>` : ''}
+  </article>`;
+}
+
+function renderFinalKit(finalKit) {
+  if (!finalKit || !Array.isArray(finalKit.items)) {
+    return '';
+  }
+
+  return `<article class="wide-card final-kit-card">
+    <p class="section-label">Résultat final</p>
+    <h3>${escapeHtml(finalKit.title)}</h3>
+    <p>${escapeHtml(finalKit.intro || '')}</p>
+    <div class="final-kit-grid">
+      ${finalKit.items.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
+    </div>
+    ${finalKit.closing ? `<p class="completion-note">${escapeHtml(finalKit.closing)}</p>` : ''}
+  </article>`;
+}
+
 function renderQuestionnaire(questionnaire, moduleId) {
   if (!questionnaire || !Array.isArray(questionnaire.questions) || questionnaire.questions.length === 0) {
     return '';
@@ -708,6 +800,11 @@ function renderModule(snapshot, { message = '' } = {}) {
       ${renderDurationBreakdown(selectedModule.durationBreakdown)}
       ${renderPedagogicalVideos(selectedModule.videos)}
       ${renderQuestionnaire(selectedModule.questionnaire, selectedModule.id)}
+      ${renderMethodTools(selectedModule.methodTools)}
+      ${renderProgressivePractice(selectedModule.progressivePractice)}
+      ${renderFeedbackRequest(selectedModule.feedbackRequest)}
+      ${renderReadinessChecklist(selectedModule.readinessChecklist)}
+      ${renderFinalKit(selectedModule.finalKit)}
       ${renderPracticeVariations(selectedModule.practiceVariations)}
       <article>
         <p class="section-label">Exercice</p>
@@ -716,7 +813,7 @@ function renderModule(snapshot, { message = '' } = {}) {
           ? `<p class="module-meta"><strong>Durée :</strong> ${escapeHtml(selectedModule.exercise.duration)}</p>`
           : ''}
         ${Array.isArray(selectedModule.exercise.materials)
-          ? `<p class="module-meta"><strong>Materiel :</strong></p>${renderInlineList(selectedModule.exercise.materials, 'compact-list')}`
+          ? `<p class="module-meta"><strong>Matériel :</strong></p>${renderInlineList(selectedModule.exercise.materials, 'compact-list')}`
           : ''}
         <ol>
           ${selectedModule.exercise.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}
