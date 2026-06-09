@@ -20,6 +20,8 @@ const {
   renderBonus,
   renderDenied,
   renderLogin,
+  renderPurchaseTunnel,
+  renderSalesPage,
   renderModule,
   renderWorksheet,
 } = require('./render');
@@ -170,7 +172,8 @@ function buildAdminLearnerList(store) {
         accessEndsAt: toDateInputValue(learner.accessEndsAt),
         createdAt: learner.createdAt || '',
         updatedAt: learner.updatedAt || '',
-        progressLabel: summary ? `${summary.completedCount}/${summary.totalCount}` : `0/${CORE_MODULES.length}`, 
+        progressLabel: summary ? `${summary.completedCount}/${summary.totalCount}` : `0/${CORE_MODULES.length}`,
+        lastActivityAt: progress?.lastActivityAt || '',
       };
     });
 }
@@ -513,6 +516,16 @@ function createServer(config = getConfig()) {
 
       if (req.method === 'GET' && url.pathname === '/admin') {
         await handleAdminGet(req, res, runtimeConfig);
+        return;
+      }
+
+      if (req.method === 'GET' && url.pathname === '/vente') {
+        sendHtml(res, 200, renderSalesPage(runtimeConfig.product));
+        return;
+      }
+
+      if (req.method === 'GET' && url.pathname === '/achat') {
+        sendHtml(res, 200, renderPurchaseTunnel(runtimeConfig.product));
         return;
       }
 

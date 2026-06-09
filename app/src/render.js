@@ -25,6 +25,129 @@ function layout(title, body) {
 </html>`;
 }
 
+
+const SALES_MODULES = CORE_MODULES.map((module) => module.title);
+const SALES_DELIVERABLES = [
+  'une vidéo de départ et une vidéo finale à comparer soi-même',
+  'une fiche objectif claire',
+  'une fiche public',
+  'un message central en une phrase',
+  'un plan avec fil rouge',
+  'une introduction et une conclusion prêtes à dire',
+  'une fiche de prise de parole utilisable sans tout lire',
+  'une routine anti-trac',
+  'un plan d’action final',
+];
+
+function renderSalesPage(product = DEFAULT_PRODUCT_CONFIG) {
+  return layout('Level Up - Méthode guidée prise de parole', `
+<header class="sales-header">
+  <nav class="sales-nav" aria-label="Navigation commerciale">
+    <strong>${escapeHtml(product.name)}</strong>
+    <div>
+      <a href="#modules">Modules</a>
+      <a href="#faq">FAQ</a>
+      <a class="button-link small-button" href="${escapeHtml(product.paymentUrl)}">Commencer</a>
+    </div>
+  </nav>
+  <section class="sales-hero" aria-labelledby="sales-title">
+    <p class="eyebrow">Méthode guidée de prise de parole</p>
+    <h1 id="sales-title">Préparez une prise de parole plus claire, plus structurée et plus rassurante.</h1>
+    <p class="intro">Level Up vous guide pas à pas pour construire une prise de parole simple de 3 à 5 minutes, avec des exercices courts, des fiches pratiques, des vidéos intégrées et un kit final réutilisable.</p>
+    <div class="sales-cta-row">
+      <a class="button-link" href="${escapeHtml(product.paymentUrl)}">Accéder à la méthode — 149 €</a>
+      <a class="secondary-link" href="#difference">Voir la différence avec l’accompagnement</a>
+    </div>
+    <p class="module-meta">Durée officielle : 420 minutes / 7h. Les exercices complémentaires sont des bonus et peuvent ajouter du temps si vous les faites tous.</p>
+  </section>
+</header>
+
+<main class="sales-main">
+  <section class="sales-section" aria-labelledby="problem-title">
+    <p class="section-label">Le problème</p>
+    <h2 id="problem-title">Savoir quoi dire ne suffit pas toujours à oser le dire clairement.</h2>
+    <p>Beaucoup de personnes savent ce qu’elles veulent transmettre, mais se perdent au moment de préparer : objectif flou, public mal identifié, idées trop nombreuses, introduction hésitante, conclusion improvisée ou trac qui prend trop de place.</p>
+    <p>La méthode ne promet pas de tout transformer. Elle vous aide à préparer concrètement une prise de parole courte, claire et mieux structurée.</p>
+  </section>
+
+  <section class="sales-section" aria-labelledby="transformation-title">
+    <p class="section-label">Transformation réaliste</p>
+    <h2 id="transformation-title">À la fin, vous avez une méthode de préparation et un support prêt à réutiliser.</h2>
+    <p>On ne cherche pas à devenir parfait. On cherche à devenir plus clair, plus préparé et plus présent.</p>
+    <div class="sales-grid">
+      <article><h3>Avant</h3><p>Vous préparez au feeling, avec trop d’idées ou trop de texte.</p></article>
+      <article><h3>Pendant</h3><p>Vous avancez module par module : objectif, public, message, structure, introduction, conclusion, fiche, répétition.</p></article>
+      <article><h3>Après</h3><p>Vous repartez avec un kit final et une routine simple pour vos prochaines prises de parole.</p></article>
+    </div>
+  </section>
+
+  <section id="modules" class="sales-section" aria-labelledby="modules-title">
+    <p class="section-label">Programme</p>
+    <h2 id="modules-title">13 modules guidés</h2>
+    <ol class="sales-module-list">
+      ${SALES_MODULES.map((title, index) => `<li><span>Module ${index}</span>${escapeHtml(title)}</li>`).join('')}
+    </ol>
+  </section>
+
+  <section class="sales-section" aria-labelledby="deliverables-title">
+    <p class="section-label">Livrables</p>
+    <h2 id="deliverables-title">Ce que vous construisez</h2>
+    <ul class="deliverable-list">
+      ${SALES_DELIVERABLES.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
+    </ul>
+    <p><strong>Kit final :</strong> votre objectif, votre public, votre message central, votre fil rouge, votre introduction, votre conclusion, votre fiche, votre routine anti-trac, votre vidéo finale, trois progrès et un prochain pas.</p>
+  </section>
+
+  <section class="sales-section" aria-labelledby="included-title">
+    <p class="section-label">Format</p>
+    <h2 id="included-title">Des vidéos intégrées, mais jamais seules.</h2>
+    <p>Chaque vidéo est accompagnée d’une consigne, d’une question d’observation, d’un exercice et d’une action concrète. Les exercices complémentaires sont proposés comme bonus de pratique, sans changer la durée officielle de la méthode principale.</p>
+  </section>
+
+  <section id="difference" class="sales-section contrast-section" aria-labelledby="difference-title">
+    <p class="section-label">Important</p>
+    <h2 id="difference-title">La méthode guidée transmet une méthode. L’accompagnement individuel et personnalisé ajoute un regard humain.</h2>
+    <p>Cette formule ne remplace pas un accompagnement. Elle ne propose pas d’analyse personnalisée de votre posture, de votre voix, de vos blocages ou de votre vidéo. Elle vous donne un cadre solide pour préparer seul une prise de parole simple.</p>
+    <p>L’accompagnement individuel et personnalisé devient pertinent si vous voulez un retour professionnel, un entraînement live ou une adaptation fine à une situation à fort enjeu.</p>
+  </section>
+
+  <section class="sales-section price-section" aria-labelledby="price-title">
+    <p class="section-label">Prix</p>
+    <h2 id="price-title">Accès à la méthode guidée : 149 €</h2>
+    <p>Accès conseillé : 12 mois, pour avancer à votre rythme et revenir sur les fiches avant une nouvelle prise de parole.</p>
+    <a class="button-link" href="${escapeHtml(product.paymentUrl)}">Je commence la méthode guidée</a>
+  </section>
+
+  <section id="faq" class="sales-section" aria-labelledby="faq-title">
+    <p class="section-label">FAQ</p>
+    <h2 id="faq-title">Questions fréquentes</h2>
+    <details><summary>Est-ce une bibliothèque de vidéos ?</summary><p>Non. Les vidéos servent de support à des actions précises. Le cœur de la méthode, ce sont les exercices, les fiches et la progression guidée.</p></details>
+    <details><summary>Combien de temps faut-il prévoir ?</summary><p>La méthode principale dure officiellement 7h. Les bonus peuvent ajouter du temps si vous choisissez de les faire.</p></details>
+    <details><summary>Dois-je déjà être à l’aise à l’oral ?</summary><p>Non. La méthode part d’une prise de parole simple de 3 à 5 minutes et avance progressivement.</p></details>
+    <details><summary>Est-ce que ma vidéo est analysée ?</summary><p>Non. Les vidéos servent à votre propre comparaison. La plateforme ne les analyse pas et ne les stocke pas.</p></details>
+    <details><summary>Que faire si je veux un retour personnalisé ?</summary><p>Dans ce cas, l’accompagnement individuel et personnalisé est plus adapté, car il permet un regard humain sur votre situation réelle.</p></details>
+  </section>
+</main>`);
+}
+
+function renderPurchaseTunnel(product = DEFAULT_PRODUCT_CONFIG) {
+  return layout('Achat Level Up', `
+<main class="sales-main purchase-main">
+  <section class="sales-section price-section" aria-labelledby="purchase-title">
+    <p class="section-label">Tunnel d’achat simple</p>
+    <h1 id="purchase-title">Commencer la méthode guidée Level Up</h1>
+    <p>Le tunnel recommandé pour la bêta reste volontairement simple : paiement externe, création du compte par l’administrateur, puis envoi de l’email d’accès.</p>
+    <ol class="purchase-steps">
+      <li><strong>Paiement :</strong> Systeme.io ou Stripe pour la vente à 149 €. HelloAsso reste possible si vous préférez un fonctionnement associatif, mais Stripe/Systeme.io est plus direct pour une offre numérique.</li>
+      <li><strong>Création du compte :</strong> compte créé manuellement dans /admin pendant la bêta, avec une date de fin d’accès à 12 mois.</li>
+      <li><strong>Email d’accès :</strong> envoyer le modèle prévu dans les documents ou le texte prêt à copier depuis l’admin.</li>
+      <li><strong>Support :</strong> si l’acheteur a payé mais n’a pas reçu son compte, vérifier le paiement, créer ou réinitialiser l’accès, puis renvoyer l’email.</li>
+    </ol>
+    <p><a class="button-link" href="${escapeHtml(product.loginUrl)}">Aller à la connexion apprenant</a></p>
+  </section>
+</main>`);
+}
+
 function renderLogin({ email = '', message = '' } = {}, product = DEFAULT_PRODUCT_CONFIG) {
   return layout('Connexion apprenant', `
 <main class="auth-shell">
@@ -913,23 +1036,45 @@ function formatAdminDateTime(value) {
   }).format(parsed);
 }
 
+function buildAccessEmailText(learner) {
+  return [
+    'Bonjour,',
+    '',
+    'Votre accès à la méthode guidée Level Up est prêt.',
+    '',
+    `Lien de connexion : /login`,
+    `Email : ${learner.email || ''}`,
+    'Mot de passe : [à compléter avec le mot de passe créé dans l’administration]',
+    `Fin d’accès : ${learner.accessEndsAt || ''}`,
+    '',
+    'Je vous conseille de commencer par le module 0 et d’avancer étape par étape.',
+    '',
+    'Bonne préparation,',
+    'Level Up',
+  ].join('\n');
+}
+
 function renderAdminLearnerRows(learners = []) {
   if (!Array.isArray(learners) || learners.length === 0) {
-    return `<tr><td colspan="7">Aucun apprenant pour le moment.</td></tr>`;
+    return `<tr><td colspan="8">Aucun apprenant pour le moment.</td></tr>`;
   }
 
-  return learners.map((learner) => `
-    <tr data-admin-learner-row data-email="${escapeHtml(learner.email || '')}">
+  return learners.map((learner) => {
+    const accessEmailText = buildAccessEmailText(learner);
+
+    return `
+    <tr data-admin-learner-row data-email="${escapeHtml(learner.email || '')}" data-plan="${escapeHtml(learner.plan || '')}" data-status="${escapeHtml(learner.status || '')}">
       <td>${escapeHtml(learner.email || '')}</td>
-      <td>${escapeHtml(learner.plan || '')}</td>
+      <td>${escapeHtml(formatPlan(learner.plan || ''))}</td>
       <td><span class="admin-status admin-status-${escapeHtml(learner.status || 'unknown')}">${escapeHtml(learner.status || '')}</span></td>
       <td>${escapeHtml(learner.accessEndsAt || '')}</td>
       <td>${escapeHtml(learner.progressLabel || '-')}</td>
+      <td>${escapeHtml(formatAdminDateTime(learner.lastActivityAt))}</td>
       <td>
         <span>Création : ${escapeHtml(formatAdminDateTime(learner.createdAt))}</span><br>
         <span>Mise à jour : ${escapeHtml(formatAdminDateTime(learner.updatedAt))}</span>
       </td>
-      <td>
+      <td class="admin-row-actions">
         <button class="secondary-button admin-edit-button" type="button"
           data-email="${escapeHtml(learner.email || '')}"
           data-plan="${escapeHtml(learner.plan || 'autonome')}"
@@ -937,9 +1082,10 @@ function renderAdminLearnerRows(learners = []) {
           data-access-ends-at="${escapeHtml(learner.accessEndsAt || '')}">
           Modifier
         </button>
+        <button class="secondary-button admin-copy-access-button" type="button" data-access-email="${escapeHtml(accessEmailText)}">Copier email d’accès</button>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
 }
 
 function renderAdminLogin({ error = '' } = {}) {
@@ -1025,10 +1171,30 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
         <p class="eyebrow">Accès existants</p>
         <h2 id="admin-list-title">Apprenants</h2>
       </div>
-      <label class="admin-search">
-        Filtrer par email
-        <input id="admin-email-filter" type="search" autocomplete="off" placeholder="ex. lea@example.com">
-      </label>
+      <div class="admin-tools">
+        <label class="admin-search">
+          Filtrer par email
+          <input id="admin-email-filter" type="search" autocomplete="off" placeholder="ex. lea@example.com">
+        </label>
+        <label class="admin-search">
+          Filtrer par statut
+          <select id="admin-status-filter">
+            <option value="">Tous</option>
+            <option value="active">active</option>
+            <option value="inactive">inactive</option>
+            <option value="expired">expired</option>
+          </select>
+        </label>
+        <label class="admin-search">
+          Filtrer par formule
+          <select id="admin-plan-filter">
+            <option value="">Toutes</option>
+            <option value="autonome">Méthode guidée</option>
+            <option value="accompagne">Accompagné</option>
+          </select>
+        </label>
+        <button class="secondary-button" id="admin-export-csv" type="button">Exporter CSV</button>
+      </div>
     </div>
     <div class="admin-table-wrapper">
       <table class="admin-table">
@@ -1039,8 +1205,9 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
             <th>Statut</th>
             <th>Fin d’accès</th>
             <th>Progression</th>
+            <th>Dernière activité</th>
             <th>Dates</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="admin-learner-rows">
@@ -1053,6 +1220,9 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
 <script>
 (function () {
   var filter = document.getElementById('admin-email-filter');
+  var statusFilter = document.getElementById('admin-status-filter');
+  var planFilter = document.getElementById('admin-plan-filter');
+  var exportButton = document.getElementById('admin-export-csv');
   var rows = Array.prototype.slice.call(document.querySelectorAll('[data-admin-learner-row]'));
   var email = document.getElementById('admin-email');
   var password = document.getElementById('admin-password');
@@ -1060,14 +1230,52 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
   var status = document.getElementById('admin-status');
   var accessEndsAt = document.getElementById('admin-access-ends-at');
 
-  if (filter) {
-    filter.addEventListener('input', function () {
-      var query = filter.value.trim().toLowerCase();
-      rows.forEach(function (row) {
-        row.hidden = query && !String(row.dataset.email || '').toLowerCase().includes(query);
-      });
+  function applyAdminFilters() {
+    var query = filter ? filter.value.trim().toLowerCase() : '';
+    var statusQuery = statusFilter ? statusFilter.value : '';
+    var planQuery = planFilter ? planFilter.value : '';
+
+    rows.forEach(function (row) {
+      var matchEmail = !query || String(row.dataset.email || '').toLowerCase().includes(query);
+      var matchStatus = !statusQuery || row.dataset.status === statusQuery;
+      var matchPlan = !planQuery || row.dataset.plan === planQuery;
+      row.hidden = !(matchEmail && matchStatus && matchPlan);
     });
   }
+
+  if (filter) filter.addEventListener('input', applyAdminFilters);
+  if (statusFilter) statusFilter.addEventListener('change', applyAdminFilters);
+  if (planFilter) planFilter.addEventListener('change', applyAdminFilters);
+
+  if (exportButton) {
+    exportButton.addEventListener('click', function () {
+      var lines = [['email','formule','statut','fin_acces','progression','derniere_activite']];
+      rows.filter(function (row) { return !row.hidden; }).forEach(function (row) {
+        var cells = Array.prototype.slice.call(row.querySelectorAll('td')).slice(0, 6).map(function (cell) {
+          return '"' + cell.textContent.trim().replace(/"/g, '""') + '"';
+        });
+        lines.push(cells);
+      });
+      var blob = new Blob([lines.map(function (line) { return line.join(','); }).join('\n')], { type: 'text/csv;charset=utf-8' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'levelup-apprenants.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+  }
+
+  document.querySelectorAll('.admin-copy-access-button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var text = button.dataset.accessEmail || '';
+      if (navigator.clipboard && text) {
+        navigator.clipboard.writeText(text).then(function () {
+          button.textContent = 'Email copié';
+          setTimeout(function () { button.textContent = 'Copier email d’accès'; }, 1800);
+        });
+      }
+    });
+  });
 
   document.querySelectorAll('.admin-edit-button').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -1087,6 +1295,8 @@ module.exports = {
   renderDashboard,
   renderDenied,
   renderLogin,
+  renderPurchaseTunnel,
+  renderSalesPage,
   renderAdmin,
   renderCompletion,
   renderAccompaniment,

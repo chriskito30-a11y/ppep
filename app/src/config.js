@@ -25,6 +25,8 @@ const DEFAULT_PRODUCT_CONFIG = {
   defaultAccessMonths: 12,
   accompanimentBookingUrl: 'https://tidycal.com/levelup/accompagnement',
   supportText: 'Contactez le formateur si votre accès ou votre réservation pose problème.',
+  paymentUrl: '/achat',
+  loginUrl: '/login',
   commercialWording: 'Une méthode guidée pour préparer une prise de parole claire, structurée et rassurante.',
   offerDistinctionMessage: 'La méthode guidée transmet la méthode. L’accompagnement ajoute un regard professionnel. L’accompagnement individuel personnalisé permet un travail plus profond sur une situation réelle.',
 };
@@ -44,6 +46,8 @@ function buildProductConfig(env = process.env) {
       DEFAULT_PRODUCT_CONFIG.defaultAccessMonths,
     ),
     supportText: env.LEVELUP_SUPPORT_TEXT || DEFAULT_PRODUCT_CONFIG.supportText,
+    paymentUrl: env.LEVELUP_PAYMENT_URL || DEFAULT_PRODUCT_CONFIG.paymentUrl,
+    loginUrl: env.LEVELUP_LOGIN_URL || DEFAULT_PRODUCT_CONFIG.loginUrl,
   };
 }
 
