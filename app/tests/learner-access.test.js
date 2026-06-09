@@ -409,3 +409,26 @@ test('les exercices decales sont adaptes sans remplacer les exercices principaux
     assert.doesNotMatch(JSON.stringify(practice), /AVERTISSEMENT|MATÉRIEL|DURÉE|Lapinou|Gorillator|Petit Poucet|Sésame|Bof à Wow/i);
   }
 });
+
+test('les ameliorations ciblees renforcent la methode sans remplacer l accompagnement', () => {
+  const content = JSON.stringify(CORE_MODULES);
+  const module8 = CORE_MODULES.find((module) => module.id === 'module-8');
+  const module11 = CORE_MODULES.find((module) => module.id === 'module-11');
+  const module12 = CORE_MODULES.find((module) => module.id === 'module-12');
+
+  assert.ok(module8.methodTools?.some((tool) => tool.title.includes('DIVAS')));
+  assert.match(JSON.stringify(module8.methodTools), /Débit/);
+  assert.match(JSON.stringify(module8.methodTools), /Intention/);
+  assert.match(JSON.stringify(module8.methodTools), /Volume/);
+  assert.match(JSON.stringify(module8.methodTools), /Appui du regard/);
+  assert.match(JSON.stringify(module8.methodTools), /Silence/);
+
+  assert.equal(module11.progressivePractice.levels.length, 5);
+  assert.match(JSON.stringify(module11.feedbackRequest.questions), /Qu’est-ce que tu as retenu/);
+  assert.ok(module11.readinessChecklist.items.length >= 6);
+
+  assert.ok(module12.finalKit.items.includes('ma fiche de prise de parole'));
+  assert.ok(module12.finalKit.items.includes('mes trois progrès'));
+
+  assert.doesNotMatch(content, /20\/20|diagnostic comportemental|correction fine de voix|analyse personnalisée de posture/i);
+});
