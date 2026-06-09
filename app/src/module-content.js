@@ -1907,6 +1907,198 @@ const CORE_MODULES = [
   }
 ];
 
+
+const OFFSET_PRACTICES_BY_MODULE = {
+  "module-0": [
+    {
+      "title": "Une prise, puis j’observe",
+      "duration": "5 à 8 minutes",
+      "sourceIdea": "exercice de désinhibition et de parole immédiate",
+      "objective": "Éviter de refaire la vidéo de départ jusqu’à obtenir une version trop contrôlée.",
+      "steps": [
+        "Lancez l’enregistrement sans recommencer après la première hésitation.",
+        "À la fin, notez seulement ce qui reste compréhensible et ce qui se perd.",
+        "Gardez cette prise comme repère, même si elle n’est pas confortable."
+      ],
+      "action": "Écrire une phrase : “ma vidéo sert de point de départ, pas de verdict”."
+    }
+  ],
+  "module-1": [
+    {
+      "title": "Changer de posture intérieure",
+      "duration": "6 à 10 minutes",
+      "sourceIdea": "contraste entre posture effacée, posture stable et posture excessive",
+      "objective": "Sentir comment une croyance modifie le corps et la voix, sans chercher une posture parfaite.",
+      "steps": [
+        "Dites votre message central en version “je m’excuse d’être là”.",
+        "Redites-le en version stable : pieds posés, regard simple, voix calme.",
+        "Notez la différence ressentie et choisissez une consigne d’appui réaliste."
+      ],
+      "action": "Ajouter sur la fiche : “quand je doute, je reviens à une posture stable”."
+    }
+  ],
+  "module-2": [
+    {
+      "title": "Respirer pour reprendre la main",
+      "duration": "5 minutes",
+      "sourceIdea": "respiration abdominale et retour au calme avant de parler",
+      "objective": "Utiliser la respiration comme un geste de préparation, pas comme une promesse de disparition du trac.",
+      "steps": [
+        "Posez une main sur le ventre et inspirez sans lever les épaules.",
+        "Expirez plus lentement que vous n’inspirez.",
+        "Dites ensuite votre première phrase avec un débit volontairement plus calme."
+      ],
+      "action": "Choisir une respiration courte à faire juste avant l’introduction."
+    }
+  ],
+  "module-3": [
+    {
+      "title": "Mon objectif en une phrase test",
+      "duration": "5 à 7 minutes",
+      "sourceIdea": "formulation brève et vérifiable d’une intention",
+      "objective": "Vérifier que l’objectif SMART peut être dit simplement à quelqu’un d’extérieur.",
+      "steps": [
+        "Résumez votre objectif en une seule phrase.",
+        "Supprimez les mots vagues comme “intéresser”, “sensibiliser” ou “faire comprendre” s’ils ne disent pas l’action attendue.",
+        "Ajoutez le résultat observable que vous voulez obtenir chez le public."
+      ],
+      "action": "Recopier cette phrase en haut de la fiche de préparation."
+    }
+  ],
+  "module-4": [
+    {
+      "title": "Balayer trois zones du public",
+      "duration": "5 à 8 minutes",
+      "sourceIdea": "regard posé brièvement sur plusieurs personnes ou zones",
+      "objective": "Remplacer le regard fuyant par un balayage simple, sans fixer quelqu’un trop longtemps.",
+      "steps": [
+        "Choisissez trois zones imaginaires : gauche, centre, droite.",
+        "Dites trois phrases en regardant une zone différente à chaque phrase.",
+        "Recommencez avec une pause courte entre les zones."
+      ],
+      "action": "Noter sur la fiche : gauche, centre, droite."
+    }
+  ],
+  "module-5": [
+    {
+      "title": "Le message qui tient sur une ligne",
+      "duration": "6 à 10 minutes",
+      "sourceIdea": "travail de slogan et de phrase mémorable",
+      "objective": "Rendre le message central plus net sans chercher une formule publicitaire.",
+      "steps": [
+        "Écrivez votre message central en une phrase longue.",
+        "Réduisez-la à une ligne qui peut être retenue par le public.",
+        "Vérifiez qu’elle contient une idée, pas seulement un thème."
+      ],
+      "action": "Placer cette ligne dans l’introduction et dans la conclusion."
+    }
+  ],
+  "module-6": [
+    {
+      "title": "Les cailloux du fil rouge",
+      "duration": "8 à 12 minutes",
+      "sourceIdea": "repères successifs pour ne pas perdre le fil",
+      "objective": "Renforcer l’exercice des Post-it avec des repères de passage très visibles.",
+      "steps": [
+        "Gardez seulement trois à cinq Post-it principaux.",
+        "Ajoutez sur chacun un mot de transition : d’abord, ensuite, exemple, conséquence, conclusion.",
+        "Répétez le passage d’un Post-it au suivant sans rédiger vos phrases."
+      ],
+      "action": "Entourer les Post-it qui deviennent les vrais repères de prise de parole."
+    }
+  ],
+  "module-7": [
+    {
+      "title": "Trois portes d’entrée",
+      "duration": "8 à 10 minutes",
+      "sourceIdea": "démarrer par une question, une situation ou une entrée directe",
+      "objective": "Tester plusieurs introductions sans recopier un modèle tout fait.",
+      "steps": [
+        "Écrivez une introduction qui commence par une question.",
+        "Écrivez une introduction qui commence par une situation concrète.",
+        "Écrivez une introduction directe : bonjour, cadre, objectif, promesse.",
+        "Gardez celle qui sert le mieux votre public."
+      ],
+      "action": "Surligner l’introduction choisie sur la fiche."
+    }
+  ],
+  "module-8": [
+    {
+      "title": "Voix, geste, pause : une variation à la fois",
+      "duration": "8 à 12 minutes",
+      "sourceIdea": "modulation de voix, gestes utiles et présence au public",
+      "objective": "Rendre le discours plus vivant sans jouer un personnage.",
+      "steps": [
+        "Prenez une phrase importante et dites-la une fois trop neutre.",
+        "Redites-la avec une pause avant le mot clé.",
+        "Ajoutez un geste simple qui montre l’idée au lieu de décorer la phrase.",
+        "Gardez uniquement la version qui reste naturelle."
+      ],
+      "action": "Marquer sur la fiche une pause ou un geste à un seul endroit stratégique."
+    }
+  ],
+  "module-9": [
+    {
+      "title": "Une fin qui donne une direction",
+      "duration": "6 à 10 minutes",
+      "sourceIdea": "passer d’une fin molle à une conclusion qui déclenche une action",
+      "objective": "Éviter la conclusion qui s’éteint en préparant une dernière phrase claire.",
+      "steps": [
+        "Dites une conclusion volontairement vague : “voilà, j’ai fini”.",
+        "Remplacez-la par une phrase qui rappelle l’idée essentielle.",
+        "Ajoutez une action concrète ou une ouverture simple pour le public."
+      ],
+      "action": "Écrire la dernière phrase mot pour mot, puis la dire sans lire."
+    }
+  ],
+  "module-10": [
+    {
+      "title": "La fiche anti-trou",
+      "duration": "5 à 8 minutes",
+      "sourceIdea": "repères de reprise quand on perd momentanément le fil",
+      "objective": "Préparer une fiche qui aide à repartir sans lire tout le discours.",
+      "steps": [
+        "Repérez les trois endroits où vous risquez le plus de perdre le fil.",
+        "Ajoutez à côté une phrase de reprise courte : “je reviens à l’idée principale…”.",
+        "Vérifiez que votre fiche tient sur une page lisible."
+      ],
+      "action": "Ajouter une phrase de reprise dans la marge de la fiche."
+    }
+  ],
+  "module-11": [
+    {
+      "title": "Répéter dans trois contextes",
+      "duration": "8 à 12 minutes",
+      "sourceIdea": "répétition dans des lieux ordinaires pour dédramatiser la parole seule",
+      "objective": "Rendre la répétition plus naturelle sans apprendre le texte par cœur.",
+      "steps": [
+        "Répétez une fois assis, pour vérifier le fil.",
+        "Répétez une fois debout, pour vérifier la voix et la posture.",
+        "Répétez une fois dans un lieu banal, comme un couloir ou une pièce différente, pour accepter l’imperfection."
+      ],
+      "action": "Noter après chaque passage : clair, trop long ou à simplifier."
+    }
+  ],
+  "module-12": [
+    {
+      "title": "De flou à plus clair",
+      "duration": "8 à 10 minutes",
+      "sourceIdea": "comparaison avant/après centrée sur le progrès observable",
+      "objective": "Observer la progression sans chercher une performance parfaite.",
+      "steps": [
+        "Regardez 30 secondes de la vidéo de départ puis 30 secondes de la vidéo finale.",
+        "Notez une amélioration visible ou audible.",
+        "Notez une priorité de travail pour la prochaine prise de parole."
+      ],
+      "action": "Écrire une phrase de bilan : “je suis plus clair quand…”"
+    }
+  ]
+};
+
+for (const module of CORE_MODULES) {
+  module.practiceVariations = OFFSET_PRACTICES_BY_MODULE[module.id] || [];
+}
+
 const BONUS_ITEMS = [
   {
     "id": "respiration-express",

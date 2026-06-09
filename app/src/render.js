@@ -147,6 +147,31 @@ function renderPedagogicalVideos(videos) {
   </article>`;
 }
 
+
+function renderPracticeVariations(practiceVariations) {
+  if (!Array.isArray(practiceVariations) || practiceVariations.length === 0) {
+    return '';
+  }
+
+  return `<article class="wide-card practice-card">
+    <p class="section-label">Entraînement complémentaire</p>
+    <p class="module-meta">Ces propositions sont des variantes courtes pour pratiquer autrement. Elles ne remplacent pas l’exercice principal du module.</p>
+    <div class="practice-list">
+      ${practiceVariations.map((practice) => `
+        <section class="practice-item">
+          <h3>${escapeHtml(practice.title)}</h3>
+          <p><strong>Durée indicative :</strong> ${escapeHtml(practice.duration)}</p>
+          <p>${escapeHtml(practice.objective)}</p>
+          ${Array.isArray(practice.steps)
+            ? `<ol>${practice.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}</ol>`
+            : ''}
+          <p><strong>Action :</strong> ${escapeHtml(practice.action)}</p>
+        </section>
+      `).join('')}
+    </div>
+  </article>`;
+}
+
 function renderQuestionnaire(questionnaire, moduleId) {
   if (!questionnaire || !Array.isArray(questionnaire.questions) || questionnaire.questions.length === 0) {
     return '';
@@ -683,6 +708,7 @@ function renderModule(snapshot, { message = '' } = {}) {
       ${renderDurationBreakdown(selectedModule.durationBreakdown)}
       ${renderPedagogicalVideos(selectedModule.videos)}
       ${renderQuestionnaire(selectedModule.questionnaire, selectedModule.id)}
+      ${renderPracticeVariations(selectedModule.practiceVariations)}
       <article>
         <p class="section-label">Exercice</p>
         <h3>${escapeHtml(selectedModule.exercise.title)}</h3>
