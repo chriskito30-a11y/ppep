@@ -143,7 +143,10 @@ function renderPurchaseTunnel(product = DEFAULT_PRODUCT_CONFIG) {
       <li><strong>Email d’accès :</strong> envoyer le modèle prévu dans les documents ou le texte prêt à copier depuis l’admin.</li>
       <li><strong>Support :</strong> si l’acheteur a payé mais n’a pas reçu son compte, vérifier le paiement, créer ou réinitialiser l’accès, puis renvoyer l’email.</li>
     </ol>
-    <p><a class="button-link" href="${escapeHtml(product.loginUrl)}">Aller à la connexion apprenant</a></p>
+    <div class="purchase-actions">
+      <a class="button-link" href="${escapeHtml(product.paymentUrl)}">Passer au paiement sécurisé</a>
+      <a class="button-link secondary" href="${escapeHtml(product.loginUrl)}">J’ai déjà mes accès</a>
+    </div>
   </section>
 </main>`);
 }

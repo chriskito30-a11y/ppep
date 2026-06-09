@@ -46,7 +46,7 @@ function buildProductConfig(env = process.env) {
       DEFAULT_PRODUCT_CONFIG.defaultAccessMonths,
     ),
     supportText: env.LEVELUP_SUPPORT_TEXT || DEFAULT_PRODUCT_CONFIG.supportText,
-    paymentUrl: env.LEVELUP_PAYMENT_URL || DEFAULT_PRODUCT_CONFIG.paymentUrl,
+    paymentUrl: env.LEVELUP_CHECKOUT_URL || env.LEVELUP_PAYMENT_URL || DEFAULT_PRODUCT_CONFIG.paymentUrl,
     loginUrl: env.LEVELUP_LOGIN_URL || DEFAULT_PRODUCT_CONFIG.loginUrl,
   };
 }
