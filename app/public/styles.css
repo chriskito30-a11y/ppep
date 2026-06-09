@@ -1161,3 +1161,24 @@ legend {
   border-bottom: 1px solid rgba(31, 41, 55, 0.08);
   padding-bottom: 0.35rem;
 }
+
+.practice-card {
+  border: 1px solid rgba(22, 117, 103, 0.18);
+  background: rgba(22, 117, 103, 0.05);
+}
+
+.practice-list {
+  display: grid;
+  gap: 14px;
+}
+
+.practice-item {
+  padding: 16px;
+  border: 1px solid rgba(22, 117, 103, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.practice-item h3 {
+  margin-top: 0;
+}
