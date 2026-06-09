@@ -5,6 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 const { activateLearner } = require('../src/learners');
 const { BONUS_ITEMS, CORE_MODULES } = require('../src/modules');
+const { getConfig } = require('../src/config');
 const { createServer } = require('../src/server');
 const { createEmptyStore, writeStore } = require('../src/storage');
 
@@ -975,7 +976,7 @@ test('tunnel achat : procedure simple sans creation automatique fragile', async 
     port: 0,
     sessionSecret: 'test-secret',
     product: {
-      paymentUrl: '/achat',
+      paymentUrl: 'https://levelup-formation.systeme.io/paiement',
       loginUrl: '/login',
     },
   });
@@ -989,8 +990,20 @@ test('tunnel achat : procedure simple sans creation automatique fragile', async 
   assert.match(html, /paiement externe/i);
   assert.match(html, /créé manuellement|crée manuellement/i);
   assert.match(html, /Email d’accès|Email d.acces/i);
-  assert.match(html, /Aller à la connexion apprenant/);
+  assert.match(html, /Passer au paiement sécurisé/);
+  assert.match(html, /https:\/\/levelup-formation\.systeme\.io\/paiement/);
+  assert.match(html, /J’ai déjà mes accès/);
   assert.doesNotMatch(html, /\bCPF\b|parcours autonome/i);
+});
+
+
+test('configuration commerciale : LEVELUP_CHECKOUT_URL alimente le lien de paiement', () => {
+  const { product } = getConfig({
+    LEVELUP_CHECKOUT_URL: 'https://levelup-formation.systeme.io/paiement',
+    PPEP_SESSION_SECRET: 'test-secret',
+  });
+
+  assert.equal(product.paymentUrl, 'https://levelup-formation.systeme.io/paiement');
 });
 
 test('admin web : filtres, export et email acces sans exposer de mot de passe', async (t) => {
