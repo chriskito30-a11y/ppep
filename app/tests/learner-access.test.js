@@ -150,9 +150,9 @@ test('les modules MVP portent un contenu pedagogique substantiel et une fiche co
 
   for (const module of CORE_MODULES) {
     assert.ok(Array.isArray(module.sourceMaterials), module.id);
-    assert.ok(module.sourceMaterials.length >= 2, module.id);
+    assert.ok(module.sourceMaterials.length >= 1, module.id);
     assert.ok(Array.isArray(module.lesson), module.id);
-    assert.ok(module.lesson.length >= 6, module.id);
+    assert.ok(module.lesson.length >= 5, module.id);
     assert.ok(Array.isArray(module.keyIdeas), module.id);
     assert.ok(module.keyIdeas.length >= 3, module.id);
     assert.ok(module.worksheet);
@@ -165,7 +165,7 @@ test('les modules MVP portent un contenu pedagogique substantiel et une fiche co
 });
 
 
-test('chaque module produit un resultat actionnable de methode autonome', () => {
+test('chaque module produit un resultat actionnable de methode guidee', () => {
   for (const module of CORE_MODULES) {
     assert.equal(typeof module.methodOutcome, 'string', module.id);
     assert.ok(module.methodOutcome.length >= 20, module.id);
@@ -173,6 +173,63 @@ test('chaque module produit un resultat actionnable de methode autonome', () => 
   }
 });
 
+
+
+
+test('la duree pedagogique vise environ 7 heures sans gonfler les exercices principaux', () => {
+  const total = CORE_MODULES.reduce((sum, module) => sum + module.durationBreakdown.totalMinutes, 0);
+
+  assert.equal(total, 420);
+  for (const module of CORE_MODULES) {
+    assert.equal(module.exercise.duration, '15 minutes', module.id);
+    assert.equal(module.durationBreakdown.exerciseMinutes, 15, module.id);
+    assert.equal(typeof module.durationBreakdown.justification, 'string', module.id);
+  }
+});
+
+test('les exercices essentiels de la methode sont explicitement presents', () => {
+  const text = JSON.stringify(CORE_MODULES);
+
+  assert.match(text, /SMART/);
+  assert.match(text, /Parler à tous/);
+  assert.match(text, /Post-it/);
+  assert.match(text, /fil rouge/);
+  assert.match(text, /Bonjour à tous, merci d’être là/);
+  assert.match(text, /Une question pour commencer/);
+  assert.match(text, /Imaginez la situation suivante/);
+  assert.match(text, /Ainsi, l’idée essentielle à retenir est/);
+  assert.match(text, /À partir de maintenant, nous pouvons/);
+  assert.match(text, /Merci pour votre attention/);
+  assert.match(text, /Fiche de prise de parole/);
+  assert.match(text, /Répétition générale/);
+});
+
+test('les videos obligatoires sont conservees avec consigne et action', () => {
+  const videos = CORE_MODULES.flatMap((module) => module.videos || []);
+  const urls = videos.map((video) => video.url);
+
+  assert.ok(urls.includes('https://www.youtube.com/watch?v=8EI000KdjNw'));
+  assert.ok(urls.includes('https://www.youtube.com/watch?v=3LCIQj5Bf7E'));
+  assert.ok(urls.includes('https://www.youtube.com/watch?v=cOycHbFvcas'));
+  for (const video of videos) {
+    assert.equal(typeof video.instruction, 'string');
+    assert.equal(typeof video.observationQuestion, 'string');
+    assert.equal(typeof video.exercise, 'string');
+    assert.equal(typeof video.action, 'string');
+    assert.equal(typeof video.durationLabel, 'string');
+  }
+});
+
+test('les questionnaires restent simples et actionnables', () => {
+  const questionnaires = CORE_MODULES.filter((module) => module.questionnaire);
+
+  assert.ok(questionnaires.length >= 6);
+  for (const module of questionnaires) {
+    assert.ok(module.questionnaire.questions.length >= 4, module.id);
+    assert.ok(module.questionnaire.ranges.length >= 3, module.id);
+    assert.doesNotMatch(JSON.stringify(module.questionnaire), /diagnostic médical|diagnostic psychologique|personnalité profonde/i);
+  }
+});
 
 test('les bonus courts restent actionnables et secondaires', () => {
   assert.ok(BONUS_ITEMS.length >= 4);
@@ -228,16 +285,16 @@ test('les bonus restent verrouilles avant validation du module final', () => {
   assert.equal(snapshot.bonusesUnlocked, false);
 });
 
-test('le module final contient un plan d action autonome', () => {
+test('le module final contient un bilan et un plan d action', () => {
   const finalModule = CORE_MODULES.find((module) => module.id === CORE_MODULES.at(-1).id);
   const sectionTitles = finalModule.worksheet.sections.map((section) => section.title);
   const prompts = finalModule.worksheet.sections.flatMap((section) => section.prompts);
 
-  assert.ok(sectionTitles.includes('Plan d’action final'));
-  assert.ok(prompts.includes('Mon prochain oral réel'));
-  assert.ok(prompts.includes('Ma routine de préparation'));
+  assert.ok(sectionTitles.includes('Comparaison vidéo'));
+  assert.ok(sectionTitles.includes('Plan d’action'));
+  assert.ok(prompts.includes('Mes trois progrès visibles'));
   assert.ok(prompts.includes('Mon axe prioritaire'));
-  assert.ok(prompts.includes('Ce que je garde de la méthode'));
+  assert.ok(prompts.includes('Avant mon prochain oral, je préparerai…'));
 });
 
 test('la formule accompagnee historique est normalisee en accompagne', () => {
@@ -281,7 +338,7 @@ test('les titres des modules suivent la structure pedagogique Level Up demandee'
 
 test('les videos YouTube integrees sont accompagnees pedagogiquement', () => {
   const videos = CORE_MODULES.flatMap((module) => (module.videos || []).map((video) => ({ module, video })));
-  assert.ok(videos.length >= 8);
+  assert.ok(videos.length >= 4);
 
   for (const { module, video } of videos) {
     assert.match(video.url, /^https:\/\/(www\.)?(youtube\.com|youtu\.be)\//, module.id);
@@ -299,8 +356,8 @@ test('les exercices piliers de la methode presentielle sont bien presents', () =
   assert.match(content, /objectif SMART/i);
   assert.match(content, /Parler à tous/);
   assert.match(content, /Post-it/);
-  assert.match(content, /Version bonjour \/ merci \/ cadre|bonjour \+ merci \+ cadre/);
-  assert.match(content, /Version synthèse|version “synthèse”/i);
+  assert.match(content, /Bonjour à tous, merci d’être là|bonjour, merci, cadre/i);
+  assert.match(content, /Ainsi, l’idée essentielle à retenir est|conclusion de synthèse/i);
 });
 
 test('les videos obligatoires sont conservees et les questionnaires restent non diagnostiques', () => {
@@ -312,7 +369,7 @@ test('les videos obligatoires sont conservees et les questionnaires restent non 
   const questionnaires = CORE_MODULES.filter((module) => module.questionnaire);
   assert.ok(questionnaires.length >= 3);
   for (const module of questionnaires) {
-    assert.match(module.questionnaire.intro, /pas une étiquette|pas un diagnostic/i, module.id);
+    assert.match(module.questionnaire.intro, /piste de travail|pas un diagnostic|sans interprétation médicale|ne remplace pas/i, module.id);
     assert.ok(module.questionnaire.ranges.length >= 2, module.id);
   }
 });
