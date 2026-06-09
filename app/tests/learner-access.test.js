@@ -383,3 +383,29 @@ test('les contenus apprenants conservent les accents et apostrophes principaux',
   assert.match(allContent, /progrès/);
   assert.doesNotMatch(allContent, /d hesiter|meme duree|Materiel|Criteres|a l oral|n ai pas/);
 });
+
+test('les exercices decales sont adaptes sans remplacer les exercices principaux', () => {
+  const allPractices = CORE_MODULES.flatMap((module) => module.practiceVariations || []);
+  assert.ok(allPractices.length >= 10);
+
+  const content = JSON.stringify(allPractices);
+  assert.match(content, /Balayer trois zones du public/);
+  assert.match(content, /Les cailloux du fil rouge/);
+  assert.match(content, /Trois portes d’entrée/);
+  assert.match(content, /Voix, geste, pause/);
+  assert.match(content, /Répéter dans trois contextes/);
+
+  for (const module of CORE_MODULES) {
+    assert.equal(module.exercise.duration, '15 minutes', module.id);
+    assert.equal(module.durationBreakdown.totalMinutes, Number.parseInt(module.estimatedDuration, 10), module.id);
+  }
+
+  for (const practice of allPractices) {
+    assert.equal(typeof practice.title, 'string');
+    assert.equal(typeof practice.objective, 'string');
+    assert.equal(typeof practice.action, 'string');
+    assert.ok(Array.isArray(practice.steps));
+    assert.ok(practice.steps.length >= 3);
+    assert.doesNotMatch(JSON.stringify(practice), /AVERTISSEMENT|MATÉRIEL|DURÉE|Lapinou|Gorillator|Petit Poucet|Sésame|Bof à Wow/i);
+  }
+});
