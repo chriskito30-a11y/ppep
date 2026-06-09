@@ -1182,3 +1182,63 @@ legend {
 .practice-item h3 {
   margin-top: 0;
 }
+
+.method-tool-card,
+.progression-card,
+.feedback-card,
+.readiness-card,
+.final-kit-card {
+  border: 1px solid rgba(79, 70, 229, 0.16);
+  background: rgba(79, 70, 229, 0.05);
+}
+
+.tool-list,
+.tool-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.tool-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin: 1rem 0;
+}
+
+.tool-point,
+.level-list li,
+.checklist-list li,
+.final-kit-grid span {
+  border: 1px solid rgba(79, 70, 229, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 0.85rem;
+}
+
+.tool-point p {
+  margin: 0.35rem 0 0;
+}
+
+.level-list,
+.checklist-list {
+  display: grid;
+  gap: 0.7rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.level-list li span {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.checklist-list li::before {
+  content: '□ ';
+  font-weight: 800;
+}
+
+.final-kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
