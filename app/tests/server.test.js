@@ -969,7 +969,7 @@ test('page de vente : promesse, 13 modules, prix, duree et vocabulaire public pr
   assert.equal((html.match(/<li><span>Module /g) || []).length, 13);
 });
 
-test('tunnel achat : procedure simple sans creation automatique fragile', async (t) => {
+test('tunnel achat : page orientee utilisateur avec lien de paiement', async (t) => {
   const { dataFile } = await createTempStore();
   const server = createServer({
     dataFile,
@@ -987,15 +987,17 @@ test('tunnel achat : procedure simple sans creation automatique fragile', async 
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /paiement externe/i);
-  assert.match(html, /créé manuellement|crée manuellement/i);
-  assert.match(html, /Email d’accès|Email d.acces/i);
+  assert.match(html, /Vous êtes à une étape du paiement/);
+  assert.match(html, /13 modules guidés/);
+  assert.match(html, /Prix : 149 €/);
+  assert.match(html, /paiement sécurisé par carte bancaire/i);
+  assert.match(html, /vous sont envoyés par email/i);
   assert.match(html, /Passer au paiement sécurisé/);
   assert.match(html, /https:\/\/levelup-formation\.systeme\.io\/paiement/);
   assert.match(html, /J’ai déjà mes accès/);
-  assert.doesNotMatch(html, /\bCPF\b|parcours autonome/i);
+  assert.doesNotMatch(html, /\/admin|créé manuellement|crée manuellement|paiement externe|bêta/i);
+  assert.doesNotMatch(html, /CPF|parcours autonome/i);
 });
-
 
 test('configuration commerciale : LEVELUP_CHECKOUT_URL alimente le lien de paiement', () => {
   const { product } = getConfig({
