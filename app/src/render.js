@@ -134,19 +134,21 @@ function renderPurchaseTunnel(product = DEFAULT_PRODUCT_CONFIG) {
   return layout('Achat Level Up', `
 <main class="sales-main purchase-main">
   <section class="sales-section price-section" aria-labelledby="purchase-title">
-    <p class="section-label">Tunnel d’achat simple</p>
-    <h1 id="purchase-title">Commencer la méthode guidée Level Up</h1>
-    <p>Le tunnel recommandé pour la bêta reste volontairement simple : paiement externe, création du compte par l’administrateur, puis envoi de l’email d’accès.</p>
-    <ol class="purchase-steps">
-      <li><strong>Paiement :</strong> Systeme.io ou Stripe pour la vente à 149 €. HelloAsso reste possible si vous préférez un fonctionnement associatif, mais Stripe/Systeme.io est plus direct pour une offre numérique.</li>
-      <li><strong>Création du compte :</strong> compte créé manuellement dans /admin pendant la bêta, avec une date de fin d’accès à 12 mois.</li>
-      <li><strong>Email d’accès :</strong> envoyer le modèle prévu dans les documents ou le texte prêt à copier depuis l’admin.</li>
-      <li><strong>Support :</strong> si l’acheteur a payé mais n’a pas reçu son compte, vérifier le paiement, créer ou réinitialiser l’accès, puis renvoyer l’email.</li>
-    </ol>
+    <p class="section-label">Accès à la méthode guidée</p>
+    <h1 id="purchase-title">Commencer Level Up</h1>
+    <p class="lead">Vous êtes à une étape du paiement. Après votre achat, vous recevrez vos accès personnels par email pour commencer la méthode guidée à votre rythme.</p>
+    <div class="purchase-summary" aria-label="Résumé de l’offre">
+      <p><strong>Ce que vous obtenez :</strong> 13 modules guidés pour préparer une prise de parole claire, structurée et rassurante.</p>
+      <p><strong>Durée officielle :</strong> 7h de méthode principale, avec des exercices complémentaires disponibles en bonus.</p>
+      <p><strong>Accès :</strong> vos identifiants personnels vous sont envoyés par email après validation de l’achat.</p>
+      <p><strong>Besoin d’aide ?</strong> Si vous ne recevez pas vos accès, il suffit de répondre à l’email de confirmation ou de contacter le support.</p>
+    </div>
+    <p class="price-note"><strong>Prix : 149 €</strong> — paiement sécurisé par carte bancaire.</p>
     <div class="purchase-actions">
       <a class="button-link" href="${escapeHtml(product.paymentUrl)}">Passer au paiement sécurisé</a>
       <a class="button-link secondary" href="${escapeHtml(product.loginUrl)}">J’ai déjà mes accès</a>
     </div>
+    <p class="microcopy">Votre accès est personnel. La méthode ne remplace pas un accompagnement individuel et personnalisé, mais elle vous donne une structure concrète pour avancer seul.</p>
   </section>
 </main>`);
 }
