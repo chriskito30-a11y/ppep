@@ -937,3 +937,95 @@ test('admin web : reinitialisation mot de passe puis connexion avec le nouveau m
   assert.equal(newLogin.status, 303);
   assert.equal(newLogin.headers.get('location'), '/dashboard');
 });
+
+test('page de vente : promesse, 13 modules, prix, duree et vocabulaire public propre', async (t) => {
+  const { dataFile } = await createTempStore();
+  const server = createServer({
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    product: {
+      paymentUrl: '/achat',
+      loginUrl: '/login',
+    },
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/vente`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Méthode guidée de prise de parole/);
+  assert.match(html, /149 €|149/);
+  assert.match(html, /420 minutes \/ 7h/);
+  assert.match(html, /Module 12/);
+  assert.match(html, /kit final/i);
+  assert.match(html, /L’accompagnement individuel et personnalisé ajoute un regard humain/);
+  assert.doesNotMatch(html, /parcours autonome/i);
+  assert.doesNotMatch(html, /\bCPF\b/i);
+  assert.doesNotMatch(html, /\.pdf|\.pptx|Sources de référence/i);
+  assert.equal((html.match(/<li><span>Module /g) || []).length, 13);
+});
+
+test('tunnel achat : procedure simple sans creation automatique fragile', async (t) => {
+  const { dataFile } = await createTempStore();
+  const server = createServer({
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    product: {
+      paymentUrl: '/achat',
+      loginUrl: '/login',
+    },
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const response = await fetch(`http://127.0.0.1:${port}/achat`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /paiement externe/i);
+  assert.match(html, /créé manuellement|crée manuellement/i);
+  assert.match(html, /Email d’accès|Email d.acces/i);
+  assert.match(html, /Aller à la connexion apprenant/);
+  assert.doesNotMatch(html, /\bCPF\b|parcours autonome/i);
+});
+
+test('admin web : filtres, export et email acces sans exposer de mot de passe', async (t) => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'ppep-admin-test-'));
+  const dataFile = path.join(dir, 'learners.json');
+  const store = createEmptyStore();
+  activateLearner(store, {
+    email: 'adminoutils@ppep.local',
+    password: 'motdepasse-test',
+    plan: 'autonome',
+    accessEndsAt: '2026-12-31',
+  }, new Date('2026-06-08T12:00:00.000Z'));
+  await writeStore(dataFile, store);
+
+  const server = createServer({
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+    adminSecret: 'admin-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const adminCookie = await loginAdmin(baseUrl);
+  const response = await fetch(`${baseUrl}/admin`, { headers: { cookie: adminCookie } });
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Filtrer par statut/);
+  assert.match(html, /Filtrer par formule/);
+  assert.match(html, /Exporter CSV/);
+  assert.match(html, /Copier email d’accès|Copier email d.acces/);
+  assert.match(html, /Dernière activité|Derniere activite/);
+  assert.match(html, /Méthode guidée/);
+  assert.match(html, /Mot de passe : \[à compléter|Mot de passe : \[a completer/);
+  assert.doesNotMatch(html, /passwordHash|motdepasse-test/);
+});
