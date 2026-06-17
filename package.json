@@ -1,0 +1,18 @@
+{
+  "name": "ppep-learner-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Socle MVP pour l'acces apprenant et la reprise de parcours PPEP.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "activate": "node src/admin-cli.js activate",
+    "test": "node --test --experimental-test-isolation=none tests/*.test.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.6.0"
+  }
+}
