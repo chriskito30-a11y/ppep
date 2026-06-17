@@ -3,6 +3,7 @@ const test = require('node:test');
 const {
   activateLearner,
   authenticateLearner,
+  changeLearnerPassword,
   getLearnerSnapshot,
   validateModuleForLearner,
 } = require('../src/learners');
@@ -45,6 +46,46 @@ test('un apprenant actif peut se connecter avec son compte individuel', () => {
 
   assert.equal(result.ok, true);
   assert.equal(result.learner.email, 'lea@example.com');
+});
+
+test('un apprenant peut modifier son mot de passe avec son mot de passe actuel', () => {
+  const store = createEmptyStore();
+  const learner = activateDefault(store);
+
+  const wrongCurrent = changeLearnerPassword(store, learner.id, {
+    currentPassword: 'mauvais-motdepasse',
+    newPassword: 'nouveau-motdepasse',
+    confirmPassword: 'nouveau-motdepasse',
+  }, NOW);
+  assert.equal(wrongCurrent.ok, false);
+  assert.equal(wrongCurrent.reason, 'bad_current_password');
+
+  const mismatch = changeLearnerPassword(store, learner.id, {
+    currentPassword: 'motdepasse-test',
+    newPassword: 'nouveau-motdepasse',
+    confirmPassword: 'autre-motdepasse',
+  }, NOW);
+  assert.equal(mismatch.ok, false);
+  assert.equal(mismatch.reason, 'password_confirmation_mismatch');
+
+  const changed = changeLearnerPassword(store, learner.id, {
+    currentPassword: 'motdepasse-test',
+    newPassword: 'nouveau-motdepasse',
+    confirmPassword: 'nouveau-motdepasse',
+  }, NOW);
+  assert.equal(changed.ok, true);
+
+  const oldLogin = authenticateLearner(store, {
+    email: 'lea@example.com',
+    password: 'motdepasse-test',
+  }, NOW);
+  assert.equal(oldLogin.ok, false);
+
+  const newLogin = authenticateLearner(store, {
+    email: 'lea@example.com',
+    password: 'nouveau-motdepasse',
+  }, NOW);
+  assert.equal(newLogin.ok, true);
 });
 
 test('un acces absent, inactif ou expire est refuse avec un message clair', () => {

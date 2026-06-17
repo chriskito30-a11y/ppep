@@ -93,6 +93,95 @@ test('le tableau de bord affiche module courant, progression, fin acces et bonus
   assert.match(css, /@media \(max-width: 760px\)/);
 });
 
+test('un apprenant peut changer son mot de passe depuis son compte', async (t) => {
+  const { dataFile } = await createTempStore();
+  const server = createServer({
+    dataFile,
+    port: 0,
+    sessionSecret: 'test-secret',
+  });
+  t.after(() => server.close());
+
+  const port = await listen(server);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const cookie = await login(baseUrl);
+
+  const dashboardResponse = await fetch(`${baseUrl}/dashboard`, {
+    headers: { cookie },
+  });
+  const dashboardHtml = await dashboardResponse.text();
+  assert.match(dashboardHtml, /href="\/compte"/);
+
+  const accountResponse = await fetch(`${baseUrl}/compte`, {
+    headers: { cookie },
+  });
+  const accountHtml = await accountResponse.text();
+  assert.equal(accountResponse.status, 200);
+  assert.match(accountHtml, /Modifier mon mot de passe/);
+  assert.match(accountHtml, /name="currentPassword"/);
+  assert.match(accountHtml, /name="newPassword"/);
+
+  const wrongResponse = await fetch(`${baseUrl}/compte/mot-de-passe`, {
+    method: 'POST',
+    headers: { cookie },
+    body: new URLSearchParams({
+      currentPassword: 'mauvais-motdepasse',
+      newPassword: 'nouveau-motdepasse',
+      confirmPassword: 'nouveau-motdepasse',
+    }),
+  });
+  const wrongHtml = await wrongResponse.text();
+  assert.equal(wrongResponse.status, 422);
+  assert.match(wrongHtml, /mot de passe actuel est incorrect/i);
+
+  const mismatchResponse = await fetch(`${baseUrl}/compte/mot-de-passe`, {
+    method: 'POST',
+    headers: { cookie },
+    body: new URLSearchParams({
+      currentPassword: 'motdepasse-test',
+      newPassword: 'nouveau-motdepasse',
+      confirmPassword: 'autre-motdepasse',
+    }),
+  });
+  const mismatchHtml = await mismatchResponse.text();
+  assert.equal(mismatchResponse.status, 422);
+  assert.match(mismatchHtml, /ne correspondent pas/i);
+
+  const successResponse = await fetch(`${baseUrl}/compte/mot-de-passe`, {
+    method: 'POST',
+    headers: { cookie },
+    body: new URLSearchParams({
+      currentPassword: 'motdepasse-test',
+      newPassword: 'nouveau-motdepasse',
+      confirmPassword: 'nouveau-motdepasse',
+    }),
+  });
+  const successHtml = await successResponse.text();
+  assert.equal(successResponse.status, 200);
+  assert.match(successHtml, /mot de passe a bien été modifié/i);
+
+  const oldLogin = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'lea@example.com',
+      password: 'motdepasse-test',
+    }),
+    redirect: 'manual',
+  });
+  assert.equal(oldLogin.status, 401);
+
+  const newLogin = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      email: 'lea@example.com',
+      password: 'nouveau-motdepasse',
+    }),
+    redirect: 'manual',
+  });
+  assert.equal(newLogin.status, 303);
+  assert.equal(newLogin.headers.get('location'), '/dashboard');
+});
+
 test('la page module affiche le gabarit complet du module courant', async (t) => {
   const { dataFile } = await createTempStore();
   const server = createServer({

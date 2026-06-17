@@ -203,6 +203,53 @@ function authenticateLearner(store, input, now = new Date()) {
   };
 }
 
+function changeLearnerPassword(store, learnerId, input = {}, now = new Date()) {
+  const learner = findLearnerById(store, learnerId);
+  const access = evaluateLearnerAccess(learner, now);
+
+  if (!access.allowed) {
+    return { ok: false, ...access };
+  }
+
+  if (!verifyPassword(input.currentPassword, learner.passwordHash)) {
+    return {
+      ok: false,
+      reason: 'bad_current_password',
+      message: 'Le mot de passe actuel est incorrect.',
+    };
+  }
+
+  if (String(input.newPassword || '') !== String(input.confirmPassword || '')) {
+    return {
+      ok: false,
+      reason: 'password_confirmation_mismatch',
+      message: 'Les deux nouveaux mots de passe ne correspondent pas.',
+    };
+  }
+
+  try {
+    learner.passwordHash = hashPassword(input.newPassword);
+  } catch (error) {
+    if (error.message === 'PASSWORD_TOO_SHORT') {
+      return {
+        ok: false,
+        reason: 'password_too_short',
+        message: 'Choisissez un mot de passe d’au moins 8 caractères.',
+      };
+    }
+
+    throw error;
+  }
+
+  learner.updatedAt = now.toISOString();
+
+  return {
+    ok: true,
+    learner,
+    message: 'Votre mot de passe a bien été modifié.',
+  };
+}
+
 function getLearnerSnapshot(store, learnerId, now = new Date()) {
   const learner = findLearnerById(store, learnerId);
   const access = evaluateLearnerAccess(learner, now);
@@ -334,6 +381,7 @@ module.exports = {
   PLAN_OPTIONS,
   activateLearner,
   authenticateLearner,
+  changeLearnerPassword,
   evaluateLearnerAccess,
   findLearnerByEmail,
   findLearnerById,

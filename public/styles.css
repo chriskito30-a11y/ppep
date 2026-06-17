@@ -65,6 +65,11 @@ input {
   padding: 32px;
 }
 
+.account-shell {
+  min-height: auto;
+  padding-top: 12px;
+}
+
 .eyebrow,
 .section-label {
   margin: 0 0 6px;

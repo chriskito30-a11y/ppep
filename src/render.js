@@ -180,6 +180,47 @@ function renderLogin({ email = '', message = '' } = {}, product = DEFAULT_PRODUC
 </main>`);
 }
 
+function renderAccount(snapshot, { message = '', error = '' } = {}) {
+  return layout('Mon compte', `
+<header class="topbar">
+  <div>
+    <p class="eyebrow">${escapeHtml(DEFAULT_PRODUCT_CONFIG.methodName)}</p>
+    <h1>Mon compte</h1>
+  </div>
+  <nav class="top-actions" aria-label="Navigation apprenant">
+    <a class="secondary-link" href="/dashboard">Mon parcours</a>
+    <form method="post" action="/logout">
+      <button class="secondary-button" type="submit">Déconnexion</button>
+    </form>
+  </nav>
+</header>
+
+<main class="auth-shell account-shell">
+  <section class="auth-panel account-panel" aria-labelledby="account-title">
+    <p class="eyebrow">${escapeHtml(snapshot.learner.email)}</p>
+    <h2 id="account-title">Modifier mon mot de passe</h2>
+    <p class="intro">Choisissez un mot de passe personnel. Il doit contenir au moins 8 caractères.</p>
+    ${message ? `<p class="message success-message" role="status">${escapeHtml(message)}</p>` : ''}
+    ${error ? `<p class="message" role="alert">${escapeHtml(error)}</p>` : ''}
+    <form class="login-form" method="post" action="/compte/mot-de-passe">
+      <label>
+        Mot de passe actuel
+        <input name="currentPassword" type="password" autocomplete="current-password" required>
+      </label>
+      <label>
+        Nouveau mot de passe
+        <input name="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+      </label>
+      <label>
+        Confirmer le nouveau mot de passe
+        <input name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+      </label>
+      <button type="submit">Modifier mon mot de passe</button>
+    </form>
+  </section>
+</main>`);
+}
+
 function renderDenied(message, product = DEFAULT_PRODUCT_CONFIG) {
   return layout('Accès indisponible', `
 <main class="auth-shell">
@@ -570,9 +611,12 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     <p class="eyebrow">${escapeHtml(product.methodName)}</p>
     <h1>Bonjour</h1>
   </div>
-  <form method="post" action="/logout">
-    <button class="secondary-button" type="submit">Déconnexion</button>
-  </form>
+  <nav class="top-actions" aria-label="Navigation apprenant">
+    <a class="secondary-link" href="/compte">Mon compte</a>
+    <form method="post" action="/logout">
+      <button class="secondary-button" type="submit">Déconnexion</button>
+    </form>
+  </nav>
 </header>
 
 <main class="dashboard">
@@ -665,6 +709,7 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   </div>
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
+    <a class="secondary-link" href="/compte">Mon compte</a>
     <form method="post" action="/logout">
       <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
@@ -756,6 +801,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   </div>
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
+    <a class="secondary-link" href="/compte">Mon compte</a>
     <form method="post" action="/logout">
       <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
@@ -847,6 +893,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   </div>
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard#bonus-title">Tous les bonus</a>
+    <a class="secondary-link" href="/compte">Mon compte</a>
     <form method="post" action="/logout">
       <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
@@ -929,6 +976,7 @@ function renderModule(snapshot, { message = '' } = {}) {
   </div>
   <nav class="top-actions" aria-label="Navigation apprenant">
     <a class="secondary-link" href="/dashboard">Mon parcours</a>
+    <a class="secondary-link" href="/compte">Mon compte</a>
     <form method="post" action="/logout">
       <button class="secondary-button" type="submit">Déconnexion</button>
     </form>
@@ -1331,6 +1379,7 @@ function renderAdmin({ message = '', error = '', values = {}, learners = [], log
 </script>`);
 }
 module.exports = {
+  renderAccount,
   renderDashboard,
   renderDenied,
   renderLogin,

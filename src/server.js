@@ -7,6 +7,7 @@ const { CORE_MODULES, getBonusById, getProgressSummary } = require('./modules');
 const {
   activateLearner,
   authenticateLearner,
+  changeLearnerPassword,
   getLearnerSnapshot,
   getModuleSnapshot,
   markAccompanimentStep,
@@ -14,6 +15,7 @@ const {
 } = require('./learners');
 const {
   renderAdmin,
+  renderAccount,
   renderDashboard,
   renderCompletion,
   renderAccompaniment,
@@ -294,6 +296,61 @@ async function handleDashboard(req, res, config) {
   sendHtml(res, 200, renderDashboard(snapshot, config.product));
 }
 
+async function handleAccount(req, res, config, state = {}) {
+  const session = getSession(req, config.sessionSecret);
+
+  if (!session) {
+    sendHtml(res, 401, renderLogin({ message: 'Connectez-vous pour acceder a votre compte.' }, config.product));
+    return;
+  }
+
+  const store = await readStore(config);
+  const snapshot = getLearnerSnapshot(store, session.learnerId);
+
+  if (!snapshot.ok) {
+    sendHtml(res, 403, renderDenied(snapshot.message), {
+      'Set-Cookie': clearSessionCookie(),
+    });
+    return;
+  }
+
+  await writeStore(config, store);
+  sendHtml(res, state.statusCode || 200, renderAccount(snapshot, state));
+}
+
+async function handlePasswordChange(req, res, config) {
+  const session = getSession(req, config.sessionSecret);
+
+  if (!session) {
+    sendHtml(res, 401, renderLogin({ message: 'Connectez-vous pour modifier votre mot de passe.' }, config.product));
+    return;
+  }
+
+  const form = await parseForm(req);
+  const store = await readStore(config);
+  const result = changeLearnerPassword(store, session.learnerId, {
+    currentPassword: form.get('currentPassword'),
+    newPassword: form.get('newPassword'),
+    confirmPassword: form.get('confirmPassword'),
+  });
+  const snapshot = getLearnerSnapshot(store, session.learnerId);
+
+  if (!snapshot.ok) {
+    sendHtml(res, 403, renderDenied(snapshot.message), {
+      'Set-Cookie': clearSessionCookie(),
+    });
+    return;
+  }
+
+  if (!result.ok) {
+    sendHtml(res, 422, renderAccount(snapshot, { error: result.message }));
+    return;
+  }
+
+  await writeStore(config, store);
+  sendHtml(res, 200, renderAccount(snapshot, { message: result.message }));
+}
+
 async function handleCompletion(req, res, config) {
   const session = getSession(req, config.sessionSecret);
 
@@ -539,6 +596,11 @@ function createServer(config = getConfig()) {
         return;
       }
 
+      if (req.method === 'GET' && url.pathname === '/compte') {
+        await handleAccount(req, res, runtimeConfig);
+        return;
+      }
+
       if (req.method === 'GET' && url.pathname === '/fin-parcours') {
         await handleCompletion(req, res, runtimeConfig);
         return;
@@ -590,6 +652,11 @@ function createServer(config = getConfig()) {
 
       if (req.method === 'POST' && url.pathname === '/login') {
         await handleLogin(req, res, runtimeConfig);
+        return;
+      }
+
+      if (req.method === 'POST' && url.pathname === '/compte/mot-de-passe') {
+        await handlePasswordChange(req, res, runtimeConfig);
         return;
       }
 
