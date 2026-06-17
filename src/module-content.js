@@ -4,10 +4,10 @@ const CORE_MODULES = [
     "title": "Démarrage",
     "actionLabel": "Filmer ma vidéo de départ de 3 à 5 minutes",
     "objective": "Entrer dans la méthode, filmer une première vidéo repère et poser une observation bienveillante.",
-    "methodOutcome": "J’ai une vidéo de départ, une première auto-évaluation et un axe prioritaire.",
+    "methodOutcome": "J’ai une vidéo de départ, un premier ressenti et un axe prioritaire.",
     "videoBrief": {
       "title": "Vidéo à enregistrer : votre point de départ",
-      "intro": "Le livrable obligatoire de ce module est une vidéo de 3 à 5 minutes. Elle sert de repère, pas de performance.",
+      "intro": "Ce que vous devez faire dans ce module : enregistrer une vidéo de 3 à 5 minutes. Elle sert de repère, pas de performance.",
       "items": [
         "Choisissez une situation réelle ou probable : réunion, présentation de projet, pitch, explication d’une idée, retour d’expérience.",
         "Parlez à un public précis, même imaginaire : collègues, clients, équipe, jury, participants d’un atelier.",
@@ -18,7 +18,7 @@ const CORE_MODULES = [
     },
     "sourceMaterials": [
       "Vidéo de départ",
-      "Auto-évaluation initiale"
+      "Premier ressenti"
     ],
     "lesson": [
       "Vous commencez par une vidéo de départ de 3 à 5 minutes. Elle n’est pas là pour vous juger : elle sert de repère.",
@@ -103,7 +103,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -217,7 +217,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -238,7 +238,7 @@ const CORE_MODULES = [
       "justification": "lecture 4 min, extrait vidéo 0:00-5:00, mini-questionnaire 5 min, exercice 15 min, fiche 3 min"
     },
     "questionnaire": {
-      "title": "Mini-test : mon rapport à l’oral",
+      "title": "Point rapide : mon rapport à l’oral",
       "intro": "Répondez vite. Le résultat propose une piste de travail, pas un diagnostic.",
       "questions": [
         {
@@ -386,7 +386,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -407,7 +407,7 @@ const CORE_MODULES = [
       "justification": "lecture 4 min, vidéo respiration 4-7-8 5 min 05 arrondie à 5 min pour le total, questionnaire 6 min, exercice 15 min, test routine 5 min"
     },
     "questionnaire": {
-      "title": "Mini-test : mon trac en situation",
+      "title": "Point rapide : mon trac en situation",
       "intro": "Ce mini-test oriente vers une action simple, sans interprétation médicale.",
       "questions": [
         {
@@ -563,7 +563,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -728,7 +728,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -749,7 +749,7 @@ const CORE_MODULES = [
       "justification": "lecture 4 min, questionnaire public 5 min, exercice principal 15 min, tri et fiche 6 min"
     },
     "questionnaire": {
-      "title": "Mini-test : mon public est-il clair ?",
+      "title": "Point rapide : mon public est-il clair ?",
       "intro": "Ce test vérifie si votre public est assez précis pour préparer votre discours. Ce n’est pas un diagnostic.",
       "questions": [
         {
@@ -885,7 +885,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -997,7 +997,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1099,7 +1099,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1254,7 +1254,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1275,7 +1275,7 @@ const CORE_MODULES = [
       "justification": "lecture 4 min, extrait workshop 0:00-6:00, questionnaire clarté/vivant 5 min, exercice 15 min, ajustement final 5 min"
     },
     "questionnaire": {
-      "title": "Mini-test : mon discours est-il vivant ?",
+      "title": "Point rapide : mon discours est-il vivant ?",
       "intro": "Vérifiez que vous rendez le message plus clair sans surcharger. Ce n’est pas un diagnostic.",
       "questions": [
         {
@@ -1411,7 +1411,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1526,7 +1526,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1706,7 +1706,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1804,7 +1804,7 @@ const CORE_MODULES = [
       "action": "Gardez un seul ajustement issu de ce retour pour la prochaine répétition."
     },
     "readinessChecklist": {
-      "title": "Mini-test : suis-je prêt à refaire une prise ?",
+      "title": "Point rapide : suis-je prêt à refaire une prise ?",
       "intro": "Cochez ce qui est prêt. Les cases non cochées deviennent vos priorités avant la vidéo finale.",
       "items": [
         "Mon message central tient en une phrase.",
@@ -1822,7 +1822,7 @@ const CORE_MODULES = [
     "title": "Bilan et progression",
     "actionLabel": "Comparer et décider du prochain pas",
     "objective": "Filmer une version finale, comparer avec le point de départ et définir un plan d’action réaliste.",
-    "methodOutcome": "J’ai une vidéo finale, une auto-évaluation et un plan d’action pour mes prochaines prises de parole.",
+    "methodOutcome": "J’ai une vidéo finale, un bilan simple et un plan d’action pour mes prochaines prises de parole.",
     "videoBrief": {
       "title": "Vidéo finale à enregistrer",
       "intro": "Refilmez 3 à 5 minutes pour comparer votre progression. Ce format court est un entraînement : la méthode acquise peut ensuite servir à préparer une intervention plus longue.",
@@ -1940,7 +1940,7 @@ const CORE_MODULES = [
         },
         {
           "value": "pret",
-          "label": "J’ai produit le livrable attendu"
+          "label": "J’ai fait ce qui était demandé"
         },
         {
           "value": "solide",
@@ -1961,7 +1961,7 @@ const CORE_MODULES = [
       "justification": "lecture 4 min, vidéo finale 3 à 5 minutes comptée 5 min, questionnaire final 5 min, exercice principal 15 min, plan d’action 2 min"
     },
     "questionnaire": {
-      "title": "Auto-évaluation finale",
+      "title": "Bilan final",
       "intro": "Ce bilan aide à choisir le prochain pas. Il ne remplace pas un retour personnalisé.",
       "questions": [
         {

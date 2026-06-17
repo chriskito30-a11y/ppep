@@ -103,7 +103,7 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   assert.match(initialDashboard.html, /0\/13/);
   assert.match(initialDashboard.html, /formule/);
   assert.match(initialDashboard.html, /méthode guidée/);
-  assert.match(initialDashboard.html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
+  assert.match(initialDashboard.html, /Bonus pas encore disponibles : ils arrivent à la fin du parcours principal/);
   assert.doesNotMatch(initialDashboard.html, /Mon accompagnement/);
 
   const lockedModule = await getHtml(`${baseUrl}/modules/module-1`, cookie);
@@ -116,11 +116,11 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
 
   const lockedCompletion = await getHtml(`${baseUrl}/fin-parcours`, cookie);
   assert.equal(lockedCompletion.response.status, 403);
-  assert.match(lockedCompletion.html, /disponible après validation du dernier module/);
+  assert.match(lockedCompletion.html, /disponible après le dernier module/);
 
   const lockedBonus = await getHtml(`${baseUrl}/bonus/${firstBonus.id}`, cookie);
   assert.equal(lockedBonus.response.status, 403);
-  assert.match(lockedBonus.html, /disponibles après validation du parcours principal|disponibles apres validation du parcours principal/);
+  assert.match(lockedBonus.html, /disponibles après la fin du parcours principal|disponibles apres la fin du parcours principal/);
 
   const refusedAccompanimentPost = await fetch(`${baseUrl}/accompagnement/reservation`, {
     method: 'POST',
@@ -137,14 +137,14 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
     assert.equal(modulePage.response.status, 200, module.id);
     assert.match(modulePage.html, new RegExp(`Module ${index}`));
     assert.match(modulePage.html, /Fiche associée/);
-    assert.match(modulePage.html, /Validation déclarative/);
+    assert.match(modulePage.html, /Quand vous avez terminé/);
     assert.doesNotMatch(modulePage.html, /\.pptx/);
     assert.doesNotMatch(modulePage.html, /\.pdf/);
 
     const worksheet = await getHtml(`${baseUrl}/modules/${module.id}/fiche`, cookie);
     assert.equal(worksheet.response.status, 200, module.id);
     assert.match(worksheet.html, /Fiche de travail/);
-    assert.match(worksheet.html, /La plateforme ne stocke pas vos réponses longues/);
+    assert.match(worksheet.html, /Vos réponses restent pour vous/);
     assert.doesNotMatch(worksheet.html, /Source modernisée/);
     assert.doesNotMatch(worksheet.html, /\.pptx/);
     assert.doesNotMatch(worksheet.html, /\.pdf/);
@@ -175,9 +175,9 @@ test('parcours complet autonome : verrouillage initial, validation progressive, 
   assert.equal(completion.response.status, 200);
   assert.match(completion.html, /vidéo de départ|Vidéo de départ/);
   assert.match(completion.html, /Vidéo finale/);
-  assert.match(completion.html, /Auto-évaluation finale/);
+  assert.match(completion.html, /Bilan final/);
   assert.match(completion.html, /Plan d’action personnel/);
-  assert.match(completion.html, /Voir les bonus débloqués/);
+  assert.match(completion.html, /Voir mes bonus/);
 
   const unlockedBonus = await getHtml(`${baseUrl}/bonus/${firstBonus.id}`, cookie);
   assert.equal(unlockedBonus.response.status, 200);
@@ -249,7 +249,7 @@ test('parcours complet accompagne : bloc dedie, TidyCal, validations declarees e
 
   const bonus = await getHtml(`${baseUrl}/bonus/${BONUS_ITEMS[0].id}`, cookie);
   assert.equal(bonus.response.status, 200);
-  assert.match(bonus.html, /Bonus actionnable/);
+  assert.match(bonus.html, /À faire simplement/);
 
   const finalDashboard = await getHtml(`${baseUrl}/dashboard`, cookie);
   assert.equal(finalDashboard.response.status, 200);

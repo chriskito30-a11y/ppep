@@ -83,7 +83,7 @@ test('le tableau de bord affiche module courant, progression, fin acces et bonus
   assert.match(html, /Filmer ma vidéo de départ de 3 à 5 minutes/);
   assert.match(html, /0\/13/);
   assert.match(html, /fin d’accès/);
-  assert.match(html, /verrouillés jusqu’à la fin du parcours principal|Verrouillé jusqu’à la fin du parcours principal/);
+  assert.match(html, /Bonus pas encore disponibles : ils arrivent à la fin du parcours principal/);
   assert.match(html, /<meta name="viewport"/);
 
   const cssResponse = await fetch(`${baseUrl}/assets/styles.css`);
@@ -125,10 +125,11 @@ test('la page module affiche le gabarit complet du module courant', async (t) =>
   assert.match(html, /Exercice/);
   assert.match(html, /Fiche associée/);
   assert.match(html, /href="\/modules\/module-0\/fiche"/);
-  assert.match(html, /Auto-évaluation courte/);
+  assert.match(html, /Mon ressenti/);
   assert.match(html, /Je confirme avoir enregistré ma vidéo de départ/);
   assert.equal((html.match(/name="confidence"/g) || []).length, 3);
-  assert.match(html, /Validation déclarative/);
+  assert.match(html, /Quand vous avez terminé/);
+  assert.doesNotMatch(html, /Lecture guidée|Vidéos ou extraits intégrés|Mise au propre \/ fiche|Validation déclarative/);
   assert.match(html, /Rythme et défi/);
   assert.doesNotMatch(html, /\.pptx/);
   assert.doesNotMatch(html, /\.pdf/);
@@ -160,7 +161,7 @@ test('la page module embarque les videos et affiche les questionnaires sans sort
 
   assert.equal(response.status, 200);
   assert.match(html, /youtube-nocookie\.com\/embed/);
-  assert.match(html, /Questionnaire guidé/);
+  assert.match(html, /Questions rapides/);
   assert.match(html, /Voir ma piste de travail/);
   assert.match(html, /data-questionnaire/);
 });
@@ -283,7 +284,7 @@ test('la fin de parcours reste inaccessible avant le dernier module', async (t) 
   const html = await response.text();
 
   assert.equal(response.status, 403);
-  assert.match(html, /disponible après validation du dernier module/);
+  assert.match(html, /disponible après le dernier module/);
 });
 
 test('la validation du dernier module ouvre un vrai ecran de fin de parcours', async (t) => {
@@ -328,9 +329,9 @@ test('la validation du dernier module ouvre un vrai ecran de fin de parcours', a
   assert.match(html, /vidéo de départ|Vidéo de départ/);
   assert.match(html, /Vidéo finale/);
   assert.match(html, /Plan d’action personnel/);
-  assert.match(html, /La plateforme ne les analyse pas et ne les stocke pas/);
+  assert.match(html, /Gardez-les de votre côté : le site ne les récupère pas/);
   assert.match(html, /Ouvrir ma fiche finale/);
-  assert.match(html, /Voir les bonus débloqués/);
+  assert.match(html, /Voir mes bonus/);
   assert.match(html, /Accompagnement individuel et personnalisé/);
   assert.doesNotMatch(html, /feedback personnalise automatique|analyse video automatique|upload video/i);
 });
@@ -356,7 +357,7 @@ test('les bonus sont consultables uniquement apres la fin du parcours principal'
   const lockedHtml = await lockedResponse.text();
 
   assert.equal(lockedResponse.status, 403);
-  assert.match(lockedHtml, /disponibles après validation du parcours principal|disponibles apres validation du parcours principal/);
+  assert.match(lockedHtml, /disponibles après la fin du parcours principal|disponibles apres la fin du parcours principal/);
 
   for (const module of CORE_MODULES) {
     await fetch(`${baseUrl}/modules/${module.id}/validate`, {
@@ -418,7 +419,7 @@ test('le tableau de bord termine oriente vers le bilan final et affiche les bonu
   assert.match(html, /Méthode terminée/);
   assert.match(html, /Voir mon bilan final/);
   assert.match(html, /13\/13/);
-  assert.match(html, /Disponible jusqu’à la fin du parcours principal/);
+  assert.match(html, /Bonus disponibles/);
 });
 
 async function createTempStoreForPlan(plan) {
@@ -966,13 +967,14 @@ test('page de vente : promesse, 13 modules, prix, duree et vocabulaire public pr
   assert.match(html, /Méthode guidée de prise de parole/);
   assert.match(html, /href="\/login"/);
   assert.match(html, /149 €|149/);
-  assert.match(html, /420 minutes \/ 7h/);
+  assert.match(html, /Durée moyenne : 7h/);
   assert.match(html, /réunion, une présentation longue, un atelier ou une conférence/);
   assert.match(html, /vidéos courtes de 3 à 5 minutes pour observer vos progrès/);
   assert.match(html, /Module 12/);
   assert.match(html, /kit final/i);
   assert.match(html, /L’accompagnement individuel et personnalisé ajoute un regard humain/);
   assert.doesNotMatch(html, /parcours autonome/i);
+  assert.doesNotMatch(html, /Durée officielle|420 minutes|durée officielle/i);
   assert.doesNotMatch(html, /prise de parole simple de 3 à 5 minutes/i);
   assert.doesNotMatch(html, /\bCPF\b/i);
   assert.doesNotMatch(html, /\.pdf|\.pptx|Sources de référence/i);

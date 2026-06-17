@@ -59,7 +59,7 @@ function renderSalesPage(product = DEFAULT_PRODUCT_CONFIG) {
       <a class="button-link" href="${escapeHtml(product.paymentUrl)}">Accéder à la méthode — 149 €</a>
       <a class="secondary-link" href="#difference">Voir la différence avec l’accompagnement</a>
     </div>
-    <p class="module-meta">Durée officielle : 420 minutes / 7h. Les exercices complémentaires sont des bonus et peuvent ajouter du temps si vous les faites tous.</p>
+    <p class="module-meta">Durée moyenne : 7h. Les bonus sont là si vous voulez pratiquer davantage.</p>
   </section>
 </header>
 
@@ -91,7 +91,7 @@ function renderSalesPage(product = DEFAULT_PRODUCT_CONFIG) {
   </section>
 
   <section class="sales-section" aria-labelledby="deliverables-title">
-    <p class="section-label">Livrables</p>
+    <p class="section-label">Vos supports</p>
     <h2 id="deliverables-title">Ce que vous construisez</h2>
     <ul class="deliverable-list">
       ${SALES_DELIVERABLES.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
@@ -100,9 +100,9 @@ function renderSalesPage(product = DEFAULT_PRODUCT_CONFIG) {
   </section>
 
   <section class="sales-section" aria-labelledby="included-title">
-    <p class="section-label">Format</p>
+    <p class="section-label">Vidéos et exercices</p>
     <h2 id="included-title">Des vidéos intégrées, mais jamais seules.</h2>
-    <p>Chaque vidéo est accompagnée d’une consigne, d’une question d’observation, d’un exercice et d’une action concrète. Les exercices complémentaires sont proposés comme bonus de pratique, sans changer la durée officielle de la méthode principale.</p>
+    <p>Chaque vidéo est accompagnée d’une consigne, d’une question d’observation, d’un exercice et d’une action concrète. Les bonus permettent de pratiquer davantage, à votre rythme.</p>
   </section>
 
   <section id="difference" class="sales-section contrast-section" aria-labelledby="difference-title">
@@ -123,9 +123,9 @@ function renderSalesPage(product = DEFAULT_PRODUCT_CONFIG) {
     <p class="section-label">FAQ</p>
     <h2 id="faq-title">Questions fréquentes</h2>
     <details><summary>Est-ce une bibliothèque de vidéos ?</summary><p>Non. Les vidéos servent de support à des actions précises. Le cœur de la méthode, ce sont les exercices, les fiches et la progression guidée.</p></details>
-    <details><summary>Combien de temps faut-il prévoir ?</summary><p>La méthode principale dure officiellement 7h. Les bonus peuvent ajouter du temps si vous choisissez de les faire.</p></details>
+    <details><summary>Combien de temps faut-il prévoir ?</summary><p>Comptez environ 7h pour le parcours principal. Les bonus peuvent ajouter du temps si vous choisissez de les faire.</p></details>
     <details><summary>Dois-je déjà être à l’aise à l’oral ?</summary><p>Non. La méthode part de vidéos courtes de 3 à 5 minutes pour observer vos progrès, puis vous donne une structure réutilisable pour des interventions plus longues.</p></details>
-    <details><summary>Est-ce que ma vidéo est analysée ?</summary><p>Non. Les vidéos servent à votre propre comparaison. La plateforme ne les analyse pas et ne les stocke pas.</p></details>
+    <details><summary>Est-ce que ma vidéo est analysée ?</summary><p>Non. Les vidéos servent à votre propre comparaison. Le site ne les récupère pas.</p></details>
     <details><summary>Que faire si je veux un retour personnalisé ?</summary><p>Dans ce cas, l’accompagnement individuel et personnalisé est plus adapté, car il permet un regard humain sur votre situation réelle.</p></details>
   </section>
 </main>`);
@@ -140,8 +140,8 @@ function renderPurchaseTunnel(product = DEFAULT_PRODUCT_CONFIG) {
     <p class="lead">Vous êtes à une étape du paiement. Après votre achat, vous recevrez vos accès personnels par email pour commencer la méthode guidée à votre rythme.</p>
     <div class="purchase-summary" aria-label="Résumé de l’offre">
       <p><strong>Ce que vous obtenez :</strong> 13 modules guidés pour préparer une prise de parole claire, structurée et rassurante, puis réutiliser la méthode sur des interventions plus longues.</p>
-      <p><strong>Durée officielle :</strong> 7h de méthode principale, avec des exercices complémentaires disponibles en bonus.</p>
-      <p><strong>Accès :</strong> vos identifiants personnels vous sont envoyés par email après validation de l’achat.</p>
+      <p><strong>Durée moyenne :</strong> environ 7h pour le parcours principal, avec des bonus si vous voulez pratiquer davantage.</p>
+      <p><strong>Accès :</strong> vos identifiants personnels vous sont envoyés par email après confirmation de l’achat.</p>
       <p><strong>Besoin d’aide ?</strong> Si vous ne recevez pas vos accès, il suffit de répondre à l’email de confirmation ou de contacter le support.</p>
     </div>
     <p class="price-note"><strong>Prix : 149 €</strong> — paiement sécurisé par carte bancaire.</p>
@@ -225,14 +225,14 @@ function renderActionBrief(selectedModule) {
     <h2 id="action-brief-title">Votre tâche concrète</h2>
     <ol class="action-steps">
       <li><strong>Comprendre :</strong> lisez l’objectif et l’apport du module.</li>
-      <li><strong>Produire :</strong> réalisez l’exercice principal : ${escapeHtml(selectedModule.exercise.title)}.</li>
+      <li><strong>Faire :</strong> réalisez l’exercice du module : ${escapeHtml(selectedModule.exercise.title)}.</li>
       ${hasWorksheet
-        ? `<li><strong>Écrire :</strong> complétez la fiche “${escapeHtml(selectedModule.worksheet.title)}” sur papier ou après impression.</li>`
+        ? `<li><strong>Noter :</strong> complétez la fiche “${escapeHtml(selectedModule.worksheet.title)}” sur papier ou après impression.</li>`
         : ''}
       ${criteria.length > 0
-        ? `<li><strong>Vérifier :</strong> assurez-vous de pouvoir cocher les points d’observation du module.</li>`
+        ? `<li><strong>Regarder :</strong> observez les points proposés pour savoir ce qui progresse.</li>`
         : ''}
-      <li><strong>Valider :</strong> revenez ici, cochez l’auto-évaluation, puis débloquez la suite.</li>
+      <li><strong>Terminer :</strong> revenez ici, cochez votre ressenti, puis passez à la suite.</li>
     </ol>
     ${renderVideoBrief(selectedModule.videoBrief)}
   </section>`;
@@ -244,25 +244,13 @@ function renderDurationBreakdown(breakdown) {
     return '';
   }
 
-  const rows = [
-    ['Lecture guidée', breakdown.readingMinutes],
-    ['Vidéos ou extraits intégrés', breakdown.videoMinutes],
-    ['Questionnaire', breakdown.questionnaireMinutes],
-    ['Exercice principal', breakdown.exerciseMinutes],
-    ['Mise au propre / fiche', breakdown.integrationMinutes],
-  ].filter(([, minutes]) => Number(minutes) > 0);
-
-  if (rows.length === 0) {
+  if (!Number(breakdown.totalMinutes)) {
     return '';
   }
 
   return `<article class="duration-card">
     <p class="section-label">Durée estimée</p>
     <h3>${escapeHtml(String(breakdown.totalMinutes || ''))} minutes</h3>
-    <ul class="duration-list">
-      ${rows.map(([label, minutes]) => `<li><span>${escapeHtml(label)}</span><strong>${escapeHtml(String(minutes))} min</strong></li>`).join('')}
-    </ul>
-    ${breakdown.justification ? `<p class="module-meta">${escapeHtml(breakdown.justification)}</p>` : ''}
   </article>`;
 }
 
@@ -328,7 +316,7 @@ function renderPracticeVariations(practiceVariations) {
       ${practiceVariations.map((practice) => `
         <section class="practice-item">
           <h3>${escapeHtml(practice.title)}</h3>
-          <p><strong>Durée indicative :</strong> ${escapeHtml(practice.duration)}</p>
+          <p><strong>Temps à prévoir :</strong> ${escapeHtml(practice.duration)}</p>
           <p>${escapeHtml(practice.objective)}</p>
           ${Array.isArray(practice.steps)
             ? `<ol>${practice.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}</ol>`
@@ -406,7 +394,7 @@ function renderReadinessChecklist(readinessChecklist) {
   }
 
   return `<article class="wide-card readiness-card">
-    <p class="section-label">Mini-test</p>
+    <p class="section-label">Point rapide</p>
     <h3>${escapeHtml(readinessChecklist.title)}</h3>
     <p>${escapeHtml(readinessChecklist.intro || '')}</p>
     <ul class="checklist-list">
@@ -439,7 +427,7 @@ function renderQuestionnaire(questionnaire, moduleId) {
 
   const ranges = JSON.stringify(questionnaire.ranges || []);
   return `<article class="wide-card questionnaire-card" data-questionnaire data-ranges="${escapeHtml(ranges)}">
-    <p class="section-label">Questionnaire guidé</p>
+    <p class="section-label">Questions rapides</p>
     <h3>${escapeHtml(questionnaire.title)}</h3>
     <p>${escapeHtml(questionnaire.intro || 'Répondez simplement, puis lisez la piste de travail proposée.')}</p>
     ${questionnaire.questions.map((question, questionIndex) => `
@@ -502,7 +490,7 @@ const FINAL_DELIVERABLES = [
   'Fiche finale',
   'Checklist de répétition',
   'Vidéo finale',
-  'Auto-évaluation finale',
+  'Bilan final',
   'Plan d’action personnel',
 ];
 
@@ -510,7 +498,7 @@ function renderCompletionLinks() {
   return `<div class="completion-links">
     <a class="secondary-link" href="/modules/module-10/fiche">Ouvrir ma fiche finale</a>
     <a class="secondary-link" href="/modules/module-12/fiche">Ouvrir ma grille de bilan final</a>
-    <a class="secondary-link" href="/dashboard#bonus-title">Voir les bonus débloqués</a>
+    <a class="secondary-link" href="/dashboard#bonus-title">Voir mes bonus</a>
   </div>`;
 }
 
@@ -571,7 +559,6 @@ function renderAccompanimentDashboardBlock(snapshot, product = DEFAULT_PRODUCT_C
 
 function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   const { learner, currentModule, modules, summary, bonusesUnlocked } = snapshot;
-  const bonusState = bonusesUnlocked ? 'Disponible' : 'Verrouillé';
   const isPathCompleted = summary.completedCount === summary.totalCount;
 
   return layout('Accueil apprenant', `
@@ -590,7 +577,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
     <div>
       <p class="section-label">${isPathCompleted ? 'Méthode terminée' : 'À faire maintenant'}</p>
       <h2 id="current-module-title">${isPathCompleted ? 'Bravo, vous avez terminé la méthode guidée' : `Module ${currentModule.number} - ${escapeHtml(currentModule.title)}`}</h2>
-      <p>${isPathCompleted ? 'Votre méthode est validée. Vous pouvez maintenant relire votre bilan final, réutiliser la méthode pour un nouvel oral et accéder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
+      <p>${isPathCompleted ? 'Votre méthode est prête. Vous pouvez maintenant relire votre bilan final, réutiliser la méthode pour un nouvel oral et accéder aux bonus.' : escapeHtml(currentModule.actionLabel)}</p>
     </div>
     <a class="button-link" href="${isPathCompleted ? '/fin-parcours' : `/modules/${escapeHtml(currentModule.id)}`}">${isPathCompleted ? 'Voir mon bilan final' : 'Continuer le module'}</a>
   </section>
@@ -621,7 +608,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
 
   <section id="parcours" class="path-section" aria-labelledby="path-title">
     <div class="section-heading">
-      <p class="section-label">Progression rattachée au compte</p>
+      <p class="section-label">Mon avancée</p>
       <h2 id="path-title">Modules de la méthode</h2>
     </div>
     <ol class="module-list">
@@ -633,7 +620,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
               ? escapeHtml(module.title)
               : `<a href="/modules/${escapeHtml(module.id)}">${escapeHtml(module.title)}</a>`}
           </span>
-          <span class="module-state">${escapeHtml(module.stateLabel)}</span>
+          <span class="module-state">${escapeHtml(module.state === 'verrouille' ? 'À faire plus tard' : module.stateLabel)}</span>
         </li>
       `).join('')}
     </ol>
@@ -646,7 +633,7 @@ function renderDashboard(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
       <p class="section-label">Bonus</p>
       <h2 id="bonus-title">Pour aller plus loin</h2>
     </div>
-    <p class="bonus-state">${bonusState} jusqu’à la fin du parcours principal.</p>
+    <p class="bonus-state">${bonusesUnlocked ? 'Bonus disponibles.' : 'Bonus pas encore disponibles : ils arrivent à la fin du parcours principal.'}</p>
     <p>Ces bonus sont volontairement courts : une astuce, un exercice et une action concrète. Ils ne remplacent pas un feedback accompagné.</p>
     ${renderBonusList(bonusesUnlocked)}
   </section>
@@ -718,7 +705,7 @@ function renderAccompaniment(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   </section>` : `<section class="accompaniment-card" aria-labelledby="autonomous-title">
     <p class="section-label">Votre formule actuelle</p>
     <h2 id="autonomous-title">Vous êtes en méthode guidée.</h2>
-    <p>Vous avez accès au parcours pas à pas, aux exercices, aux fiches et aux auto-évaluations. Le regard professionnel sur vidéo appartient à ${escapeHtml(product.accompanied.label)}.</p>
+    <p>Vous avez accès au parcours pas à pas, aux exercices, aux fiches et aux bilans courts. Le regard professionnel sur vidéo appartient à ${escapeHtml(product.accompanied.label)}.</p>
   </section>`}
 
   <section class="accompaniment-card" aria-labelledby="feedback-grid-title">
@@ -755,7 +742,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   const { summary, bonusesUnlocked } = snapshot;
 
   if (summary.completedCount !== summary.totalCount) {
-    return renderDenied("La fin de parcours sera disponible après validation du dernier module.", product);
+    return renderDenied("La fin de parcours sera disponible après le dernier module.", product);
   }
 
   return layout('Fin de méthode guidée', `
@@ -791,7 +778,7 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
   <section class="completion-card" aria-labelledby="comparison-title">
     <p class="section-label">Comparaison guidée</p>
     <h2 id="comparison-title">Vidéo de départ / vidéo finale</h2>
-    <p>Comparez vos deux vidéos avec trois questions simples. La plateforme ne les analyse pas et ne les stocke pas.</p>
+    <p>Comparez vos deux vidéos avec trois questions simples. Gardez-les de votre côté : le site ne les récupère pas.</p>
     <ol>
       <li>Qu’est-ce qui est plus clair dans ma vidéo finale ?</li>
       <li>Ma structure est-elle plus facile à suivre ?</li>
@@ -835,14 +822,14 @@ function renderCompletion(snapshot, product = DEFAULT_PRODUCT_CONFIG) {
         <p>Réservé à un travail profond, personnalisé et lié à un cas professionnel réel.</p>
       </article>
     </div>
-    <p class="bonus-state">Bonus : ${bonusesUnlocked ? 'débloqués après validation du parcours principal.' : 'verrouillés jusqu’à la fin du parcours principal.'}</p>
+    <p class="bonus-state">Bonus : ${bonusesUnlocked ? 'disponibles après la fin du parcours principal.' : 'pas encore disponibles, ils arrivent à la fin du parcours principal.'}</p>
   </section>
 </main>`);
 }
 
 function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   if (!snapshot.bonusesUnlocked) {
-    return renderDenied('Les bonus sont disponibles après validation du parcours principal.', product);
+    return renderDenied('Les bonus seront disponibles après la fin du parcours principal.', product);
   }
 
   if (!bonus) {
@@ -872,7 +859,7 @@ function renderBonus(snapshot, bonus, product = DEFAULT_PRODUCT_CONFIG) {
   </section>
 
   <section class="completion-card bonus-detail" aria-labelledby="bonus-detail-title">
-    <p class="section-label">Bonus actionnable</p>
+    <p class="section-label">À faire simplement</p>
     <h2 id="bonus-detail-title">Votre mini-fiche</h2>
     <dl>
       <div>
@@ -907,15 +894,15 @@ function renderModule(snapshot, { message = '' } = {}) {
   const hasPrintableWorksheet = Array.isArray(selectedModule.worksheet.sections)
     && selectedModule.worksheet.sections.length > 0;
   const validationConfirmation = selectedModule.validationConfirmation
-    || 'Je confirme avoir réalisé l’action demandée dans ce module avec mon support papier ou mes notes.';
+    || 'J’ai fait l’exercice demandé avec ma fiche ou mes notes.';
   const form = isCompleted
     ? `<div class="completion-note">
-        <p>Module déjà validé. Vous pouvez le relire quand vous voulez.</p>
+        <p>Module déjà terminé. Vous pouvez le relire quand vous voulez.</p>
         <a class="button-link" href="/dashboard">Retour à mon parcours</a>
       </div>`
     : `<form class="validation-form" method="post" action="/modules/${escapeHtml(selectedModule.id)}/validate">
         <fieldset>
-          <legend>Auto-évaluation courte</legend>
+          <legend>Mon ressenti</legend>
           <p>${escapeHtml(selectedModule.selfAssessment.prompt)}</p>
           ${selectedModule.selfAssessment.options.map((option) => `
             <label class="choice">
@@ -928,7 +915,7 @@ function renderModule(snapshot, { message = '' } = {}) {
           <input type="checkbox" name="exerciseDone" value="yes" required>
           <span>${escapeHtml(validationConfirmation)}</span>
         </label>
-        <button type="submit">Valider ce module et débloquer la suite</button>
+        <button type="submit">J’ai terminé ce module, je passe à la suite</button>
       </form>`;
 
   return layout(`Module ${moduleState.number}`, `
@@ -1014,8 +1001,8 @@ function renderModule(snapshot, { message = '' } = {}) {
   </section>
 
   <section class="validation-section" aria-labelledby="validation-title">
-    <h2 id="validation-title">Validation déclarative</h2>
-    <p>Validez seulement quand la tâche concrète du module est faite. Cette validation mémorise l’état du module et une réponse courte ; les notes longues restent sur votre fiche papier.</p>
+    <h2 id="validation-title">Quand vous avez terminé</h2>
+    <p>Quand vous avez fait l’exercice, choisissez la phrase qui correspond le mieux à votre ressenti. Vos notes restent pour vous, sur votre fiche.</p>
     ${selectedModule.id === CORE_MODULES.at(-1).id
       ? `<p class="completion-note">Ce bilan termine la méthode guidée : vous repartez avec une méthode réutilisable. Pour un retour personnalisé sur une vidéo, choisissez le parcours accompagné.</p>`
       : ''}
@@ -1048,7 +1035,7 @@ function renderWorksheet(snapshot) {
     <p class="section-label">Fiche de travail</p>
     <h2 id="worksheet-title">${escapeHtml(selectedModule.worksheet.title)}</h2>
     <p>${escapeHtml(selectedModule.worksheet.description)}</p>
-    <p class="worksheet-note">Complétez cette fiche sur papier ou après impression. La plateforme ne stocke pas vos réponses longues.</p>
+    <p class="worksheet-note">Complétez cette fiche sur papier ou après impression. Vos réponses restent pour vous.</p>
 
     ${sections.map((section) => `
       <article class="worksheet-section">
