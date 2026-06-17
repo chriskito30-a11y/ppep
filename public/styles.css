@@ -176,6 +176,28 @@ button:hover,
   background: #edf5f1;
 }
 
+.site-footer {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
 .worksheet-link {
   margin-top: 12px;
 }
@@ -991,7 +1013,8 @@ legend {
   }
 
   .topbar,
-  .print-actions {
+  .print-actions,
+  .site-footer {
     display: none;
   }
 

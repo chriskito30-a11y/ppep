@@ -973,6 +973,8 @@ test('page de vente : promesse, 13 modules, prix, duree et vocabulaire public pr
   assert.match(html, /Module 12/);
   assert.match(html, /kit final/i);
   assert.match(html, /L’accompagnement individuel et personnalisé ajoute un regard humain/);
+  assert.match(html, /href="https:\/\/levelup-formation\.com\/"/);
+  assert.match(html, /href="mailto:contact@levelup-formation\.com"/);
   assert.doesNotMatch(html, /parcours autonome/i);
   assert.doesNotMatch(html, /Durée officielle|420 minutes|durée officielle/i);
   assert.doesNotMatch(html, /prise de parole simple de 3 à 5 minutes/i);

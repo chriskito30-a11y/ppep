@@ -21,6 +21,9 @@ function layout(title, body) {
 </head>
 <body>
   ${body}
+  <footer class="site-footer">
+    <p>Level Up Formation · <a href="https://levelup-formation.com/" target="_blank" rel="noopener noreferrer">site principal</a> · <a href="mailto:contact@levelup-formation.com">contact@levelup-formation.com</a></p>
+  </footer>
 </body>
 </html>`;
 }
